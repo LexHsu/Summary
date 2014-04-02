@@ -8,5 +8,5 @@ avoid using the word 'very'
     More than useless, 
     it is treacherous because it invariably weakens what it is intended to strengthen. 
 
-<center>![Alt text](../Z-Images/2014-04-02-word.jpg)
+->![Alt text](../Z-Images/2014-04-02-word.jpg)<-
 

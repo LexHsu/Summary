@@ -198,6 +198,7 @@ char *p = "Word",p是指向了一串常量的字符串,常量字符串是不可�
     可以看到p1值类似于ox0012fee4"烫烫?@"
 
 而如下的函数
+
     // 运行不成功，有问题？
     char *GetString2(void) {
         char *p = "hello world";

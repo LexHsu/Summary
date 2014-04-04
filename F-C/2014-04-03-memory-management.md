@@ -66,19 +66,19 @@ int main() {
 }
 ```
 其次，内容的复制要使用strcpy()函数,不要使用赋值符"=",内容的比较也是不要使用比较符号"<,>,==",使用strcmp()函数
+```c
+// 数组例子
+char a[] = "hello";
+char b[10];
+strcpy(b, a);           // 不能用 b = a;
+if(strcmp(b, a) == 0)   // 不能用 if (b == a)
 
-    // 数组例子
-    char a[] = "hello";
-    char b[10];
-    strcpy(b, a);           // 不能用 b = a;
-    if(strcmp(b, a) == 0)   // 不能用 if (b == a)
-
-    // 指针例子
-    int len = strlen(a);
-    char *p = (char *)malloc(sizeof(char)*(len+1));
-    strcpy(p,a);            // 不要用 p = a;
-    if(strcmp(p, a) == 0)   // 不要用 if (p == a)
-
+// 指针例子
+int len = strlen(a);
+char *p = (char *)malloc(sizeof(char)*(len+1));
+strcpy(p,a);            // 不要用 p = a;
+if(strcmp(p, a) == 0)   // 不要用 if (p == a)
+```
 然后，对于计算空间的大小，对数组的计算是使用sizeof()函数,该函数会按照内存对齐的方式4的倍数计算,而指针的空间大小没法计算,只能记住在申请空间时的空间大小。注意当数组作为函数的参数进行传递时，该数组自动退化为同类型的指针,不论数组a的容量是多少，sizeof(a)始终等于sizeof(char *)
 ```c
 void Func(char a[100]) {
@@ -111,10 +111,10 @@ int main() {
     return 0;
 }
 
-result:
-p申请内存成功
-p1申请内存不成功
-可以看到p1值为0X00000000
+// result:
+// p申请内存成功
+// p1申请内存不成功
+// 可以看到p1值为0X00000000
 ```
     这是因为传入函数GetMemory内的是指针p的副本，因此是其副本新分配了空间，而p未变。要想改变p的值只能传入指向p的指针，即二级指针。
     

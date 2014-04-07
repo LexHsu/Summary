@@ -57,6 +57,7 @@ if (m.matches()) {
 有的资料也叫做肯定顺序环视和肯定逆序环视。
 
 1、(?=)
+
 看下面的例子：
 ```java
 Pattern p = Pattern.compile("[0-9a-z]{2}(?=aa)");  
@@ -100,6 +101,7 @@ while(m.find()){
 ```
 
 2、(?<=)
+
 把正则改一下，
 ```java
 Pattern p = Pattern.compile("(?<=aa)[0-9a-z]{2}");

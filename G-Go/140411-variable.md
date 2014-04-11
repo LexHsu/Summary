@@ -6,7 +6,7 @@
 Go是静态类型语言，不能在运行期改变变量类型。
 
 - 使⽤关键字 var 定义变量，⾃动初始化为零值。若提供初始化值，可省略变量类型，由编译器⾃自动推断。
-```go
+```
 var x int
 var f float32 = 1.6
 var s = "abc"
@@ -42,7 +42,8 @@ func test() (int, string) {
 }
 func main() {
     _, s := test()
-println(s) }
+    println(s) // 不需要fmt包也可，内建函数
+}
 ```
 - 编译器会将未使用的局部变量当做错误。
 ```go
@@ -56,8 +57,7 @@ func main() {
 s := "abc"
 println(&s)
 s, y := "hello", 20
-println(&s, y)
-{
+println(&s, y) {
     s, z := 1000, 30
     println(&s, z)
 }

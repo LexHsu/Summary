@@ -2,8 +2,6 @@
 Mac及Windows下Eclipse快捷键
 =========
 
-@(H-Base)[eclipse|Windows|Mac]
-
 ##Windows系统
     Ctrl+Shift+L: 查看快捷键
     Ctrl+1: 快速修复
@@ -51,7 +49,9 @@ Mac及Windows下Eclipse快捷键
     Ctrl+O： 显示当前编辑源文件的大纲（光标焦点要在编辑器内）
     Ctrl+H: 打开搜索对话框
     Ctrl+G: 工作区中的声明
-    Ctrl+Alt+H:工作区中的引用，同Ctrl+Shift+G
+    Ctrl+Alt+H: 查找当前光标所指方法的调用情况
+    Ctrl+Shift+G: 查找当前光标所指元素的所有引用
+    Ctrl+Alt+J: 将选中行数的代码缩进成一行。
     Ctrl+Shift+H: 在层次结构中打开类型
     Ctrl+Shift+P: 转至匹配的括号
     Ctrl+Q: 转至上一个编辑位置 
@@ -121,6 +121,7 @@ Mac及Windows下Eclipse快捷键
     Option + Command + C：修改函数结构（有N个函数调用了这个方法，修改一次就搞定） 
     Option + Command + L：抽取本地变量（可以直接把一些魔法数字和字符串抽取成一个变量，尤其是多处调用的时候） 
     Option + Shift + F：把Class中的Local变量变为Field变量（比较实用的功能） 
+    Option + Command + H: 查找当前光标所指方法的调用情况
     Option + Command + Z：重构的后悔药（Undo）
 
 ##Tips

@@ -1,4 +1,4 @@
 Summary
 =======
 
-Daily Summary
+以后总结尽量放到github上来，以前的笔记也逐步放到这里。

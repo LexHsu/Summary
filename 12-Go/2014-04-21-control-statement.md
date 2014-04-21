@@ -13,7 +13,7 @@ x := 0
 // if x > 10           // Error: missing condition in if statement
 // {
 // }
-if n := "abc"; x > 0 { // 初始化语句未必就是定义变量,⽐比如 println("init") 也是可以的。
+if n := "abc"; x > 0 { // 初始化语句未必就是定义变量，如println("init")也可
     println(n[2])
 } else if x < 0 {
     println(n[1])
@@ -27,17 +27,17 @@ if n := "abc"; x > 0 { // 初始化语句未必就是定义变量,⽐比如 prin
 
 ```go
 s := "abc"
-for i, n := 0, len(s); i < n; i++ { // 常⻅见的 for 循环,⽀支持初始化语句。
+for i, n := 0, len(s); i < n; i++ { // 常见for循环，支持初始化语句
     println(s[i])
 }
 
 n := len(s)
-for n > 0 {                         // 替代while (n > 0) {} 或 for (; n > 0;) {}
+for n > 0 {                         // 替代while(n > 0) {} 或 for (; n > 0;) {}
     println(s[n])
     n--
 }
 
-for {                               // 替代 while (true) {} 或 for (;;) {}
+for {                               // 替代while (true) {} 或 for (;;) {}
     println(s)
 }
 ```
@@ -59,7 +59,7 @@ channel               element
 
 ```go
 s := "abc"
-for i := range s {                      // 忽略2nd value,支持string/array/slice/map
+for i := range s {                      // 忽略2nd value，支持string/array/slice/map
     println(s[i])
 }
 for _, c := range s {                   // 忽略index

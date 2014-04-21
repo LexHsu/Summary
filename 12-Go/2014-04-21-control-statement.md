@@ -46,13 +46,14 @@ for {                               // 替代 while (true) {} 或 for (;;) {}
 
 - 类似迭代器操作,返回 (索引, 值) 或 (键, 值)。
 
-
-                            1st value           2nd value
-    ------------------+-------------------+------------------+-------------------
-    string              index               s[index]           unicode, rune
-    array/slice         index               s[index]
-    map                 key                 m[key]
-    channel             element
+```go
+                        1st value           2nd value
+------------------+-------------------+------------------+-------------------
+string                index               s[index]           unicode, rune
+array/slice           index               s[index]
+map                   key                 m[key]
+channel               element
+```
 
 - 可忽略不想要的返回值,包括⽤用 "_" 这个特殊变量。
 

@@ -23,21 +23,24 @@ if n := "abc"; x > 0 { // 初始化语句未必就是定义变量，如println("
 ```
 
 ###For
-支持三种循环方法，包括类while语法
+- 常见有三种形式
 
 ```go
+// 1. 最常见的for循环，支持初始化语句
 s := "abc"
-for i, n := 0, len(s); i < n; i++ { // 常见for循环，支持初始化语句
+for i, n := 0, len(s); i < n; i++ {
     println(s[i])
 }
 
+// 2. 替代while(n > 0) {} 或 for (; n > 0;) {}
 n := len(s)
-for n > 0 {                         // 替代while(n > 0) {} 或 for (; n > 0;) {}
+for n > 0 {
     println(s[n])
     n--
 }
 
-for {                               // 替代while (true) {} 或 for (;;) {}
+// 3. 替代while (true) {} 或 for (;;) {}
+for {
     println(s)
 }
 ```
@@ -55,7 +58,7 @@ map                   key                 m[key]
 channel               element
 ```
 
-- 可忽略不想要的返回值,包括⽤用 "_" 这个特殊变量。
+- 使用"_"忽略不想要的返回值。
 
 ```go
 s := "abc"
@@ -71,28 +74,28 @@ for k, v := range m {                   // 返回(key, value)
 }
 ```
 
-- 注意,range 会复制对象。
+- range中的index和value是拷贝值。
 
 ```go
 a := [3]int{0, 1, 2}
-for i, v := range a {               // index、value 都是从复制品中取出
+for i, v := range a {               // index、value都是原数组的拷贝
     if i == 0 {                     // 在修改前,我们先修改原数组
         a[1], a[2] = 999, 999       // 确认修改有效,输出 [0, 999, 999]
         fmt.Println(a)
     }
 
-    a[i] = v + 100                  // 使⽤用复制品中取出的 value 修改原数组
+    a[i] = v + 100                  // 使用拷贝的value修改原数组
 }
 fmt.Println(a)                      // 输出 [100, 101, 102]
 ```
 
-- 建议改⽤用引⽤用类型,其底层数据不会被复制
+- 使用引用类型slice时，其底层数据不会被复制
 
 ```go
 s := []int{1, 2, 3, 4, 5}
-for i, v := range s {               // 复制 struct slice { pointer, len, cap }。
+for i, v := range s {               // 复制struct slice { pointer, len, cap }
     if i == 0 {
-        s = s[:3]                   // 对 slice 的修改,不会影响 range。
+        s = s[:3]                   // 对slice的修改,不会影响range
         s[2] = 100                  // 对底层数据的修改。
     }
     println(i, v)
@@ -105,7 +108,8 @@ for i, v := range s {               // 复制 struct slice { pointer, len, cap }
 3 4
 4 5
 ```
-- 另外两种引用类型map、channel是指针包装，而不像slice是struct。
+
+- 另外两种引用类型map、channel是指针包装，而slice是struct。
 
 ###Switch
 

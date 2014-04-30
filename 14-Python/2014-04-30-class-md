@@ -1,0 +1,117 @@
+
+Class
+=========
+
+- 整数也被作为对象(int类)。
+
+
+
+###self
+- Python中的self等价于C++中的self指针和Java的this。
+- 类方法与普通函数区别在于第一个参数必须为self(可更改任意值，但不推荐)，但是在调用这个方法时不为该参数赋值，Python会提供。
+
+```python
+#!/usr/bin/python
+# Filename: method.py
+
+class Person:
+    def sayHi(self):
+        print 'Hello, how are you?'
+
+p = Person()
+p.sayHi()
+
+# This short example can also be written as Person().sayHi()
+$ python method.py
+Hello, how are you?
+```
+
+###\_\_init__方法
+
+- _init__方法类似于C++和Java中的constructor。
+
+```python
+#!/usr/bin/python
+# Filename: class_init.py
+
+class Person:
+    def __init__(self, name):
+        self.name = name
+    def sayHi(self):
+        print 'Hello, my name is', self.name
+
+p = Person('Swaroop')
+p.sayHi()
+```
+
+###类方法与对象方法
+
+- 域分为两种，属于对象的变量(实例变量)，属于类的变量(类变量)。
+
+```python
+#!/usr/bin/python
+# Filename: objvar.py
+
+class Person:
+    '''类变量'''
+    population = 0
+
+    def __init__(self, name):
+        '''使用self赋值，因此是实例变量'''
+        self.name = name
+        print '(Initializing %s)' % self.name
+
+        # When this person is created, he/she
+        # adds to the population
+        Person.population += 1
+
+    def __del__(self):
+        '''I am dying.'''
+        print '%s says bye.' % self.name
+
+        Person.population -= 1
+
+        if Person.population == 0:
+            print 'I am the last one.'
+        else:
+            print 'There are still %d people left.' % Person.population
+
+    def sayHi(self):
+        '''Greeting by the person.
+
+        Really, that's all it does.'''
+        print 'Hi, my name is %s.' % self.name
+
+    def howMany(self):
+        '''Prints the current population.'''
+        if Person.population == 1:
+            print 'I am the only person here.'
+        else:
+            print 'We have %d persons here.' % Person.population
+
+swaroop = Person('Swaroop')
+swaroop.sayHi()
+swaroop.howMany()
+
+kalam = Person('Abdul Kalam')
+kalam.sayHi()
+kalam.howMany()
+
+swaroop.sayHi()
+swaroop.howMany()
+
+#输出：
+$ python objvar.py
+(Initializing Swaroop)
+Hi, my name is Swaroop.
+I am the only person here.
+(Initializing Abdul Kalam)
+Hi, my name is Abdul Kalam.
+We have 2 persons here.
+Hi, my name is Swaroop.
+We have 2 persons here.
+Abdul Kalam says bye.
+There are still 1 people left.
+Swaroop says bye.
+I am the last one.
+```

@@ -162,3 +162,25 @@ func main() {
     fmt.Println(s.String())
 }
 ```
+
+- 接口技巧，让编译器检查，以确保某个类型实现接口。
+
+```go
+var _ fmt.Stringer = (*Data)(nil)
+```
+
+- 某些时候，让函数直接实现接口更方便。
+
+```go
+type Tester interface {
+    Do()
+}
+
+type FuncDo func()
+func (self FuncDo) Do() { self() }
+
+func main() {
+    var t Tester = FuncDo(func() { println("Hello, World!") })
+    t.Do()
+}
+```

@@ -56,7 +56,7 @@ $ GOMAXPROCS=2 time -p ./test
 
 real 4.18
 user 7.61           // 虽然总时间差不多，但由于2个核并行，real时间少了许多
-sys 0.02�real 􏰻􏳈􏱎􏳑􏱂􏳔􏲷􏳂􏰎 sys 0.02
+sys 0.02
 ```
 
 - 调用runtime.Goexit将终止当前goroutine执行，调度器确保所有已注册defer延迟调用被执行。

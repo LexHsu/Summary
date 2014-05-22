@@ -11,7 +11,89 @@ go func() {
 ```
 
 - 调度器不能保证goroutine执行次序，且进程退出时不会等待goroutine结束。
-- Go程序启动后默认仅允许一个系统线程服务于 goroutine （即使有多个goroutine也是运行在一个线程里）。如果当前goroutine不发生阻塞，它是不会让出CPU时间给其他同线程的goroutine。可通过runtime.GOMAXPROCS自行修改，让调度器用多个线程实现多核并行，而不仅仅是并发。
+- Go程序启动后默认仅允许一个系统线程服务于 goroutine （即使有多个goroutine也是运行在一个线程里，主函数main也是一个goroutine）。如果当前goroutine不发生阻塞，它是不会让出CPU时间给其他同线程的goroutine。可通过runtime.GOMAXPROCS自行修改，让调度器用多个线程实现多核并行，而不仅仅是并发。
+
+```go
+package main
+
+import (
+    "fmt"
+)
+
+func say(s string) {
+    for i := 0; i < 5; i++ {
+        fmt.Println(s)
+    }
+}
+
+func main() {
+    go say("world") //开一个新的Goroutines执行
+    for {
+    }
+}
+
+// 按道理应该打印5次 world ，但上述代码什么也没有打印
+// 因为这里Go仍然在使用单核，for死循环占据了单核CPU所有的资源
+// 而main和say两个goroutine默认在一个线程里面， 所以say没有机会执行。解决方案有两个：
+// 1. 允许Go使用多核(runtime.GOMAXPROCS)
+
+```go
+package main
+
+import (
+    "fmt"
+    "runtime"
+)
+
+func say(s string) {
+    for i := 0; i < 5; i++ {
+
+        fmt.Println(s)
+    }
+}
+
+func main() {
+    runtime.GOMAXPROCS(2) // 最多同时使用2个核
+    go say("world") //开一个新的Goroutines执行
+    for {
+    }
+}
+
+
+// 2. 手动显式调动(runtime.Gosched)
+
+package main
+
+import (
+    "fmt"
+    "runtime"
+)
+
+func say(s string) {
+    for i := 0; i < 5; i++ {
+        fmt.Println(s)
+    }
+}
+
+func main() {
+    go say("world") //开一个新的Goroutines执行
+    for {
+        runtime.Gosched() // 显式地让出CPU时间给其他goroutine
+    }
+}
+// 这种主动让出CPU时间的方式仍然是在单核里跑。但手工地切换goroutine导致了看上去的“并行”。
+```
+
+### runtime 调度器
+在同一个原生线程里，如果当前 goroutine 不发生阻塞，它是不会让出CPU时间给其他同线程的goroutines的，这是Go运行时对goroutine的调度，我们也可以使用runtime包来手工调度。关于runtime包，有几个常用函数:
+
+- `Gosched` 让出 CPU 时间给其他 goroutine
+
+- `NumCPU` 返回当前系统的 CPU 核数量
+
+- `GOMAXPROCS` 设置最大的可同时使用的CPU核数
+
+- `Goexit` 退出当前goroutine(但是defer语句会照常执行)
 
 ```go
 func sum(id int) {
@@ -59,7 +141,7 @@ user 7.61           // 虽然总时间差不多，但由于2个核并行，real�
 sys 0.02
 ```
 
-- 调用runtime.Goexit将终止当前goroutine执行，调度器确保所有已注册defer延迟调用被执行。
+- 调用runtime.Goexit将终止当前goroutine执行，但调度器会确保所有已注册defer延迟调用被执行。
 
 ```go
 func main() {
@@ -119,4 +201,38 @@ $ go run main.go
 Hello, World!
 4
 5
+```
+
+### 同步
+go 中有两种方式同步，一种使用 channel 来同步 goroutine，另一种使用锁机制 sync.WaitGroup，一种较为简单的同步方法集。
+
+sync.WaitGroup 只有3个方法：
+- `Add()` 添加计数
+- `Done()` Add(-1)的别名，一个计数
+- `Wait()` 计数不为0, 阻塞 Wait() 所在goroutine的运行
+
+注意：应在运行main函数的goroutine里运行 Add() 函数，在其他 goroutine 里面运行 Done() 函数。
+
+```go
+package main
+
+import (
+    "fmt"
+    "sync"
+)
+
+func main() {
+    var wg sync.WaitGroup
+    for i := 0; i < 5; i++ {
+        fmt.Println("add", i)
+        wg.Add(1)
+    }
+
+    for i := 0; i < 5; i++ {
+        fmt.Println("subtract", i)
+        go wg.Done()
+    }
+    fmt.Println("exit")
+    wg.Wait()
+}
 ```

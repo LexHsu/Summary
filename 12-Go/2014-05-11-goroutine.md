@@ -11,7 +11,7 @@ go func() {
 ```
 
 - 调度器不能保证goroutine执行次序，且进程退出时不会等待goroutine结束。
-- Go程序启动后默认仅允许一个系统线程服务于goroutine。可通过runtime.GOMAXPROCS自行修改，让调度器用多个线程实现多核并行，而不仅仅是并发。
+- Go程序启动后默认仅允许一个系统线程服务于 goroutine （即使有多个goroutine也是运行在一个线程里）。如果当前goroutine不发生阻塞，它是不会让出CPU时间给其他同线程的goroutine。可通过runtime.GOMAXPROCS自行修改，让调度器用多个线程实现多核并行，而不仅仅是并发。
 
 ```go
 func sum(id int) {

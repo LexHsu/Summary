@@ -13,6 +13,16 @@ go func() {
 - 调度器不能保证goroutine执行次序，且进程退出时不会等待goroutine结束。
 - Go程序启动后默认仅允许一个系统线程服务于 goroutine （即使有多个goroutine也是运行在一个线程里，主函数main也是一个goroutine）。如果当前goroutine发生阻塞（如Sleep，channel读取阻塞等），才会让出CPU时间给其他同线程的goroutine。可通过runtime.GOMAXPROCS自行修改，让调度器用多个线程实现多核并行，而不仅仅是并发。
 
+### 并发与并行
+并发和并行的区别就是一个处理器同时处理多个任务和多个处理器或者是多核的处理器同时处理多个不同的任务。
+前者是逻辑上的同时发生（simultaneous），而后者是物理上的同时发生．
+
+并发性(concurrency)，又称共行性，是指能处理多个同时性活动的能力，并发事件之间不一定要同一时刻发生。
+
+并行(parallelism)是指同时发生的两个并发事件，具有并发的含义，而并发则不一定并行。
+
+![Alt text](../99-Images/concurrency_parallelism.jpg)
+
 ```go
 package main
 

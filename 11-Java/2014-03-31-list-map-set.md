@@ -7,17 +7,17 @@ List与Set与Map详解
 ###List，Set，Map的类层次关系：
     
     Collection
-        |____List
-            |____LinkedList
-            |____ArrayList
-            |____Vector
-                |____Stack
-            |____Set
+        |---- List
+            |---- LinkedList
+            |---- ArrayList
+            |---- Vector
+                |---- Stack
+            |---- Set
     
     Map
-        |____Hashtable
-        |____HashMap
-        |____WeakHashMap
+        |---- Hashtable
+        |---- HashMap
+        |---- WeakHashMap
 
 ###Collection接口
 Collection是最基本的集合接口。有些Collection允许有相同的元素，有些不行。有些支持排序，有些不支持。Java SDK不提供直接继承自Collection的类，Java SDK提供的类都是继承自Collection的“子接口”如List和Set。

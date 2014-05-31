@@ -2,9 +2,9 @@
 ===
 
 * **第一章 基础**
- - 1.1. [字面常量](Chapter01/1.1-variable.md)
- - 1.2. [字符串](Chapter01/1.2-const.md)
- - 1.3. [变量](Chapter01/1.4-object.md)
+ - 1.1. [字面常量](Chapter01/1.1-Basics.md#%E5%AD%97%E9%9D%A2%E5%B8%B8%E9%87%8F)
+ - 1.2. [字符串](Chapter01/1.1-Basics.md#%E5%AD%97%E7%AC%A6%E4%B8%B2)
+ - 1.3. [变量](Chapter01/1.1-Basics.md#%E5%8F%98%E9%87%8F)
 * **第二章 控制流**
  - 2.1. [if](Chapter02/2.1-statement.md)
  - 2.2. [while](Chapter02/2.1-statement.md)

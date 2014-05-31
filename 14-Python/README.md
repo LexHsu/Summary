@@ -1,7 +1,10 @@
+目录
+===
+
 * **第一章 基础**
  - 1.1. [字面常量](Chapter01/1.1-variable.md)
- - 1.2. [变量](Chapter01/1.2-const.md)
- - 1.3. [对象](Chapter01/1.4-object.md)
+ - 1.2. [字符串](Chapter01/1.2-const.md)
+ - 1.3. [变量](Chapter01/1.4-object.md)
 * **第二章 控制流**
  - 2.1. [if](Chapter02/2.1-statement.md)
  - 2.2. [while](Chapter02/2.1-statement.md)

@@ -83,6 +83,9 @@ public class ArticleManager {
         int count = 0;
         try {
             ContentProviderClient provider = mResolver.acquireContentProviderClient(App.CONTENT_URI);
+            if (provider == null) {
+                return count;
+            }
             Bundle bundle = provider.call(App.METHOD_GET_ITEM_COUNT, null, null);
             count = bundle.getInt(App.KEY_ITEM_COUNT, 0);
         } catch (RemoteException e) {

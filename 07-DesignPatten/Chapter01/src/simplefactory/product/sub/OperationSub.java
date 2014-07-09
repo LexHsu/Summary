@@ -2,7 +2,7 @@ package simplefactory.product.sub;
 
 import simplefactory.product.Operation;
 
-public class OperationMinus extends Operation {
+public class OperationSub extends Operation {
 
     @Override
     public double getResult() {

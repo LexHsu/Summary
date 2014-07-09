@@ -2,7 +2,6 @@ package simplefactory;
 
 import java.util.Scanner;
 
-import simplefactory.client.PizzaStore;
 import simplefactory.factory.OperationFactory;
 import simplefactory.product.Operation;
 

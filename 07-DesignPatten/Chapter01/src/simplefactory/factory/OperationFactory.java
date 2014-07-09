@@ -2,37 +2,37 @@ package simplefactory.factory;
 
 import simplefactory.product.Operation;
 import simplefactory.product.sub.OperationAdd;
-import simplefactory.product.sub.OperationDivi;
-import simplefactory.product.sub.OperationMinus;
-import simplefactory.product.sub.OperationMulti;
+import simplefactory.product.sub.OperationDiv;
+import simplefactory.product.sub.OperationSub;
+import simplefactory.product.sub.OperationMul;
 
 public class OperationFactory {
 
-    private static final String OPERATE_PLUS = "+";
-    private static final String OPERATE_MINUS = "-";
-    private static final String OPERATE_MULTI = "*";
-    private static final String OPERATE_DIVISION = "/";
+    private static final String OPERATE_ADD = "+";
+    private static final String OPERATE_SUB = "-";
+    private static final String OPERATE_MUL = "*";
+    private static final String OPERATE_DIV = "/";
     
     public static Operation createOperation(String operate) {
         Operation operation = null;
         do {
-            if (OPERATE_PLUS.equals(operate)) {
+            if (OPERATE_ADD.equals(operate)) {
                 operation = new OperationAdd();
                 break;
             }
             
-            if (OPERATE_MINUS.equals(operate)) {
-                operation = new OperationMinus();
+            if (OPERATE_SUB.equals(operate)) {
+                operation = new OperationSub();
                 break;
             }
             
-            if (OPERATE_MULTI.equals(operate)) {
-                operation = new OperationMulti();
+            if (OPERATE_MUL.equals(operate)) {
+                operation = new OperationMul();
                 break;
             }
             
-            if (OPERATE_DIVISION.equals(operate)) {
-                operation = new OperationDivi();
+            if (OPERATE_DIV.equals(operate)) {
+                operation = new OperationDiv();
                 break;
             }
             System.out.println("no matched operation");

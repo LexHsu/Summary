@@ -2,7 +2,7 @@ package simplefactory.product.sub;
 
 import simplefactory.product.Operation;
 
-public class OperationDivi extends Operation {
+public class OperationDiv extends Operation {
 
     private static final double NUMBER_ZERO = 0d;
     @Override

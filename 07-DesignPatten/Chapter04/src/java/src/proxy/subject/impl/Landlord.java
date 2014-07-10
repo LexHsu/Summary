@@ -1,5 +1,7 @@
 package proxy.subject.impl;
 
+import proxy.subject.Rentable;
+
 
 public class Landlord implements Rentable {
 

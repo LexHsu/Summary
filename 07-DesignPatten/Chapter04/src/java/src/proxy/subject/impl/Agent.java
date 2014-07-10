@@ -1,7 +1,7 @@
-package proxy.subject;
+package proxy.subject.impl;
 
-import proxy.subject.impl.Landlord;
-import proxy.subject.impl.Rentable;
+import proxy.subject.Rentable;
+
 
 public class Agent implements Rentable {
 

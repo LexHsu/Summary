@@ -1,7 +1,7 @@
 package proxy;
 
-import proxy.subject.Agent;
-import proxy.subject.impl.Rentable;
+import proxy.subject.Rentable;
+import proxy.subject.impl.Agent;
 
 public class Client {
 

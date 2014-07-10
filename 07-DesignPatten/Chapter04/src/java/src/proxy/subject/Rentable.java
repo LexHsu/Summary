@@ -1,4 +1,4 @@
-package proxy.subject.impl;
+package proxy.subject;
 
 public interface Rentable {
     public void rent();

@@ -1,4 +1,4 @@
-package strategy;
+package test;
 
 import context.CashContext;
 import strategy.sub.CashNormal;

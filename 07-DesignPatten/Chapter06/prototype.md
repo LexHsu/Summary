@@ -47,72 +47,63 @@ Object 类的 clone 方法只会拷贝对象中的基本的数据类型。对于
 
 ```java
 public class Resume implements Cloneable {
- private String mName;
- private String mSex;
- private String mAge;
- private Experience work = new Experience();
+    private String mName;
+    private String mSex;
+    private String mAge;
+    private Experience work = new Experience();
 
- public Resume(String name) {
-     this.mName = name;
- }
+    public Resume(String name) {
+        this.mName = name;
+    }
 
- public void setPersonalInfo(String sex, String age) {
-     this.mSex = sex;
-     this.mAge = age;
- }
+    public void setInfo(String sex, String age) {
+        this.mSex = sex;
+        this.mAge = age;
+    }
 
- public void setWorkExperience(String workDate, String company) {
-     work.setWorkDate(workDate);
-     work.setCompany(company);
- }
+    public void setExperience(String workDate, String company) {
+        work.setWorkDate(workDate);
+        work.setCompany(company);
+    }
 
- public void display() {
-     System.out.println(mName + "     " + mSex + "     " + mAge);
-     System.out.println("Experience：" + work.getWorkDate() + " "
-             + work.getCompany());
- }
+    public void display() {
+        System.out.println(mName + " " + mSex + " " + mAge);
+        System.out.println("Experience：" + work.getWorkDate() + " " +
+        work.getCompany());
+    }
 
- public Resume clone() throws CloneNotSupportedException {
-     return (Resume) super.clone();
- }
+    public Resume clone() throws CloneNotSupportedException {
+        return (Resume) super.clone();
+    }
 }
 ```
 注意 clone() 方法的原理，如果是字段是值类型的，则对该字段执行逐位复制，如果字段是引用类型，则复制引用但不复制引用的对象；因此引用类型需要单独实现 Cloneable 接口。
 
 ```java
-public class Experience implements Cloneable
-{
+public class Experience implements Cloneable {
     private String  workDate;
     private String  company;
 
-    public String getWorkDate()
-    {
+    public String getWorkDate() {
         return workDate;
     }
 
-    public void setWorkDate(String workDate)
-    {
+    public void setWorkDate(String workDate) {
         this.workDate = workDate;
     }
 
-    public String getCompany()
-    {
+    public String getCompany() {
         return company;
     }
 
-    public void setCompany(String company)
-    {
+    public void setCompany(String company) {
         this.company = company;
     }
 
-    public Experience clone()
-    {
-        try
-        {
+    public Experience clone() {
+        try {
             return (Experience) super.clone();
-        }
-        catch (CloneNotSupportedException e)
-        {
+        } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
         return null;
@@ -124,21 +115,21 @@ public class Experience implements Cloneable
 
 ```java
 public class Client {
- public static void main(String[] args) {
-     Resume resume = new Resume("Jack");
-     resume.setPersonalInfo("Man", "29");
-     resume.setWorkExperience("1998-2000", "Google");
+    public static void main(String[] args) {
+        Resume resume = new Resume("Jack");
+        resume.setInfo("Man", "29");
+        resume.setExperience("1998-2000", "Google");
 
-     Resume resumeA = resume.clone();
-     resumeA.setWorkExperience("1998-2006", "Facebook");
+        Resume resumeA = resume.clone();
+        resumeA.setExperience("1998-2006", "Facebook");
 
-     Resume resumeB = resume.clone();
-     resumeB.setPersonalInfo("Man", "24");
+        Resume resumeB = resume.clone();
+        resumeB.setInfo("Man", "24");
 
-     resume.display();
-     resumeA.display();
-     resumeB.display();
- }
+        resume.display();
+        resumeA.display();
+        resumeB.display();
+    }
 }
 ```
 

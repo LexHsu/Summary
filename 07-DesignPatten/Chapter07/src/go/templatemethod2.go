@@ -7,17 +7,33 @@ type TypeBase struct {
     i interface{}
 }
 
+func (self *TypeBase) templateMethod() {
+    self.operaton1()
+    self.operation2()
+}
+
+func (self *TypeBase) operation1() {
+    if (self.i == nil) {
+        return ""
+    }
+    v := reflect.ValueOf(t.i)
+    v.MethodByName("operation1").Call(nil)
+}
+
+func (self *TypeBase) operation2() {
+    if (self.i == nil) {
+        return ""
+    }
+    v := reflect.ValueOf(t.i)
+    v.MethodByName("operation2").Call(nil)
+}
+
 type TypeA struct {
     TypeBase
 }
 
 type TypeB struct {
     TypeBase
-}
-
-type Oper interface {
-    Operation1()
-    Operation2()
 }
 
 func NewTypeA() *TypeBase {
@@ -32,10 +48,6 @@ func NewTypeB() *TypeBase {
     return typeB
 }
 
-func (self *TypeBase) templateMethod() {
-    self.i.(Oper).operation1()
-    self.i.(Oper).operation2()
-}
 
 func (self *TypeA) operation1() {
     fmt.Println("concrete operation1")

@@ -9,6 +9,7 @@
  - 1.6. [slice](Chapter01/1.6-slice.md)
  - 1.7. [map](Chapter01/1.7-map.md)
  - 1.8. [struct](Chapter01/1.8-struct.md)
+ - 1.9. [类型转换与截断](Chapter01/1.9-convert.md)
 * **第二章 表达式**
  - 2.1. [表达式](Chapter02/2.1-statement.md)
 * **第三章 函数**

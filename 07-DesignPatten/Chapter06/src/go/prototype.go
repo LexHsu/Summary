@@ -2,69 +2,67 @@ package main
 
 import "fmt"
 
-type WorkExperience struct {
+type Experience struct {
     timeArea string
     company  string
 }
 
-func (w *WorkExperience) getWorkDate() string {
-    return w.timeArea
+func (self *Experience) getWorkDate() string {
+    return self.timeArea
 }
 
-func (w *WorkExperience) setWorkDate(timeArea string) {
-    w.timeArea = timeArea
+func (self *Experience) setWorkDate(timeArea string) {
+    self.timeArea = timeArea
 }
 
-func (w *WorkExperience) getCompany() string {
-    return w.company
+func (self *Experience) getCompany() string {
+    return self.company
 }
 
-func (w *WorkExperience) setCompany(company string) {
-    w.company = company
+func (self *Experience) setCompany(company string) {
+    self.company = company
 }
 
 type Resume struct {
     name string
     sex  string
     age  string
-    WorkExperience
-    //timeArea string
-    //company  string
+    Experience
 }
 
-func (r *Resume) setPersonalInfo(name, sex, age string) {
-    r.name = name
-    r.age = age
-    r.sex = sex
+func (self *Resume) setInfo(name, sex, age string) {
+    self.name = name
+    self.age = age
+    self.sex = sex
 }
 
-func (r *Resume) setWorkExperience(timeArea, company string) {
-    r.company = company
-    r.timeArea = timeArea
+func (self *Resume) setExperience(timeArea, company string) {
+    self.company = company
+    self.timeArea = timeArea
 }
 
-func (r *Resume) display() {
-    fmt.Println(r.name, r.sex, r.age)
-    fmt.Println("工作经历：", r.timeArea, r.company)
+func (self *Resume) display() {
+    fmt.Println(self.name, self.sex, self.age)
+    fmt.Println("Experience：", self.timeArea, self.company)
 }
 
-func (r *Resume) clone() *Resume {
-    new_obj := (*r)
-    return &new_obj
+func (self *Resume) clone() *Resume {
+    obj := (*self)
+    return &obj
 }
 
 func main() {
     a := new(Resume)
-    a.setPersonalInfo("大鸟", "男", "29")
-    a.setWorkExperience("1998-2000", "XX公司")
+    a.setInfo("Jack", "Man", "29")
+    a.setExperience("1998-2000", "Google")
 
     b := a.clone()
-    b.setPersonalInfo("大鸟2", "男", "49")
-    b.setWorkExperience("1988-2010", "XXYY公司")
+    b.setInfo("Lion", "Man", "49")
+    b.setExperience("1988-2010", "Twitter")
 
     c := a.clone()
-    c.setPersonalInfo("大鸟3", "女", "69")
-    c.setWorkExperience("1978-2010", "XXYYZZ公司")
+    c.setInfo("Len", "女", "19")
+    c.setExperience("2009-2010", "Amazon")
 
     a.display()
     b.display()

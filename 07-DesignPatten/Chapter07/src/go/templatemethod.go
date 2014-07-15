@@ -32,24 +32,24 @@ func NewTypeB() *TypeBase {
 }
 
 func (self *TypeBase) templateMethod() {
-    self.i.(Oper).operation1()
-    self.i.(Oper).operation2()
+    self.i.(Oper).Operation1()
+    self.i.(Oper).Operation2()
 }
 
-func (self *TypeA) operation1() {
-    fmt.Println("concrete operation1")
+func (self *TypeA) Operation1() {
+    fmt.Println("concrete Operation1")
 }
 
-func (self *TypeB) operation1() {
-    fmt.Println("concrete operation1")
+func (self *TypeB) Operation1() {
+    fmt.Println("concrete Operation1")
 }
 
-func (self *TypeA) operation2() {
-    fmt.Println("concrete operation2")
+func (self *TypeA) Operation2() {
+    fmt.Println("concrete Operation2")
 }
 
-func (self *TypeB) operation2() {
-    fmt.Println("concrete operation2")
+func (self *TypeB) Operation2() {
+    fmt.Println("concrete Operation2")
 }
 
 func main() {

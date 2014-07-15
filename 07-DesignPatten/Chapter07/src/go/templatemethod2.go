@@ -12,7 +12,7 @@ func (self *TypeBase) templateMethod() {
     self.operation2()
 }
 
-func (self *TypeBase) operation1() {
+func (self *TypeBase) Operation1() {
     if (self.i == nil) {
         return
     }
@@ -20,7 +20,7 @@ func (self *TypeBase) operation1() {
     v.MethodByName("operation1").Call(nil)
 }
 
-func (self *TypeBase) operation2() {
+func (self *TypeBase) Operation2() {
     if (self.i == nil) {
         return
     }
@@ -49,20 +49,20 @@ func NewTypeB() *TypeBase {
 }
 
 
-func (self *TypeA) operation1() {
-    fmt.Println("concrete operation1")
+func (self *TypeA) Operation1() {
+    fmt.Println("concrete Operation1")
 }
 
-func (self *TypeB) operation1() {
-    fmt.Println("concrete operation1")
+func (self *TypeB) Operation1() {
+    fmt.Println("concrete Operation1")
 }
 
-func (self *TypeA) operation2() {
-    fmt.Println("concrete operation2")
+func (self *TypeA) Operation2() {
+    fmt.Println("concrete Operation2")
 }
 
-func (self *TypeB) operation2() {
-    fmt.Println("concrete operation2")
+func (self *TypeB) Operation2() {
+    fmt.Println("concrete Operation2")
 }
 
 func main() {

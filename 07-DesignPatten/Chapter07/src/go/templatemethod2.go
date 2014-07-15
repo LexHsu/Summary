@@ -8,8 +8,8 @@ type TypeBase struct {
 }
 
 func (self *TypeBase) templateMethod() {
-    self.operation1()
-    self.operation2()
+    self.Operation1()
+    self.Operation2()
 }
 
 func (self *TypeBase) Operation1() {
@@ -17,7 +17,7 @@ func (self *TypeBase) Operation1() {
         return
     }
     v := reflect.ValueOf(self.i)
-    v.MethodByName("operation1").Call(nil)
+    v.MethodByName("Operation1").Call(nil)
 }
 
 func (self *TypeBase) Operation2() {
@@ -25,7 +25,7 @@ func (self *TypeBase) Operation2() {
         return
     }
     v := reflect.ValueOf(self.i)
-    v.MethodByName("operation2").Call(nil)
+    v.MethodByName("Operation2").Call(nil)
 }
 
 type TypeA struct {

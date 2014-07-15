@@ -8,23 +8,23 @@ type TypeBase struct {
 }
 
 func (self *TypeBase) templateMethod() {
-    self.operaton1()
+    self.operation1()
     self.operation2()
 }
 
 func (self *TypeBase) operation1() {
     if (self.i == nil) {
-        return ""
+        return
     }
-    v := reflect.ValueOf(t.i)
+    v := reflect.ValueOf(self.i)
     v.MethodByName("operation1").Call(nil)
 }
 
 func (self *TypeBase) operation2() {
     if (self.i == nil) {
-        return ""
+        return
     }
-    v := reflect.ValueOf(t.i)
+    v := reflect.ValueOf(self.i)
     v.MethodByName("operation2").Call(nil)
 }
 

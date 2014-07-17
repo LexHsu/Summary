@@ -61,7 +61,7 @@ func main() {
 
     // x := unsafe.Pointer(product)
     // fmt.Println(*(*string)(unsafe.Pointer(uintptr(x))))
-    // fmt.Println(*(*string)(unsafe.Pointer(uintptr(x) + unsafe.Offsetof(product.part2))))
     // fmt.Println(*(*string)(unsafe.Pointer(uintptr(x) + unsafe.Offsetof(product.part1))))
+    // fmt.Println(*(*string)(unsafe.Pointer(uintptr(x) + unsafe.Offsetof(product.part2))))
     // fmt.Println(product)
 }

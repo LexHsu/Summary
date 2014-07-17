@@ -97,11 +97,11 @@ public class Director {
 
     private Builder builder;
 
-    public Director(Builder builder){
+    public Director(Builder builder) {
         this.builder = builder;
     }
 
-    public void construct(){
+    public void construct() {
         builder.buildPart1();
         builder.buildPart2();
     }
@@ -112,11 +112,11 @@ public class Director {
 
 ```java
 public class Client {
-    public static void main(String[]args){
+    public static void main(String[] args) {
         Builder builder = new ConcreteBuilder();
         Director director = new Director(builder);
         director.construct();
-        Product product = builder.retrieveResult();
+        Product product = builder.getResult();
         System.out.println(product.getPart1());
         System.out.println(product.getPart2());
     }

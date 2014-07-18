@@ -18,6 +18,7 @@
  - 4.1 [方法](Chapter04/4.1-method.md)
 * **第五章 接口**
  - 5.1 [接口](Chapter05/5.1-interface.md)
+ - 5.2 [反射机制](Chapter05/5.2-reflect.md)
 * **第六章 并发**
  - 6.1 [goroutine](Chapter06/6.1-goroutine.md)
  - 6.2 [channel](Chapter06/6.2-channel.md)

@@ -22,3 +22,5 @@
 * **第六章 并发**
  - 6.1 [goroutine](Chapter06/6.1-goroutine.md)
  - 6.2 [channel](Chapter06/6.2-channel.md)
+* **第七章 包**
+ - 7.1 [package](Chapter07/7.1-package.md)

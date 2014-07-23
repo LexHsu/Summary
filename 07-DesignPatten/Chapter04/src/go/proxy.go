@@ -11,7 +11,7 @@ type Landlord struct {
 }
 
 func (self *Landlord) rent() {
-    fmt.Println("%s: i have a room for rent.", self.name)
+    fmt.Println("i have a room for rent.", self.name)
 }
 
 type Agent struct {

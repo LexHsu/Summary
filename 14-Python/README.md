@@ -14,10 +14,10 @@
 * **第四章 模块**
  - 4.1 [模块](Chapter04/4.1-method.md)
 * **第五章 数据结构**
- - 5.1 [列表](Chapter05/5.1-interface.md)
- - 5.2 [元组](Chapter05/5.1-interface.md)
- - 5.3 [字典](Chapter05/5.1-interface.md)
- - 5.4 [序列](Chapter05/5.1-interface.md)
+ - 5.1 [列表](Chapter05/5.1-list.md)
+ - 5.2 [元组](Chapter05/5.2-tuple.md)
+ - 5.3 [字典](Chapter05/5.3-dictionary.md)
+ - 5.4 [序列](Chapter05/5.4-sequence.md)
 * **第六章 面向对象编程**
  - 6.1 [类](Chapter06/6.1-class.md)
  - 6.2 [继承](Chapter06/6.2-extends.md)

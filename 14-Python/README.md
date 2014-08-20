@@ -22,7 +22,7 @@
  - 6.1 [类](Chapter06/6.1-class.md)
  - 6.2 [继承](Chapter06/6.2-extends.md)
 * **第七章 输入输出**
- - 7.1 [输入输出](Chapter06/7.1-input-output.md)
- - 7.2 [存储模块](Chapter06/7.2-pickle.md)
+ - 7.1 [输入输出](Chapter07/7.1-input-output.md)
+ - 7.2 [存储模块](Chapter07/7.2-pickle.md)
 * **第八章 异常**
  - 8.1 [异常](Chapter06/8.1-exception.md)

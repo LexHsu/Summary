@@ -16,3 +16,4 @@
  - 8.1. [外观模式](Chapter08/facade.md)
  - 9.1. [策略模式](Chapter09/builder.md)
  - 10.1. [观察者模式](Chapter10/observer.md)
+ - 11.1. [抽象工厂模式](Chapter11/abstractfactory.md)

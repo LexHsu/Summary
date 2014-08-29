@@ -82,7 +82,6 @@ func (w *Work) setState(state State) {
     w.state = state
 }
 
-//客户端代码，没有任何改动。但我们的程序却更加灵活易变了。
 func main() {
     work := NewWork()
     work.setHour(9)

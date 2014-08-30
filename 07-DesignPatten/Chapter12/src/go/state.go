@@ -16,7 +16,7 @@ func (this *ForenoonState) writeProgram(work Work) {
     if work.getHour() < 12 {
         fmt.Println("Time：", work.getHour(), ", Forenoon State.")
     } else {
-        work.setState(new(NoonState))
+        work.setState(new(AfternoonState))
         work.writeProgram()
     }
 }
@@ -29,7 +29,7 @@ func (this *AfternoonState) writeProgram(work Work) {
     if work.getHour() < 17 {
         fmt.Println("Time：", work.getHour(), ", Afternoon State.")
     } else {
-        work.setState(new(EveningState))
+        work.setState(new(RestState))
         work.writeProgram()
     }
 }

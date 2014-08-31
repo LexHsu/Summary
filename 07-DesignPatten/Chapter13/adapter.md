@@ -59,40 +59,48 @@ public class Adapter extends Adaptee implements Target {
 
 ### 对象适配器模式
 
+与类的适配器模式一样，对象的适配器模式把被适配的类的 API 转换成为目标类的API，与类的适配器模式不同的是，
+对象的适配器模式不是使用继承关系连接到 Adaptee 类，而是使用委派关系连接到Adaptee类。
+
 - UML 类图
 
 
 
-与类的适配器模式一样，对象的适配器模式把被适配的类的 API 转换成为目标类的API，与类的适配器模式不同的是，
-对象的适配器模式不是使用继承关系连接到 Adaptee 类，而是使用委派关系连接到Adaptee类。
 
 ```java
+public interface Target {
 
-// Target 类，客户所期待的接口，目标可以是具体的或抽象的类，也可以是接口
-public class Target {
-    public void request() {
-        System.out.println("普通请求！");
-    }
-}
-// Adaptee 类，需要适配的类
-public class Adaptee extends Target {
-    public void specificRequest() {
-        System.out.println("特殊请求！");
-    }
-}
-// Adapter 类，在内部包装一个 Adaptee 对象，把源接口转换成目标接口
-public class Adapter extends Target {
-    private Adaptee adaptee = new Adaptee();
+    public void sampleOperation1();
 
-    public void request() {
-        adaptee.specificRequest();
-    }
+    public void sampleOperation2();
 }
 
-public class Client {
-    public static void main(String[] args) {
-        Target target = new Adapter();
-        target.request();
+public class Adaptee {
+
+    public void sampleOperation1(){}
+
+}
+
+public class Adapter {
+    private Adaptee adaptee;
+
+    public Adapter(Adaptee adaptee){
+        this.adaptee = adaptee;
+    }
+    /**
+     * 源类 Adaptee 有方法 sampleOperation1
+     * 因此适配器类直接委派即可
+     */
+    public void sampleOperation1(){
+        this.adaptee.sampleOperation1();
+    }
+    /**
+     * 源类 Adaptee 没有方法 sampleOperation2
+     * 因此由适配器类需要补充此方法
+     */
+    public void sampleOperation2(){
+        // 相关代码
     }
 }
+
 ```

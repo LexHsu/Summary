@@ -11,7 +11,7 @@
 
 - UML 类图
 
-
+![Alt text](img/adapter.png)
 
 在上图中可以看出，Adaptee 类并没有 sampleOperation2() 方法，而客户端则期待这个方法。
 为使客户端能够使用 Adaptee 类，提供一个中间环节，即类 Adapter，把 Adaptee 的 API 与 Target 类的 API 衔接起来。
@@ -64,7 +64,7 @@ public class Adapter extends Adaptee implements Target {
 
 - UML 类图
 
-
+![Alt text](img/adapter1.png)
 
 ```java
 public interface Target {

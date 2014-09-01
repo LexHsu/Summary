@@ -26,9 +26,8 @@ Adapter 与 Adaptee 是继承关系，这决定了这个适配器模式是类的
 ```java
 public interface Target {
 
-    public void sampleOperation1();
-
-    public void sampleOperation2();
+    public void method1();
+    public void method2();
 }
 ```
 上面给出的是目标角色的源代码，这个角色是以接口的形式实现，声明了两个方法。
@@ -36,7 +35,7 @@ public interface Target {
 
 ```java
 public class Adaptee {
-    public void sampleOperation1(){}
+    public void method1(){}
 }
 ```
 
@@ -50,7 +49,7 @@ public class Adapter extends Adaptee implements Target {
      * 因此适配器补充上该方法
      */
     @Override
-    public void sampleOperation2() {
+    public void method2() {
         // 相关代码
     }
 
@@ -69,14 +68,12 @@ public class Adapter extends Adaptee implements Target {
 ```java
 public interface Target {
 
-    public void sampleOperation1();
-
-    public void sampleOperation2();
+    public void method1();
 }
 
 public class Adaptee {
 
-    public void sampleOperation1(){}
+    public void method2(){}
 
 }
 
@@ -86,19 +83,9 @@ public class Adapter {
     public Adapter(Adaptee adaptee){
         this.adaptee = adaptee;
     }
-    /**
-     * 源类 Adaptee 有方法 sampleOperation1
-     * 因此适配器类直接委派即可
-     */
-    public void sampleOperation1(){
-        this.adaptee.sampleOperation1();
-    }
-    /**
-     * 源类 Adaptee 没有方法 sampleOperation2
-     * 因此由适配器类需要补充此方法
-     */
-    public void sampleOperation2(){
-        // 相关代码
+
+    public void method1(){
+        adaptee.method2();
     }
 }
 ```

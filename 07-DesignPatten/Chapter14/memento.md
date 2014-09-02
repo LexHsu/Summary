@@ -27,16 +27,10 @@ public class Originator {
 
     private String state;
 
-    /**
-     * 工厂方法，返回一个新的备忘录对象
-     */
     public Memento createMemento() {
         return new Memento(state);
     }
 
-    /**
-     * 将发起人恢复到备忘录对象所记载的状态
-     */
     public void restoreMemento(Memento memento) {
         this.state = memento.getState();
     }
@@ -73,15 +67,11 @@ public class Memento {
 public class Caretaker {
 
     private Memento memento;
-    /**
-     * 备忘录的取值方法
-     */
+
     public Memento retrieveMemento(){
         return this.memento;
     }
-    /**
-     * 备忘录的赋值方法
-     */
+
     public void saveMemento(Memento memento){
         this.memento = memento;
     }
@@ -128,16 +118,12 @@ public class Originator {
         System.out.println("赋值状态：" + state);
     }
 
-    /**
-     * 工厂方法，返还一个新的备忘录对象
-     */
+
     public MementoIF createMemento(){
         return new Memento(state);
     }
 
-    /**
-     * 发起人恢复到备忘录对象记录的状态
-     */
+
     public void restoreMemento(MementoIF memento) {
         this.setState(((Memento)memento).getState());
     }
@@ -145,9 +131,7 @@ public class Originator {
     private class Memento implements MementoIF{
 
         private String state;
-        /**
-         * 构造方法
-         */
+
         private Memento(String state){
             this.state = state;
         }
@@ -155,6 +139,7 @@ public class Originator {
         private String getState() {
             return state;
         }
+
         private void setState(String state) {
             this.state = state;
         }
@@ -168,16 +153,10 @@ public class Caretaker {
 
     private MementoIF memento;
 
-    /**
-     * 备忘录取值方法
-     */
     public MementoIF retrieveMemento(){
         return memento;
     }
 
-    /**
-     * 备忘录赋值方法
-     */
     public void saveMemento(MementoIF memento){
         this.memento = memento;
     }
@@ -210,38 +189,28 @@ public class Client {
 public class Originator {
 
     private List<String> states;
-    //检查点指数
+
     private int index;
-    /**
-     * 构造函数
-     */
+
     public Originator() {
         states = new ArrayList<String>();
         index = 0;
     }
-    /**
-     * 工厂方法，返还一个新的备忘录对象
-     */
+
     public Memento createMemento() {
         return new Memento(states , index);
     }
-    /**
-     * 将发起人恢复到备忘录对象记录的状态上
-     */
+
     public void restoreMemento(Memento memento) {
         states = memento.getStates();
         index = memento.getIndex();
     }
-    /**
-     * 状态的赋值方法
-     */
+
     public void setState(String state) {
         states.add(state);
         index++;
     }
-    /**
-     * 辅助方法，打印所有状态
-     */
+
     public void printStates() {
 
         for(String state : states) {
@@ -254,9 +223,7 @@ public class Memento {
 
     private List<String> states;
     private int index;
-    /**
-     * 构造函数
-     */
+
     public Memento(List<String> states , int index) {
         this.states = new ArrayList<String>(states);
         this.index = index;
@@ -275,31 +242,23 @@ public class Caretaker {
     private Originator o;
     private List<Memento> mementos = new ArrayList<Memento>();
     private int current;
-    /**
-     * 构造函数
-     */
+
     public Caretaker(Originator o) {
         this.o = o;
         current = 0;
     }
-    /**
-     * 创建一个新的检查点
-     */
+
     public int createMemento() {
         Memento memento = o.createMemento();
         mementos.add(memento);
         return current++;
     }
-    /**
-     * 将发起人恢复到某个检查点
-     */
+
     public void restoreMemento(int index) {
         Memento memento = mementos.get(index);
         o.restoreMemento(memento);
     }
-    /**
-     * 将某个检查点删除
-     */
+    
     public void removeMemento(int index) {
         mementos.remove(index);
     }

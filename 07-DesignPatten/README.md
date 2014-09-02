@@ -17,3 +17,6 @@
  - 9.1. [策略模式](Chapter09/builder.md)
  - 10.1. [观察者模式](Chapter10/observer.md)
  - 11.1. [抽象工厂模式](Chapter11/abstractfactory.md)
+ - 12.1. [状态模式](Chapter12/state.md)
+ - 13.1. [适配器模式](Chapter13/adapter.md)
+ - 14.1. [备忘录模式](Chapter14/memento.md)

@@ -10,5 +10,5 @@
  - 1.7. [联合体](Chapter01/1.7-union.md)
 
 * **第二章 进阶**
-- 1.8. [内存管理](Chapter01/1.9-define.md)
-- 1.8. [字符指针与字符数组](Chapter01/1.9-define.md)
+ - 1.8. [内存管理](Chapter01/2.1-memory.md)
+ - 1.8. [字符指针与字符数组](Chapter01/2.2-char-pointer.md)

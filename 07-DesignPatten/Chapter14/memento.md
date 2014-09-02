@@ -258,7 +258,7 @@ public class Caretaker {
         Memento memento = mementos.get(index);
         o.restoreMemento(memento);
     }
-    
+
     public void removeMemento(int index) {
         mementos.remove(index);
     }
@@ -297,3 +297,67 @@ public class Client {
 
 }
 ```
+
+### 自述历史模式
+
+自述历史模式（History-On-Self Pattern）实际上就是备忘录模式的一个变种。
+在备忘录模式中，发起人（Originator）角色、负责人（Caretaker）角色和备忘录（Memento）角色都是独立的。
+虽然在实现上备忘录类可以成为发起人类的内部成员类，但是备忘录类仍然保持作为一个角色的独立意义。在自述历史模式里面，发起人角色自己兼任负责人角色。
+
+
+```java
+public interface MementoIF {
+
+}
+
+public class Originator {
+
+    public String state;
+
+    public void changeState(String state){
+        this.state = state;
+        System.out.println("状态改变为：" + state);
+    }
+
+    public Memento createMemento(){
+        return new Memento(this);
+    }
+
+    public void restoreMemento(MementoIF memento){
+        Memento m = (Memento)memento;
+        changeState(m.state);
+    }
+
+    private class Memento implements MementoIF{
+
+        private String state;
+
+        private Memento(Originator o){
+            this.state = o.state;
+        }
+
+        private String getState() {
+            return state;
+        }
+
+    }
+}
+
+public class Client {
+
+    public static void main(String[] args) {
+        Originator o = new Originator();
+        // 修改状态
+        o.changeState("state 0");
+        // 创建备忘录
+        MementoIF memento = o.createMemento();
+        // 修改状态
+        o.changeState("state 1");
+        // 按照备忘录恢复对象的状态
+        o.restoreMemento(memento);
+    }
+
+}
+```
+
+自述历史作为一个备忘录模式的特殊实现形式非常简单易懂，是备忘录模式最为常见的实现形式。

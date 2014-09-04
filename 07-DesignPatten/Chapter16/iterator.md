@@ -20,6 +20,13 @@
 
 ### 代码示例
 
+- 白箱实现方案
+
+如果一个聚集的接口提供了可以用来修改聚集元素的方法，这个接口就是所谓的宽接口。
+如果聚集对象为所有对象提供同一个接口，也就是宽接口的话，当然会满足迭代子模式对迭代子对象的要求。但是，这样会破坏对聚集对象的封装。
+这种提供宽接口的聚集叫做白箱聚集。聚集对象向外界提供同样的宽接口
+
+
 ```java
 public abstract class Aggregate {
     /**
@@ -115,7 +122,7 @@ public class ConcreteIterator implements Iterator {
     public void next() {
 
         if(index < size) {
-            index ++;
+            index++;
         }
     }
 
@@ -138,5 +145,66 @@ public class Client {
         client.operation();
     }
 
+}
+```
+
+- 黑箱实现方案
+
+如果一个聚集的接口没有提供修改聚集元素的方法，这样的接口就是所谓的窄接口。
+将迭代子类设计成聚集类的内部成员类，这样迭代子对象将可以像聚集对象的内部成员一样访问聚集对象的内部结构。
+这种同时保证聚集对象的封装和迭代子功能的实现的方案叫做黑箱实现方案。
+
+```java
+public class ConcreteAggregate extends Aggregate {
+
+    private Object[] objArray = null;
+    /**
+     * 构造方法，传入聚合对象的具体内容
+     */
+    public ConcreteAggregate(Object[] objArray){
+        this.objArray = objArray;
+    }
+
+    @Override
+    public Iterator createIterator() {
+
+        return new ConcreteIterator();
+    }
+    /**
+     * 内部成员类，具体迭代子类
+     */
+    private class ConcreteIterator implements Iterator {
+        private int index = 0;
+        private int size = 0;
+
+        public ConcreteIterator() {
+            this.size = objArray.length;
+            index = 0;
+        }
+
+        @Override
+        public Object currentItem() {
+            return objArray[index];
+        }
+
+        @Override
+        public void first() {
+
+            index = 0;
+        }
+
+        @Override
+        public boolean isDone() {
+            return (index >= size);
+        }
+
+        @Override
+        public void next() {
+
+            if(index < size) {
+                index++;
+            }
+        }
+    }
 }
 ```

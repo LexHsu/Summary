@@ -9,7 +9,7 @@
 
 ![Alt text](img/composite.png)
 
-- Component，组合中的对象声明接口，实现所有类共有接口的默认行为
+- Component，组合中的对象声明接口，实现所有类共有接口的默认行为。
 - Leaf，在组合中表示叶子节点，其没有子节点。
 - Node，枝节点，有字节点。用于存储子部件。
 
@@ -70,7 +70,7 @@ class Node extends Component {
 
     @Override
     public void display(int depth) {
-        for(int i=0;i<depth;i++){
+        for(int i = 0; i < depth; i++) {
             System.out.print("-");
         }
         System.out.println("Node:"+mName);

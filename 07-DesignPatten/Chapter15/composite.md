@@ -18,7 +18,7 @@
 ```java
 abstract class Component{
     protected String mName;
-    public Component(String name){
+    public Component(String name) {
         mName=name;
     }
     public abstract void add(Component c);
@@ -26,26 +26,24 @@ abstract class Component{
     public abstract void display(int depth);
 }
 
-class Leaf extends Component{
-    public Leaf(String name){
+class Leaf extends Component {
+    public Leaf(String name) {
         super(name);
     }
 
     @Override
     public void add(Component c) {
         // TODO Auto-generated method stub
-
     }
 
     @Override
     public void remove(Component c) {
         // TODO Auto-generated method stub
-
     }
 
     @Override
     public void display(int depth) {
-        for(int i=0;i<depth;i++){
+        for(int i = 0; i< depth; i++) {
             System.out.print("-");
         }
         System.out.println("Leaf:" + mName);
@@ -56,7 +54,7 @@ class Leaf extends Component{
 class Node extends Component {
     ArrayList<Component> list=new ArrayList();
 
-    public Node(String name){
+    public Node(String name) {
         super(name);
     }
 
@@ -76,7 +74,7 @@ class Node extends Component {
             System.out.print("-");
         }
         System.out.println("Node:"+mName);
-        for(Component c:list){
+        for(Component c : list) {
             c.display(depth+1);
         }
     }

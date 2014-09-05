@@ -68,10 +68,9 @@ public class Singleton {
 }
 ```
 
-### 双边检测
+### 双重检查
 
-Double-Checked Locking is Broken"
-双重检查锁定在延迟初始化的单例模式中见得比较多（单例模式实现方式很多，这里为说明双重检查锁定问题，只选取这一种方式），先来看一个版本：
+双重检查锁定在延迟初始化的单例模式中见得比较多，如下里：
 
 ```java
 public class Singleton {
@@ -86,7 +85,8 @@ public class Singleton {
     }
 }
 ```
-上面是最原始的模式，一眼就可以看出，在多线程环境下，可能会产生多个Singleton实例，于是有了其同步的版本：
+
+上述代码问题在于，多线程环境下，可能会产生多个Singleton实例，于是有了其同步的版本：
 
 ```java
 public class Singleton {
@@ -102,7 +102,7 @@ public class Singleton {
 }
 ```
 
-在这个版本中，每次调用getInstance都需要取得Singleton.class上的锁，然而该锁只是在开始构建Singleton 对象的时候才是必要的，后续的多线程访问，效率会降低，于是有了接下来的版本：
+在这个版本中，每次调用 getInstance 都需要取得 Singleton.class 上的锁，然而该锁只是在开始构建Singleton 对象的时候才是必要的，后续的多线程访问，效率会降低，于是有了接下来的版本：
 
 ```java
 public class Singleton {
@@ -122,8 +122,10 @@ public class Singleton {
 }
 ```
 
-该方案也未能解决问题之根本：
-原因在于：初始化Singleton  和 将对象地址写到instance字段 的顺序是不确定的。在某个线程new Singleton()时，在构造方法被调用之前，就为该对象分配了内存空间并将对象的字段设置为默认值。此时就可以将分配的内存地址赋值给instance字段了，然而该对象可能还没有初始化；此时若另外一个线程来调用getInstance，取到的就是状态不正确的对象。
+但是该方案也未能解决问题之根本：
+原因在于：初始化 Singleton  和 将对象地址写到 instance 字段 的顺序是不确定的。
+在某个线程 new Singleton() 时，在构造方法被调用之前，就为该对象分配了内存空间并将对象的字段设置为默认值。
+此时就可以将分配的内存地址赋值给 instance 字段了，然而该对象可能还没有初始化；此时若另外一个线程来调用 getInstance，取到的就是状态不正确的对象。
 
 鉴于以上原因，有人可能提出下列解决方案：
 

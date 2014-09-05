@@ -86,7 +86,7 @@ public class Singleton {
 }
 ```
 
-上述代码问题在于，多线程环境下，可能会产生多个Singleton实例，于是有了其同步的版本：
+上述代码问题在于，多线程环境下，可能会产生多个 Singleton 实例，于是有了其同步的版本：
 
 ```java
 public class Singleton {
@@ -102,7 +102,7 @@ public class Singleton {
 }
 ```
 
-在这个版本中，每次调用 getInstance 都需要取得 Singleton.class 上的锁，然而该锁只是在开始构建Singleton 对象的时候才是必要的，后续的多线程访问，效率会降低，于是有了接下来的版本：
+在这个版本中，每次调用 getInstance 都需要取得 Singleton.class 上的锁，然而该锁只是在开始构建 Singleton 对象的时候才是必要的，后续的多线程访问，效率会降低，于是有了接下来的版本：
 
 ```java
 public class Singleton {
@@ -161,7 +161,7 @@ public class Singleton {
 
 编译器可以合法的，也是合理的，将 instance = temp 移动到最里层的同步块内，这样就出现了上个版本同样的问题。
 
-在JDK1.5及其后续版本中，扩充了 volatile 语义，系统将不允许对写入一个 volatile 变量的操作与其之前的任何读写操作重新排序，也不允许将 读取一个 volatile 变量的操作与其之后的任何读写操作重新排序。
+在 `JDK1.5` 及其后续版本中，扩充了 volatile 语义，系统将不允许对写入一个 volatile 变量的操作与其之前的任何读写操作重新排序，也不允许将 读取一个 volatile 变量的操作与其之后的任何读写操作重新排序。
 
 在 `jdk1.5` 及其后的版本中，可以将 instance 设置成 volatile 以让双重检查锁定生效，如下：
 
@@ -183,4 +183,4 @@ public class Singleton {
 }
 ```
 
-注意：在JDK1.4以及之前的版本中，该方式仍然有问题。
+注意：在 `JDK1.4` 以及之前的版本中，该方式仍然有问题。

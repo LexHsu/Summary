@@ -20,7 +20,7 @@ class ConcreteImplementorA extends Implementor {
 
     @Override
     public void operation() {
-        System.out.println("具体实现 A 的方法");
+        System.out.println("A 具体实现");
     }
 }
 
@@ -28,7 +28,7 @@ class ConcreteImplementorB extends Implementor {
 
     @Override
     public void operation() {
-        System.out.println("具体实现 B 的方法");
+        System.out.println("B 具体实现");
     }
 }
 

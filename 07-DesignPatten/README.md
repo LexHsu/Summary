@@ -1,11 +1,8 @@
 目录
 ===
 
-* **前言**
  - 00. [UML 类图](book/Chapter00/0.1-uml.md)
  - 00. [设计原则](book/Chapter00/0.2-principle.md)
-
-* **模式**
  - 01. [简单工厂](book/Chapter01/simplefactory.md)
  - 02. [策略模式](book/Chapter02/strategy.md)
  - 03. [装饰器模式](book/Chapter03/decorator.md)

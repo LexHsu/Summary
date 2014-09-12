@@ -1,7 +1,7 @@
 package main
 
 import (
-    "./tbs"
+    "./10-tbs"
     "fmt"
 )
 

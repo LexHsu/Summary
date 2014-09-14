@@ -7,7 +7,7 @@
 
 ### UML 类图
 
-![Alt text](img/abstractfactory.png)
+![Alt text](img/11-abstractfactory.png)
 
 ### 代码示例
 

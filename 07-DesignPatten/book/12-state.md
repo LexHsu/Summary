@@ -10,7 +10,7 @@
 
 ### UML 类图
 
-![Alt text](img/state.png)
+![Alt text](img/12-state.png)
 
 涉及角色：
 

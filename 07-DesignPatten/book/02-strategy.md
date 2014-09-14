@@ -14,7 +14,7 @@
 
 ### UML 类图
 
-![Alt text](img/strategy.png)
+![Alt text](img/02-strategy.png)
 
 
 ```java

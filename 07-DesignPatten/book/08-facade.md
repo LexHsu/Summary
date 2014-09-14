@@ -7,7 +7,7 @@
 
 ### UML 类图
 
-![Alt text](img/facade.png)
+![Alt text](img/08-facade.png)
 
 
 ### 应用场景

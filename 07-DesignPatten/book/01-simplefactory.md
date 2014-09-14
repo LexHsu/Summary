@@ -5,7 +5,7 @@
 简单工厂并不是一种设计模式，更确切的说是一种编程习惯。
 
 ### UML 类图
-![Alt text](img/4.1-simplefactory2.png)
+![Alt text](img/01-simplefactory2.png)
 
 ### 实例讲解
 实现一个简易加减乘除计算器，要求输入两个数字及运算符，并得出结果。

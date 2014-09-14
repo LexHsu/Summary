@@ -7,7 +7,7 @@
 
 ### UML 类图
 
-![Alt text](img/composite.png)
+![Alt text](img/15-composite.png)
 
 - Component，组合中的对象声明接口，实现所有类共有接口的默认行为。
 - Leaf，在组合中表示叶子节点，其没有子节点。

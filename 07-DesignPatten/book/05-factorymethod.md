@@ -6,7 +6,7 @@
 
 ### UML 类图
 
-![Alt text](img/factorymethod.png)
+![Alt text](img/05-factorymethod.png)
 
 ### 与简单工厂区别
 

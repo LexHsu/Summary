@@ -7,7 +7,7 @@
 
 ### UML 类图
 
-![Alt text](img/singleton.png)
+![Alt text](img/17singleton.png)
 
 ### 饿汉式
 

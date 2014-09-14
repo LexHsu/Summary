@@ -7,7 +7,7 @@
 
 ### UML 类图
 
-![Alt text](img/iterator.png)
+![Alt text](img/16-iterator.png)
 
 涉及角色：
 

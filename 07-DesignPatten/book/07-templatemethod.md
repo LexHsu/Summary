@@ -7,7 +7,7 @@
 
 ### UML 类图
 
-![Alt text](img/templatemethod.png)
+![Alt text](img/07-templatemethod.png)
 
 ```java
 // 抽象模板，实现一个具体的模板方法，而逻辑步骤在抽象方法中

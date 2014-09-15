@@ -9,7 +9,7 @@
 
 ### UML 类图
 
-![Alt text](img/20-chain-of-responsibility.png)
+![职责链模式 UML 图](img/20-chain-of-responsibility.png)
 
 　　责任链模式涉及到的角色如下所示：
 

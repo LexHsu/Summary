@@ -22,3 +22,4 @@
  - 17. [单例模式](book/17-singleton.md)
  - 18. [桥接模式](book/18-bridge.md)
  - 19. [命令模式](book/19-command.md)
+ - 20. [职责链模式](book/20-chain-of-responsibility.md)

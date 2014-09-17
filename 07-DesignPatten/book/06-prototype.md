@@ -7,7 +7,7 @@
 
 ### UML 类图
 
-![Alt text](img/06-prototype.png)
+![原型模式模式](img/06-prototype.png)
 
 ### 模型角色
 

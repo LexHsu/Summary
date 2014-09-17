@@ -6,7 +6,7 @@
 
 ### UML 类图
 
-![Alt text](img/10-observer.png)
+![观察者模式](img/10-observer.png)
 
 观察者模式所涉及的角色有：
 

@@ -7,7 +7,7 @@
 
 ### UML 类图
 
-![Alt text](img/11-abstractfactory.png)
+![抽象工厂模式](img/11-abstractfactory.png)
 
 ### 代码示例
 

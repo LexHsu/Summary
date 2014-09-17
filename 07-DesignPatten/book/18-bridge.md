@@ -7,7 +7,7 @@
 
 ### UML 类图
 
-![Alt text](img/18-bridge.png)
+![桥接模式](img/18-bridge.png)
 
 ### 代码示例
 

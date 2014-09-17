@@ -7,7 +7,7 @@
 
 ### UML 类图
 
-![Alt text](img/19-command.png)
+![命令模式](img/19-command.png)
 
 涉及角色：
 

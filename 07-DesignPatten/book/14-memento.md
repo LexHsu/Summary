@@ -7,7 +7,7 @@
 
 ### UML 类图
 
-![Alt text](img/14-memento.png)
+![备忘录模式](img/14-memento.png)
 
 - 窄接口：Originater 对象无法读取 MementoIF 数据，仅可以把备忘录对象传给其他对象，即窄接口。
 

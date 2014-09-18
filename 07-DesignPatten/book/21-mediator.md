@@ -57,7 +57,7 @@ public class ConcreteColleague1 extends AbstractColleague {
     }
 
     public void getMessage(String message) {
-        System.out.println("ConcreteColleague1得到消息:" + message);
+        System.out.println("ConcreteColleague1 得到消息:" + message);
     }
 
 }
@@ -73,7 +73,7 @@ public class ConcreteColleague2 extends AbstractColleague {
     }
 
     public void getMessage(String message) {
-        System.out.println("ConcreteColleague2得到消息:" + message);
+        System.out.println("ConcreteColleague2 得到消息:" + message);
     }
 
 }
@@ -134,13 +134,16 @@ public class Client {
 ### 中介者模式优缺点
 
 - 优点
+
 Mediator 的出现减少了各个 Colleague 的耦合，使得可以独立的改变和复用各个 Colleague 类和 Mediator。
 由于把对象如何协作进行了抽象，将中介作为一个独立的概念并将其封装在一个对象中，这样关注的对象就从对象各自本身的行为转移到了它们之间的交互上来，即站在一个更宏观的角度看待系统。
 
 - 缺点
+
 由于 ConcreteMediator 控制了集中化，于是就把交互复杂性变为了中介者的复杂性，使得中介者会变得比任何一个 ConcreteColleague 都复杂。
 
 - 应用场景
+
 中介者模式在系统中很容易应用，也很容易在系统中误用。当系统出现了“多对多”交互复杂的对象群时，不要急于使用中介者模式，而要先反思你的系统在设计上是不是合理。
 
 中介者模式一般应用于一组对象以定义良好但是复杂的方式进行通讯的场合，已经想定制一个分布在多个类中的行为，而又不想生成太多的子类的场合。

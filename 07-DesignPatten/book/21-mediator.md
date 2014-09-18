@@ -11,8 +11,8 @@
 
 涉及角色：
 - 抽象中介者（Mediator）：定义了同事对象到中介者对象的接口。
-- 具体中介者对象（ConcreteMediator）：实现抽象类的方法，其需要知道所有具体的同事类，向具体同事对象发出命令。
-- 抽象同事类（Colleague）：定义了同事类接口
+- 具体中介者对象（ConcreteMediator）：实现抽象类的方法，有所有具体的同事类的引用。
+- 抽象同事类（Colleague）：定义了同事类接口。
 - 具体同事类（ConcreteColleague）：每个具体同事类只知道自己的行为却不了解其他同事类的情况，但均认识中介者对象。
 
 1 个抽象 Colleague，其派生多个具体 ConcreteColleague，每个具体 ConcreteColleague 都认识一个具体中介者。

@@ -128,7 +128,7 @@ public class ConcreteFlyweight implements Flyweight {
      * 构造函数，内蕴状态作为参数传入
      * @param state
      */
-    public ConcreteFlyweight(Character state){
+    public ConcreteFlyweight(Character state) {
         this.intrinsicState = state;
     }
 
@@ -167,7 +167,7 @@ public class ConcreteCompositeFlyweight implements Flyweight {
     @Override
     public void operation(String state) {
         Flyweight fly = null;
-        for(Object o : files.keySet()){
+        for(Object o : files.keySet()) {
             fly = files.get(o);
             fly.operation(state);
         }
@@ -182,10 +182,10 @@ public class FlyweightFactory {
     /**
      * 复合享元工厂方法
      */
-    public Flyweight factory(List<Character> compositeState){
+    public Flyweight factory(List<Character> compositeState) {
         ConcreteCompositeFlyweight compositeFly = new ConcreteCompositeFlyweight();
 
-        for(Character state : compositeState){
+        for(Character state : compositeState) {
             compositeFly.add(state,this.factory(state));
         }
 
@@ -194,7 +194,7 @@ public class FlyweightFactory {
     /**
      * 单纯享元工厂方法
      */
-    public Flyweight factory(Character state){
+    public Flyweight factory(Character state) {
         //先从缓存中查找对象
         Flyweight fly = files.get(state);
         if(fly == null){

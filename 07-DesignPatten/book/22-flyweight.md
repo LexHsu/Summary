@@ -67,9 +67,8 @@ public class ConcreteFlyweight implements Flyweight {
     }
 }
 
-// 享元工厂角色类，注意客户端不可直接将具体享元类实例化，必须通过一个工厂对象，利用一个 factory() 方法得到享元对象。
+// 享元工厂角色类，注意客户端不可直接将具体享元类实例化，必须通过一个工厂对象的 factory() 方法得到享元对象。
 // 一般而言，享元工厂对象在整个系统中只有一个，因此也可以使用单例模式。
-// 当客户端需要单纯享元对象的时候，需要调用享元工厂的 factory() 方法，并传入所需的单纯享元对象的内蕴状态，由工厂方法产生所需要的享元对象。
 public class FlyweightFactory {
     private Map<Character,Flyweight> files = new HashMap<Character,Flyweight>();
 
@@ -146,12 +145,13 @@ public class ConcreteFlyweight implements Flyweight {
 
 }
 
-// 复合享元对象是由单纯享元对象通过复合而成的，因此它提供了 add() 这样的聚集管理方法。由于一个复合享元对象具有不同的聚集元素，
-// 这些聚集元素在复合享元对象被创建之后加入，这本身就意味着复合享元对象的状态是会改变的，因此复合享元对象是不能共享的。
+// 复合享元对象是由单纯享元对象通过复合而成的，因此其提供了 add() 这样的聚集管理方法。
+// 由于一个复合享元对象具有不同的聚集元素，这些聚集元素在复合享元对象被创建之后加入，
+// 这就意味着复合享元对象的状态是会改变的，因此复合享元对象不可共享。
 
 // 复合享元角色实现了抽象享元角色所规定的接口，即 operation() 方法，参数 state 代表复合享元对象的外蕴状态。
 // 一个复合享元对象的所有单纯享元对象元素的外蕴状态都与复合享元对象的外蕴状态相等；
-// 一个复合享元对象所含有的单纯享元对象的内蕴状态一般是不相等的，否则便没有使用价值。
+// 一个复合享元对象所含有的单纯享元对象的内蕴状态一般是不相等的，否则享元模式便没有了意义。
 public class ConcreteCompositeFlyweight implements Flyweight {
 
     private Map<Character,Flyweight> files = new HashMap<Character,Flyweight>();

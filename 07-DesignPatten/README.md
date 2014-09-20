@@ -24,3 +24,4 @@
  - 19. [命令模式](book/19-command.md)
  - 20. [职责链模式](book/20-chain-of-responsibility.md)
  - 21. [中介者模式](book/21-mediator.md)
+ - 22. [享元模式](book/22-flyweight.md)

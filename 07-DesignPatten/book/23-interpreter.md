@@ -7,7 +7,7 @@
 
 ### UML 类图
 
-![解释器模式](img/22-flyweight.png)
+![解释器模式](img/23-interpreter.png)
 
 涉及角色：
 

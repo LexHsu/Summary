@@ -25,3 +25,4 @@
  - 20. [职责链模式](book/20-chain-of-responsibility.md)
  - 21. [中介者模式](book/21-mediator.md)
  - 22. [享元模式](book/22-flyweight.md)
+ - 23. [解释器模式](book/23-interpreter.md)

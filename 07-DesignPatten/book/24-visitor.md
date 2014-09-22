@@ -9,7 +9,7 @@
 
 ![访问者模式](img/24-visitor.png)
 
-设计角色：
+涉及角色：
 
 - 抽象访问者角色（Visitor）：
 声明了一个或者多个方法。
@@ -31,11 +31,11 @@
 ```java
 public interface Visitor {
     /**
-     * 对应于NodeA的访问操作
+     * 对应于 NodeA 的访问操作
      */
     public void visit(NodeA node);
     /**
-     * 对应于NodeB的访问操作
+     * 对应于 NodeB 的访问操作
      */
     public void visit(NodeB node);
 }
@@ -82,7 +82,7 @@ public class NodeA extends Node{
         visitor.visit(this);
     }
     /**
-     * NodeA特有的方法
+     * NodeA 特有的方法
      */
     public String operationA() {
         return "NodeA";
@@ -97,7 +97,7 @@ public class NodeB extends Node {
         visitor.visit(this);
     }
     /**
-     * NodeB特有的方法
+     * NodeB 特有的方法
      */
     public String operationB() {
         return "NodeB";

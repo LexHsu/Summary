@@ -24,5 +24,5 @@
  - 6.2 [channel](Chapter06/6.2-channel.md)
 * **第七章 包**
  - 7.1 [package](Chapter07/7.1-package.md)
-* **第七章 包**
- - 7.1 [package](Chapter08/8.1-http-https.md)
+* **第七章 应用**
+ - 7.1 [http(s)服务器](Chapter08/8.1-http-https.md)

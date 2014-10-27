@@ -20,7 +20,7 @@
 * **第五章 数字签名算法--带密钥的消息摘要算法**
  - 5.1 [RSA--经典数字签名算法](book/5.1-rsa.md)
  - 5.2 [DSA--数字签名标准算法](book/5.2-dsa.md)
- - 5.3 [ECDSA--椭圆曲线数字签名算法](book/5.3-verification.md)
+ - 5.3 [ECDSA--椭圆曲线数字签名算法](book/5.3-ecdsa.md)
 * **第六章 安全协议**
  - 6.1 [HTTPS](book/6.1-https.md)
  - 6.2 [SSL/TLS](book/6.2-ssl.md)

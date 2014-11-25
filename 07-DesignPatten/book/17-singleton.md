@@ -184,3 +184,29 @@ public class Singleton {
 ```
 
 注意：在 `JDK1.4` 以及之前的版本中，该方式仍然有问题。
+
+### 单例新思路
+
+```java
+class Singleton {
+    private Singleton() {
+    }
+
+    private static class LazySingleton {
+        public static Singleton singleton = new Singleton();
+    }
+
+    public static Singleton getInstance() {
+        return LazySingleton.singleton;
+    }
+}
+```
+
+该思路的执行流程：
+
+1. JVM加载Singleton类进行初始化，由于没有任何静态变量，初始化过程很快完成。
+2. 只有Singleton中的静态方法getInstance()被调用时，LazySingleton才会初始化。
+3. JVM第一次加载并初始化LazySingleton时，静态变量instance通过执行外部类Singleton的私有构造函数而初始化。
+由于在JLS（Java Language Specification）中定义内部类初始化阶段是线性的、非并发的(serial, non-concurrent)，所以无需再在静态的getInstance()方法中指定任何synchronized锁。
+4. 由于在类的初始化阶段，是以一种线性操作方式来写(而非无序访问)静态变量singleton，
+所有对getInstance()后续的并发调用，将返回同样正确初始化的instance，而不会导致任何额外的同步负担。

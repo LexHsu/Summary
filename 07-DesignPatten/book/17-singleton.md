@@ -235,11 +235,11 @@ public enum Singleton {
     }
 }
 ```
-可通过Singleton.INSTANCE访问，简洁优雅。
+可通过 Singleton.INSTANCE 访问，简洁优雅。
 
 - 枚举自己处理序列化
 
-枚举无偿地提供了序列化机制，而传统单例存在的问题是一旦实现了序列化接口，就不再保持单例了，因为readObject()方法返回一个新的对象，要使用readResolve()方法来规避：
+枚举无偿地提供了序列化机制，而传统单例存在的问题是一旦实现了序列化接口，就不再保持单例了，因为 readObject() 方法返回一个新的对象，要使用 readResolve() 方法来规避：
 
 ```java
 // readResolve to prevent another instance of Singleton
@@ -250,4 +250,4 @@ private Object readResolve(){
 
 - 枚举实例创建是线程安全的
 
-创建枚举默认就是线程安全的，不需要担心double checked locking。
+创建枚举默认就是线程安全的，不需要担心 double checked locking。

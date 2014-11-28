@@ -11,7 +11,7 @@
 
 ### 饿汉式
 
-在类初始化时，已经自行实例化。
+在类初始化时就创建实例。
 
 ```java
 public class Singleton {
@@ -28,9 +28,11 @@ public class Singleton {
 }
 ```
 
-### 懒汉式
+饿汉式是典型的空间换时间，如果该Singleton实例的创建非常消耗系统资源，而业务运行到最后才会使用Singleton实例，使用懒汉式更佳。
 
-在首次调用时实例化。
+### 懒汉式(惰性加载)
+
+在首次调用时才创建实例。
 
 ```java
 public class Singleton {
@@ -40,7 +42,7 @@ public class Singleton {
     }
 
     public static Singleton getInstance() {
-        if (null == instance) {
+        if (instance == null) {
             instance = new Singleton();
         }
         return instance;
@@ -48,45 +50,17 @@ public class Singleton {
 
 }
 ```
+上述代码在单线程中没有问题，上述代码问题在于，多线程环境下，可能会产生多个 Singleton 实例。
+假设两个线程 A 和 B 同时执行了 getInstance()：
 
-### initialization on demand holder
+1. 线程 A 进入 if 判断，此时变量 instance 为 null，因此进入 if 语句内部；
+2. 线程 B 同时进入 if 判断，但此时线程 A 还没有完成变量 instance 的创建，因此 instance 的值仍为 null，因此线程 B 也进入 if 语句内部；
+3. 线程 A 创建了一个变量 instance 并返回；
+4. 线程 B 也创建了一个变量 instance 并返回。
 
-```java
-public class Singleton {
+此时问题出现了，单例被创建了两次，而这并不是我们所期望的。
 
-    private Singleton() {
-    }
-
-    public static class Holder{
-        static Singleton instance = new Singleton();
-    }
-
-    public static Singleton getInstance() {
-        return Holder.instance;
-    }
-
-}
-```
-
-### 双重检查
-
-双重检查锁定在延迟初始化的单例模式中见得比较多，如下里：
-
-```java
-public class Singleton {
-    private static Singleton instance = null;
-    private Singleton(){}
-
-    public static Singleton  getInstance() {
-       if(instance == null) {
-           instance = new Singleton();
-       }
-       return instance;
-    }
-}
-```
-
-上述代码问题在于，多线程环境下，可能会产生多个 Singleton 实例，于是有了其同步的版本：
+### 1. 懒汉式-Class级别同步锁
 
 ```java
 public class Singleton {
@@ -110,9 +84,9 @@ public class Singleton {
     private Singleton(){}
 
     public static Singleton getInstance() {
-       if(instance == null) {
+       if (instance == null) {
            synchronized(Singleton.class) {
-              if(instance == null) {
+              if (instance == null) {
                   instance = new Singleton();
               }
            }
@@ -127,6 +101,18 @@ public class Singleton {
 在某个线程 new Singleton() 时，在构造方法被调用之前，就为该对象分配了内存空间并将对象的字段设置为默认值。
 此时就可以将分配的内存地址赋值给 instance 字段了，然而该对象可能还没有初始化；此时若另外一个线程来调用 getInstance，取到的就是状态不正确的对象。
 
+再详细点说，对于 JVM 而言，其执行的是一个个 Java 指令。在 Java 指令中创建对象和赋值操作是分开进行的，
+也就是说 instance = new Singleton(); 语句是分两步执行的。但是JVM并不保证这两个操作的先后顺序，
+也就是说有可能JVM会为新的Singleton实例分配空间，然后直接赋值给instance成员，然后再去初始化这个Singleton实例。
+这样就使出错成为了可能，仍然以 A、B 两个线程为例：
+
+1. A、B 线程同时进入了第一个 if 判断。
+2. 线程 A 首先进入 synchronized 块，由于 instance 为 null，所以它执行 instance = new Singleton();
+3. 由于 JVM 内部的优化机制，JVM 先分配内存给Singleton实例，
+并赋值给 instance 变量（注意此时 JVM 没有开始初始化这个实例），然后线程 A 离开了 synchronized 块。
+4. 线程 B 进入 synchronized 块，由于 instance 此时不是 null ，因此它马上离开了 synchronized 块并将结果返回给调用该方法的程序。
+5. 此时 B 线程打算使用 Singleton 实例，却发现它没有被初始化，于是发生错误。
+
 鉴于以上原因，有人可能提出下列解决方案：
 
 ```java
@@ -135,11 +121,11 @@ public class Singleton {
     private Singleton(){}
 
     public static Singleton getInstance() {
-       if(instance == null) {
+       if (instance == null) {
            Singleton temp;
            synchronized(Singleton.class) {
               temp = instance;
-              if(temp == null) {
+              if (temp == null) {
                   synchronized(Singleton.class) {
                      temp = new Singleton();
                   }
@@ -161,7 +147,9 @@ public class Singleton {
 
 编译器可以合法的，也是合理的，将 instance = temp 移动到最里层的同步块内，这样就出现了上个版本同样的问题。
 
-在 `JDK1.5` 及其后续版本中，扩充了 volatile 语义，系统将不允许对写入一个 volatile 变量的操作与其之前的任何读写操作重新排序，也不允许将 读取一个 volatile 变量的操作与其之后的任何读写操作重新排序。
+### 2. 懒汉式-双重检查
+
+双重检查锁定在延迟初始化的单例模式中见得比较多，在 `JDK1.5` 及后续版本中，扩充了 volatile 语义，系统将不允许对写入一个 volatile 变量的操作与其之前的任何读写操作重新排序，也不允许将 读取一个 volatile 变量的操作与其之后的任何读写操作重新排序。
 
 在 `jdk1.5` 及其后的版本中，可以将 instance 设置成 volatile 以让双重检查锁定生效，如下：
 
@@ -185,19 +173,19 @@ public class Singleton {
 
 注意：在 `JDK1.4` 以及之前的版本中，该方式仍然有问题。
 
-### 单例新思路
+### 3. 懒汉式-Lazy initialization holder class方式
 
 ```java
 class Singleton {
     private Singleton() {
     }
 
-    private static class LazySingleton {
-        public static Singleton singleton = new Singleton();
+    private static class Holder {
+        private static Singleton instance = new Singleton();
     }
 
     public static Singleton getInstance() {
-        return LazySingleton.singleton;
+        return Holder.instance;
     }
 }
 ```
@@ -211,23 +199,47 @@ class Singleton {
 4. 由于在类的初始化阶段，是以一种线性操作方式来写(而非无序访问)静态变量singleton，
 所有对getInstance()后续的并发调用，将返回同样正确初始化的instance，而不会导致任何额外的同步负担。
 
+什么是类级内部类？
+
+类级内部类可简单理解为有 static 修饰的成员式内部类。如果没有 static 修饰的成员式内部类被称为对象级内部类。
+类级内部类相当于其外部类的 static 成分，它的对象与外部类对象间不存在依赖关系，因此可直接创建。而对象级内部类的实例，是绑定在外部对象实例中的。
+类级内部类中，可以定义静态的方法。在静态方法中只能够引用外部类中的静态成员方法或者成员变量。
+类级内部类相当于其外部类的成员，只有在第一次被使用的时候才被会装载。
+
+在多线程开发中，为了解决并发问题，主要是通过使用 synchronized 来加互斥锁进行同步控制。
+但是在某些情况中，JVM 已经隐含地为您执行了同步，这些情况下就不用自己再来进行同步控制了。这些情况包括：
+
+1. 由静态初始化器（在静态字段上或 static{} 块中的初始化器）初始化数据时
+2. 访问 final 字段时
+3. 在创建线程之前创建对象时
+4. 线程可以看见它将要处理的对象时
 
 ### 枚举单例
+
+使用枚举来实现单实例控制更加简洁，而且无偿地提供了序列化机制，并由 JVM 从根本上提供保障，防止多次实例化，是最佳的单例实现方式。
 
 - 写法简洁
 
 默认枚举实例的创建是线程安全的，但枚举中的其他任何方法需自行负责。
 
 ```java
-public enum Singleton{
+public enum Singleton {
+    /**
+     * 定义一个枚举的元素，它就代表了Singleton的一个实例
+     */
+
     INSTANCE;
+
+    public void operation() {
+        // 功能处理
+    }
 }
 ```
 可通过Singleton.INSTANCE访问，简洁优雅。
 
 - 枚举自己处理序列化
 
-传统单例存在的问题是一旦实现了序列化接口，就不再保持单例了，因为readObject()方法返回一个新的对象，要使用readResolve()方法来规避：
+枚举无偿地提供了序列化机制，而传统单例存在的问题是一旦实现了序列化接口，就不再保持单例了，因为readObject()方法返回一个新的对象，要使用readResolve()方法来规避：
 
 ```java
 // readResolve to prevent another instance of Singleton

@@ -210,3 +210,32 @@ class Singleton {
 由于在JLS（Java Language Specification）中定义内部类初始化阶段是线性的、非并发的(serial, non-concurrent)，所以无需再在静态的getInstance()方法中指定任何synchronized锁。
 4. 由于在类的初始化阶段，是以一种线性操作方式来写(而非无序访问)静态变量singleton，
 所有对getInstance()后续的并发调用，将返回同样正确初始化的instance，而不会导致任何额外的同步负担。
+
+
+### 枚举单例
+
+- 写法简洁
+
+默认枚举实例的创建是线程安全的，但枚举中的其他任何方法需自行负责。
+
+```java
+public enum Singleton{
+    INSTANCE;
+}
+```
+可通过Singleton.INSTANCE访问，简洁优雅。
+
+- 枚举自己处理序列化
+
+传统单例存在的问题是一旦实现了序列化接口，就不再保持单例了，因为readObject()方法返回一个新的对象，要使用readResolve()方法来规避：
+
+```java
+// readResolve to prevent another instance of Singleton
+private Object readResolve(){
+    return INSTANCE;
+}
+```
+
+- 枚举实例创建是线程安全的
+
+创建枚举默认就是线程安全的，不需要担心double checked locking。

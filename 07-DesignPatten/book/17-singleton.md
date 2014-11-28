@@ -190,14 +190,20 @@ class Singleton {
 }
 ```
 
+JVM 机制能够保证当一个类被加载的时候，这个类的加载过程是线程互斥的。这样第一次调用 getInstance() 时，
+JVM 能保证 instance  只被创建一次，并且会保证把赋值给 instance 的内存初始化完毕，
+此外该方法也只会在第一次调用的时候使用互斥机制，这样就解决了Class级别同步锁方式的低效问题。
+最后 instance 是在第一次加载 Holder 类时被创建的，
+而 Holder 类则在调用 getInstance 方法的时候才会被加载，因此也实现了惰性加载。
+
 该思路的执行流程：
 
-1. JVM加载Singleton类进行初始化，由于没有任何静态变量，初始化过程很快完成。
-2. 只有Singleton中的静态方法getInstance()被调用时，LazySingleton才会初始化。
-3. JVM第一次加载并初始化LazySingleton时，静态变量instance通过执行外部类Singleton的私有构造函数而初始化。
-由于在JLS（Java Language Specification）中定义内部类初始化阶段是线性的、非并发的(serial, non-concurrent)，所以无需再在静态的getInstance()方法中指定任何synchronized锁。
-4. 由于在类的初始化阶段，是以一种线性操作方式来写(而非无序访问)静态变量singleton，
-所有对getInstance()后续的并发调用，将返回同样正确初始化的instance，而不会导致任何额外的同步负担。
+1. JVM 加载 Singleton 类进行初始化，由于没有任何静态变量，初始化过程很快完成。
+2. 只有 Singleton 中的静态方法getInstance() 被调用时，LazySingleton 才会初始化。
+3. JVM 第一次加载并初始化 LazySingleton 时，静态变量 instance 通过执行外部类 Singleton 的私有构造函数而初始化。
+由于在 JLS（Java Language Specification）中定义内部类初始化阶段是线性的、非并发的(serial, non-concurrent)，所以无需再在静态的 getInstance() 方法中指定任何 synchronized 锁。
+4. 由于在类的初始化阶段，是以一种线性操作方式来写(而非无序访问)静态变量 singleton，
+所有对 getInstance() 后续的并发调用，将返回同样正确初始化的 instance，而不会导致任何额外的同步负担。
 
 什么是类级内部类？
 
@@ -207,7 +213,7 @@ class Singleton {
 类级内部类相当于其外部类的成员，只有在第一次被使用的时候才被会装载。
 
 在多线程开发中，为了解决并发问题，主要是通过使用 synchronized 来加互斥锁进行同步控制。
-但是在某些情况中，JVM 已经隐含地为您执行了同步，这些情况下就不用自己再来进行同步控制了。这些情况包括：
+但是在某些情况中，JVM 已经隐含地执行了同步，这些情况包括：
 
 1. 由静态初始化器（在静态字段上或 static{} 块中的初始化器）初始化数据时
 2. 访问 final 字段时

@@ -26,4 +26,4 @@
  - 7.1 [package](book/Chapter07/7.1-package.md)
 * **第八章 应用**
  - 8.1 [http(s)服务器](book/Chapter08/8.1-http-https.md)
- - 8.2 [note](book/Chapter08/8.2-tips.md)
+ - 8.2 [Tips](book/Chapter08/8.2-tips.md)

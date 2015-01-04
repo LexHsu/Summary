@@ -21,6 +21,3 @@
  - 5.1 [RSA--经典数字签名算法](book/5.1-rsa.md)
  - 5.2 [DSA--数字签名标准算法](book/5.2-dsa.md)
  - 5.3 [ECDSA--椭圆曲线数字签名算法](book/5.3-ecdsa.md)
-* **第六章 附录**
- - 6.1 [数字证书](book/6.1-certificate.md)
- - 6.2 [HTTPS](book/6.2-https.md)

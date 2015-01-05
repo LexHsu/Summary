@@ -23,3 +23,8 @@
 * **第四章 并发**
  - 4.1. [Thread](Chapter04/4.1-thread.md)
  - 4.2. [Executor](Chapter04/4.2-executor.md)
+* **第五章 其他**
+ - 4.1. [JDK DOC EN](http://java.sun.com/javase/6/docs/)
+ - 4.2. [JDK DOC CN](http://download.java.net/jdk/jdk-api-localizations/jdk-api-zh-cn/publish/1.6.0/html/zh_CN/api/index.html)
+ - 4.1. [JDK DOC ZIP]( http://download.java.net/jdk/jdk-api-localizations/jdk-api-zh-cn/publish/1.6.0/html_zh_CN.zip)
+ - 4.2. [JDK DOC  CHM](ttp://download.java.net/jdk/jdk-api-localizations/jdk-api-zh-cn/publish/1.6.0/chm/JDK_API_1_6_zh_CN.CHM)

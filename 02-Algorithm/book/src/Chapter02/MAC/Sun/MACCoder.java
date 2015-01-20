@@ -46,7 +46,8 @@ public abstract class MACCoder {
         SecretKey secretKey = new SecretKeySpec(key, "HmacMD5");
 
         // 实例化Mac "SslMacMD5"
-        Mac mac = Mac.getInstance("SslMacMD5");//secretKey.getAlgorithm());
+        Mac mac = Mac.getInstance("SslMacMD5");
+        // Mac mac = Mac.getInstance(secretKey.getAlgorithm());
 
         // 初始化Mac
         mac.init(secretKey);

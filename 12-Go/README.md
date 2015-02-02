@@ -10,6 +10,7 @@
  - 1.7. [map](book/Chapter01/1.7-map.md)
  - 1.8. [struct](book/Chapter01/1.8-struct.md)
  - 1.9. [类型转换与断言](book/Chapter01/1.9-convert.md)
+ - 1.10. [new Vs make](book/Chapter01/1.10-new-make.md)
 * **第二章 表达式**
  - 2.1. [表达式](book/Chapter02/2.1-statement.md)
 * **第三章 函数**

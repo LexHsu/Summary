@@ -6,8 +6,8 @@
  - 1.3. [BroadcastReceiver](Chapter01/1.3-broadcastreceiver.md)
  - 1.4. [ContentProvider](Chapter01/1.4-contentprovider.md)
 * **第二章 源码分析**
- - 2.1. [继承](Chapter02/2.1-extend.md)
- - 2.2. [多态](Chapter02/2.1-polymorphism.md)
+ - 2.1. [Handler原理](Chapter02/2.1-extend.md)
+ - 2.2. [Volley源码解析](Chapter02/2.1-polymorphism.md)
  - 2.3. [接口](Chapter02/2.1-inteface.md)
  - 2.4. [内部类](Chapter02/2.1-inner-class.md)
  - 2.5. [异常处理](Chapter02/2.1-exception.md)
@@ -17,6 +17,7 @@
  - 3.1. [输入输出](Chapter03/3.2-io.md)
  - 3.1. [RandomAccessFile](Chapter03/3.3-randomaccessfile.md)
  - 3.1. [典型应用](Chapter03/3.4-example.md)
-* **第四章 Tips**
- - 4.1. [Thread](Chapter04/4.1-thread.md)
- - 4.2. [Executor](Chapter04/4.2-executor.md)
+* **第四章 开源项目**
+ - 4.1. [完整项目](Chapter04/4.1-executor.md)
+ - 4.2. [网络库](Chapter04/4.2-executor.md)
+ - 4.2. [UI库](Chapter04/4.3-executor.md)

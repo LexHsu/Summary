@@ -14,7 +14,7 @@
  - 2.6. [Junit](Chapter02/2.1-junit.md)
 * **第三章 工具**
  - 3.1. [使用chrome调试](Chapter03/3.1-chrome.md)
- - 3.1. [输入输出](Chapter03/3.2-io.md)
+ - 3.1. [jar与aar](Chapter03/3.2-aar.md)
  - 3.1. [RandomAccessFile](Chapter03/3.3-randomaccessfile.md)
  - 3.1. [典型应用](Chapter03/3.4-example.md)
 * **第四章 开源项目**

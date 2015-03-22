@@ -1,16 +1,16 @@
 目录
 ===
 * **第一章 类型**
- - 1.1. [变量](book/Chapter01/1.1-variable.md)
- - 1.2. [常量](book/Chapter01/1.2-const.md)
- - 1.3. [字符串](book/Chapter01/1.3-string.md)
- - 1.4. [指针](book/Chapter01/1.4-pointer.md)
- - 1.5. [数组](book/Chapter01/1.5-array.md)
- - 1.6. [slice](book/Chapter01/1.6-slice.md)
- - 1.7. [map](book/Chapter01/1.7-map.md)
- - 1.8. [struct](book/Chapter01/1.8-struct.md)
- - 1.9. [类型转换与断言](book/Chapter01/1.9-convert.md)
- - 1.10. [new Vs make](book/Chapter01/1.10-new-make.md)
+ - 1.1. [变量](book/Chapter01/01-variable.md)
+ - 1.2. [常量](book/Chapter01/02-const.md)
+ - 1.3. [字符串](book/Chapter01/03-string.md)
+ - 1.4. [指针](book/Chapter01/04-pointer.md)
+ - 1.5. [数组](book/Chapter01/05-array.md)
+ - 1.6. [slice](book/Chapter01/06-slice.md)
+ - 1.7. [map](book/Chapter01/07-map.md)
+ - 1.8. [struct](book/Chapter01/08-struct.md)
+ - 1.9. [类型转换与断言](book/Chapter01/09-convert.md)
+ - 1.10. [new Vs make](book/Chapter01/10-new-make.md)
 * **第二章 表达式**
  - 2.1. [表达式](book/Chapter02/2.1-statement.md)
 * **第三章 函数**

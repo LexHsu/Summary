@@ -12,19 +12,19 @@
  - 1.9. [类型转换与断言](book/Chapter01/09-convert.md)
  - 1.10. [new Vs make](book/Chapter01/10-new-make.md)
 * **第二章 表达式**
- - 2.1. [表达式](book/Chapter02/2.1-statement.md)
+ - 2.1. [表达式](book/Chapter02/01-statement.md)
 * **第三章 函数**
- - 3.1 [函数](book/Chapter03/3.1-function.md)
+ - 3.1 [函数](book/Chapter03/01-function.md)
 * **第四章 方法**
- - 4.1 [方法](book/Chapter04/4.1-method.md)
+ - 4.1 [方法](book/Chapter04/01-method.md)
 * **第五章 接口**
- - 5.1 [接口](book/Chapter05/5.1-interface.md)
- - 5.2 [反射机制](book/Chapter05/5.2-reflect.md)
+ - 5.1 [接口](book/Chapter05/01-interface.md)
+ - 5.2 [反射机制](book/Chapter05/02-reflect.md)
 * **第六章 并发**
- - 6.1 [goroutine](book/Chapter06/6.1-goroutine.md)
- - 6.2 [channel](book/Chapter06/6.2-channel.md)
+ - 6.1 [goroutine](book/Chapter06/01-goroutine.md)
+ - 6.2 [channel](book/Chapter06/02-channel.md)
 * **第七章 包**
- - 7.1 [package](book/Chapter07/7.1-package.md)
+ - 7.1 [package](book/Chapter07/01-package.md)
 * **第八章 应用**
- - 8.1 [http(s)服务器](book/Chapter08/8.1-http-https.md)
- - 8.2 [Tips](book/Chapter08/8.2-tips.md)
+ - 8.1 [http(s)服务器](book/Chapter08/01-http-https.md)
+ - 8.2 [Tips](book/Chapter08/02-tips.md)

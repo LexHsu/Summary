@@ -45,7 +45,7 @@ user 1, Tom
 
 ```go
 var r io.Reader
-tty,err := os.OpenFile("/dev/tty", os.O_RDWR,0)
+tty, err := os.OpenFile("/dev/tty", os.O_RDWR,0)
 if err != nil {
     return nil,err
 }

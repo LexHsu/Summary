@@ -22,7 +22,7 @@ go func() {
 
 并行(parallelism)：同时发生的两个并发事件，具有并发的含义，而并发则不一定并行。
 
-![Alt text](img/6.1.1-concurrency-parallelism.jpg)
+![Alt text](img/0101-concurrency-parallelism.jpg)
 
 ```go
 package main

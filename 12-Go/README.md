@@ -1,30 +1,35 @@
 目录
 ===
 * **第一章 类型**
- - 1.1. [变量](book/Chapter01/01-variable.md)
- - 1.2. [常量](book/Chapter01/02-const.md)
- - 1.3. [字符串](book/Chapter01/03-string.md)
- - 1.4. [指针](book/Chapter01/04-pointer.md)
- - 1.5. [数组](book/Chapter01/05-array.md)
- - 1.6. [slice](book/Chapter01/06-slice.md)
- - 1.7. [map](book/Chapter01/07-map.md)
- - 1.8. [struct](book/Chapter01/08-struct.md)
- - 1.9. [类型转换与断言](book/Chapter01/09-convert.md)
- - 1.10. [new Vs make](book/Chapter01/10-new-make.md)
+ - 01. [变量](book/Chapter01/01-variable.md)
+ - 02. [常量](book/Chapter01/02-const.md)
+ - 03. [字符串](book/Chapter01/03-string.md)
+ - 04. [指针](book/Chapter01/04-pointer.md)
+ - 05. [数组](book/Chapter01/05-array.md)
+ - 06. [slice](book/Chapter01/06-slice.md)
+ - 07. [map](book/Chapter01/07-map.md)
+ - 08. [struct](book/Chapter01/08-struct.md)
+ - 09. [类型转换与断言](book/Chapter01/09-convert.md)
+ - 10. [new Vs make](book/Chapter01/10-new-make.md)
 * **第二章 表达式**
- - 2.1. [表达式](book/Chapter02/01-statement.md)
+ - 01. [表达式](book/Chapter02/01-statement.md)
 * **第三章 函数**
- - 3.1 [函数](book/Chapter03/01-function.md)
+ - 01 [函数](book/Chapter03/01-function.md)
 * **第四章 方法**
- - 4.1 [方法](book/Chapter04/01-method.md)
+ - 01 [方法](book/Chapter04/01-method.md)
 * **第五章 接口**
- - 5.1 [接口](book/Chapter05/01-interface.md)
- - 5.2 [反射机制](book/Chapter05/02-reflect.md)
+ - 01 [接口](book/Chapter05/01-interface.md)
+ - 02 [反射机制](book/Chapter05/02-reflect.md)
 * **第六章 并发**
- - 6.1 [goroutine](book/Chapter06/01-goroutine.md)
- - 6.2 [channel](book/Chapter06/02-channel.md)
+ - 01 [goroutine](book/Chapter06/01-goroutine.md)
+ - 02 [channel](book/Chapter06/02-channel.md)
 * **第七章 包**
- - 7.1 [package](book/Chapter07/01-package.md)
-* **第八章 应用**
- - 8.1 [http(s)服务器](book/Chapter08/01-http-https.md)
- - 8.2 [Tips](book/Chapter08/02-tips.md)
+ - 01 [package](book/Chapter07/01-package.md)
+* **第八章 测试**
+ - 01 [package](book/Chapter07/01-package.md)
+* **第九章 应用**
+ - 01 [http(s)服务器](book/Chapter08/01-http-https.md)
+ - 02 [Tips](book/Chapter08/02-tips.md)
+* **第十章 源码分析**
+ - 01 [Martini](book/Chapter08/01-http-https.md)
+ - 02 [Tips](book/Chapter08/02-tips.md)

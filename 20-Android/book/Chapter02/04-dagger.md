@@ -225,7 +225,7 @@ Binding 更具体信息在下面会介绍。
 已经了解 DAG 的可以跳过这节。  
 DAG 是数据结构的一种。在一组节点中，每一个节点指向一个或多个节点，但不存在一条正向的链最终重新指向自己(即不存在环)，这样的结构称为有向无环图，即 DAG。
 
-![DAG](images/dag.png)
+![DAG](images/04-dag.png)
 
 上图中的数据结构就是一个有向无环图。图中一共存在 6 个节点和 7 个箭头，但任何一个节点都无法从自己发射出的箭头通过某条回路重新指向自己。
 
@@ -233,7 +233,7 @@ DAG 是数据结构的一种。在一组节点中，每一个节点指向一个�
 
 Dagger 的运作机制，是运用 [APT(Annotation Process Tool)](http://docs.oracle.com/javase/7/docs/technotes/guides/apt/) 在编译时生成一些用于设定规则的代码，然后在运行时将这些规则进行动态组合 // TODO 不太理解意思，生成一个(或多个)DAG，然后由 DAG 来完成所有依赖的获取，实现依赖注入。关于 DAG 究竟是怎样一步步生成的，后面再讲，这里先说一下在 Dagger 中依赖注入与 DAG 的关系。
 
-![DAG-DI](images/dag-di.png)
+![DAG-DI](images/04-dag-di.png)
 
 我把前面那张图的每个节点重新命名，得到了上图。上图代表了某个应用程序内的一整套依赖关系，其中每个箭头都表示两个类之间依赖关系，Host 和 Dependency 都是其中的一个节点。  
 
@@ -252,16 +252,16 @@ Dagger 不支持循环依赖，即依赖关系图中不能出现环。原因很�
 ###3. 流程图
 
 ####3.1 编译时：
-![dagger_flow_chart_compile](images/dagger_flow_chart_compile.png)  
+![dagger_flow_chart_compile](images/04-dagger_flow_chart_compile.png)  
 
 ####3.2 运行时(初始化后)：
-![dagger_flow_chart_runtime](images/dagger_flow_chart_runtime.png)  
+![dagger_flow_chart_runtime](images/04-dagger_flow_chart_runtime.png)  
 
 ###4. 详细设计
 
 ####4.1 类关系图
   
-![uml_types](./images/uml_types.png)  
+![uml_types](./images/04-uml_types.png)  
 
 上图是 Dagger 整体框架最简类关系图。大致原理可以描述为：`Linker`通过`Loader`加载需要的`Binding`并把它们拼装成合理的依赖关系图 ObjectGraph，由`ObjectGraph`(其子类`DaggerObjectGraph`)最终实现依赖注入的管理。  
 ObjectGraph 是个抽象类，DaggerObjectGraph 是它目前唯一的子类，对 Dagger 的调用实际都是对 DaggerObjectGraph 的调用。  

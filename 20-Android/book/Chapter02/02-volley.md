@@ -1,72 +1,68 @@
 Volley 源码解析
-====================================
+===
 > 本文为 [Android 开源项目源码解析](https://github.com/android-cn/android-open-project-analysis) 中 Volley 部分  
-> 项目地址：[Volley](https://android.googlesource.com/platform/frameworks/volley/)，分析的版本：[35ce778](https://android.googlesource.com/platform/frameworks/volley/+/35ce77836d8e1e951b8e4b2ec43e07fb7336dab6)，Demo 地址：[Volley Demo](https://github.com/android-cn/android-open-project-demo/tree/master/volley-demo)    
-> 分析者：[grumoon](https://github.com/grumoon)，校对者：[huxian99](https://github.com/huxian99)、[Trinea](https://github.com/trinea)，校对状态：完成   
+> 项目地址：[Volley](https://android.googlesource.com/platform/frameworks/volley/)，分析的版本：[35ce778](https://android.googlesource.com/platform/frameworks/volley/+/35ce77836d8e1e951b8e4b2ec43e07fb7336dab6)，Demo 地址：[Volley Demo](https://github.com/android-cn/android-open-project-demo/tree/master/volley-demo)
 
-###1. 功能介绍  
-####1.1. Volley  
-Volley 是 Google 推出的 Android 异步网络请求框架和图片加载框架。在 Google I/O 2013 大会上发布。
-> 名字由来：a burst or emission of many things or a large amount at once  
-> 发布演讲时候的配图  
-> ![Volley](image/volley.png)
 
-从名字由来和配图中无数急促的火箭可以看出 Volley 的特点：特别适合**数据量小，通信频繁**的网络操作。（个人认为 Android 应用中绝大多数的网络操作都属于这种类型）。
+###1. 功能介绍
 
-####1.2 Volley 的主要特点
-(1). 扩展性强。Volley 中大多是基于接口的设计，可配置性强。  
-(2). 一定程度符合 Http 规范，包括返回 ResponseCode(2xx、3xx、4xx、5xx）的处理，请求头的处理，缓存机制的支持等。并支持重试及优先级定义。  
-(3). 默认 Android2.3 及以上基于 HttpURLConnection，2.3 以下基于 HttpClient 实现，这两者的区别及优劣在`4.2.1 Volley`中具体介绍。  
-(4). 提供简便的图片加载工具。  
+Volley 特别适合数据量小，通信频繁的网络操作。主要特点：
+
+1. 扩展性强。Volley 中大多是基于接口的设计，可配置性强。
+2. 一定程度符合 Http 规范，包括返回 ResponseCode(2xx、3xx、4xx、5xx）的处理，请求头的处理，缓存机制的支持等。并支持重试及优先级定义。
+3. 默认 Android2.3 及以上基于 HttpURLConnection，2.3 以下基于 HttpClient 实现。
+4. 提供简便的图片加载工具。
 
 ###2. 总体设计
-####2.1. 总体设计图  
-![总体设计图](image/design.png)  
-上面是 Volley 的总体设计图，主要是通过两种`Diapatch Thread`不断从`RequestQueue`中取出请求，根据是否已缓存调用`Cache`或`Network`这两类数据获取接口之一，从内存缓存或是服务器取得请求的数据，然后交由`ResponseDelivery`去做结果分发及回调处理。  
+####2.1. 总体设计图
+
+![总体设计图](image/design.png)
+上面是 Volley 的总体设计图，主要是通过两种 Diapatch Thread 不断从 RequestQueue 中取出请求，根据是否已缓存调用 Cache 或 Network 这两类数据获取接口之一，
+从内存缓存或是服务器取得请求的数据，然后交由 ResponseDelivery 去做结果分发及回调处理。
 
 ####2.2. Volley 中的概念
-简单介绍一些概念，在`详细设计`中会仔细介绍。  
-Volley 的调用比较简单，通过 newRequestQueue(…) 函数新建并启动一个请求队列`RequestQueue`后，只需要往这个`RequestQueue`不断 add Request 即可。  
+简单介绍一些概念，在`详细设计`中会仔细介绍。
+Volley 的调用比较简单，通过 newRequestQueue(…) 函数新建并启动一个请求队列`RequestQueue`后，只需要往这个`RequestQueue`不断 add Request 即可。
 
-**Volley：**Volley 对外暴露的 API，通过 newRequestQueue(…) 函数新建并启动一个请求队列`RequestQueue`。  
+**Volley：**Volley 对外暴露的 API，通过 newRequestQueue(…) 函数新建并启动一个请求队列`RequestQueue`。
 
-**Request：**表示一个请求的抽象类。`StringRequest`、`JsonRequest`、`ImageRequest` 都是它的子类，表示某种类型的请求。  
+**Request：**表示一个请求的抽象类。`StringRequest`、`JsonRequest`、`ImageRequest` 都是它的子类，表示某种类型的请求。
 
-**RequestQueue：**表示请求队列，里面包含一个`CacheDispatcher`(用于处理走缓存请求的调度线程)、`NetworkDispatcher`数组(用于处理走网络请求的调度线程)，一个`ResponseDelivery`(返回结果分发接口)，通过 start() 函数启动时会启动`CacheDispatcher`和`NetworkDispatchers`。  
+**RequestQueue：**表示请求队列，里面包含一个`CacheDispatcher`(用于处理走缓存请求的调度线程)、`NetworkDispatcher`数组(用于处理走网络请求的调度线程)，一个`ResponseDelivery`(返回结果分发接口)，通过 start() 函数启动时会启动`CacheDispatcher`和`NetworkDispatchers`。
 
-**CacheDispatcher：**一个线程，用于调度处理走缓存的请求。启动后会不断从缓存请求队列中取请求处理，队列为空则等待，请求处理结束则将结果传递给`ResponseDelivery`去执行后续处理。当结果未缓存过、缓存失效或缓存需要刷新的情况下，该请求都需要重新进入`NetworkDispatcher`去调度处理。  
+**CacheDispatcher：**一个线程，用于调度处理走缓存的请求。启动后会不断从缓存请求队列中取请求处理，队列为空则等待，请求处理结束则将结果传递给`ResponseDelivery`去执行后续处理。当结果未缓存过、缓存失效或缓存需要刷新的情况下，该请求都需要重新进入`NetworkDispatcher`去调度处理。
 
-**NetworkDispatcher：**一个线程，用于调度处理走网络的请求。启动后会不断从网络请求队列中取请求处理，队列为空则等待，请求处理结束则将结果传递给`ResponseDelivery`去执行后续处理，并判断结果是否要进行缓存。  
+**NetworkDispatcher：**一个线程，用于调度处理走网络的请求。启动后会不断从网络请求队列中取请求处理，队列为空则等待，请求处理结束则将结果传递给`ResponseDelivery`去执行后续处理，并判断结果是否要进行缓存。
 
-**ResponseDelivery：**返回结果分发接口，目前只有基于`ExecutorDelivery`的在入参 handler 对应线程内进行分发。  
+**ResponseDelivery：**返回结果分发接口，目前只有基于`ExecutorDelivery`的在入参 handler 对应线程内进行分发。
 
-**HttpStack：**处理 Http 请求，返回请求结果。目前 Volley 中有基于 HttpURLConnection 的`HurlStack`和 基于 Apache HttpClient 的`HttpClientStack`。  
+**HttpStack：**处理 Http 请求，返回请求结果。目前 Volley 中有基于 HttpURLConnection 的`HurlStack`和 基于 Apache HttpClient 的`HttpClientStack`。
 
-**Network：**调用`HttpStack`处理请求，并将结果转换为可被`ResponseDelivery`处理的`NetworkResponse`。  
+**Network：**调用`HttpStack`处理请求，并将结果转换为可被`ResponseDelivery`处理的`NetworkResponse`。
 
-**Cache：**缓存请求结果，Volley 默认使用的是基于 sdcard 的`DiskBasedCache`。`NetworkDispatcher`得到请求结果后判断是否需要存储在 Cache，`CacheDispatcher`会从 Cache 中取缓存结果。  
+**Cache：**缓存请求结果，Volley 默认使用的是基于 sdcard 的`DiskBasedCache`。`NetworkDispatcher`得到请求结果后判断是否需要存储在 Cache，`CacheDispatcher`会从 Cache 中取缓存结果。
 
 ###3. 流程图
 Volley 请求流程图  
 ![Volley请求流程图](image/Volley-run-flow-chart.png)  
-> **上图是 Volley 请求时的流程图，在  Volley 的发布演讲中给出，我在这里将其用中文重新画出。**   
+> **上图是 Volley 请求时的流程图，在  Volley 的发布演讲中给出，我在这里将其用中文重新画出。**
 
 ###4. 详细设计
 ####4.1 类关系图
 ![类关系图](image/volley-class.png)  
-这是 Volley 框架的主要类关系图    
+这是 Volley 框架的主要类关系图
 > 图中**红色圈内**的部分，组成了 Volley 框架的核心，围绕 RequestQueue 类，将各个功能点以**组合**的方式结合在了一起。各个功能点也都是以**接口**或者**抽象类**的形式提供。  
-> 红色圈外面的部分，在 Volley 源码中放在了toolbox包中，作为 Volley 为各个功能点提供的默认的具体实现。    
+> 红色圈外面的部分，在 Volley 源码中放在了toolbox包中，作为 Volley 为各个功能点提供的默认的具体实现。
 > 通过类图我们看出， Volley 有着非常好的拓展性。通过各个功能点的接口，我们可以给出自定义的，更符合我们需求的具体实现。
-> 
+>
 > **多用组合，少用继承；针对接口编程，不针对具体实现编程。**  
->   
+>
 > **优秀框架的设计，令人叫绝，受益良多。**  
 
 ###4.2 核心类功能介绍
-####4.2.1 Volley.java 
+####4.2.1 Volley.java
 这个和 Volley 框架同名的类，其实是个工具类，作用是构建一个可用于添加网络请求的`RequestQueue`对象。  
-**(1). 主要函数**   
+**(1). 主要函数**
 Volley.java 有两个重载的静态方法。  
 ```java
 public static RequestQueue newRequestQueue(Context context)
@@ -158,7 +154,7 @@ RequestQueue 中维护了两个**基于优先级**的 Request 队列，缓存请
 private final PriorityBlockingQueue<Request<?>> mCacheQueue = new PriorityBlockingQueue<Request<?>>();
 private final PriorityBlockingQueue<Request<?>> mNetworkQueue = new PriorityBlockingQueue<Request<?>>();
 ```
-维护了一个正在进行中，尚未完成的请求集合。   
+维护了一个正在进行中，尚未完成的请求集合。
 ```java
 private final Set<Request<?>> mCurrentRequests = new HashSet<Request<?>>();
 ```
@@ -424,8 +420,8 @@ public void postError(Request<?> request, VolleyError error);
 可以设置图片的最大宽度和最大高度，并计算出合适尺寸返回。每次最多解析一张图片防止 OOM。  
 
 ####4.2.28 ImageLoader.java
-封装了 ImageRequst 的方便使用的图片加载工具类。 
->1.可以设置自定义的`ImageCache`，可以是内存缓存，也可以是 Disk 缓存，将获取的图片缓存起来，重复利用，减少请求。    
+封装了 ImageRequst 的方便使用的图片加载工具类。
+>1.可以设置自定义的`ImageCache`，可以是内存缓存，也可以是 Disk 缓存，将获取的图片缓存起来，重复利用，减少请求。
 >2.可以定义图片请求过程中显示的图片和请求失败后显示的图片。  
 >3.相同请求（相同地址，相同大小）只发送一个，可以避免重复请求。  
 // TODO  
@@ -486,14 +482,14 @@ Volley 中所有错误异常的父类，继承自 Exception，可通过此类设
 ###5. 杂谈
 ####5.1 关于 Http 缓存
 Volley 构建了一套相对完整的符合 Http 语义的缓存机制。  
-**优点和特点**   
+**优点和特点**
 (1). 根据`Cache-Control`和`Expires`首部来计算缓存的过期时间。如果两个首部都存在情况下，以`Cache-Control`为准。  
 (2). 利用`If-None-Match`和`If-Modified-Since`对过期缓存或者不新鲜缓存，进行请求再验证，并处理 304 响应，更新缓存。  
 (3). 默认的缓存实现，将缓存以文件的形式存储在 Disk，程序退出后不会丢失。
 
 **我个人认为的不足之处**  
-缓存的再验证方面，在构建`If-Modified-Since`请求首部时，Volley 使用了服务端响应的`Date`首部，没有使用`Last-Modified`首部。整个框架没有使用`Last-Modified`首部。这与 Http 语义不符。    
-```java   
+缓存的再验证方面，在构建`If-Modified-Since`请求首部时，Volley 使用了服务端响应的`Date`首部，没有使用`Last-Modified`首部。整个框架没有使用`Last-Modified`首部。这与 Http 语义不符。
+```java
 private void addCacheHeaders(Map<String, String> headers, Cache.Entry entry) {
     // If there's no cache entry, we're done.
     if (entry == null) {
@@ -514,8 +510,8 @@ private void addCacheHeaders(Map<String, String> headers, Cache.Entry entry) {
 `Last-Modified`代表了资源文件的最后修改时间。通常使用这个首部构建`If-Modified-Since`的时间。  
 `Date`代表了响应产生的时间，正常情况下`Date`时间在`Last-Modified`时间之后。也就是`Date`>=`Last-Modified`。  
 通过以上原理，既然`Date`>=`Last-Modified`。那么我利用`Date`构建，也是完全正确的。  
-  
-**可能的问题出在服务端的 Http 实现上，如果服务端完全遵守 Http 语义，采用时间比较的方式来验证`If-Modified-Since`，判断服务器资源文件修改时间是不是在`If-Modified-Since`之后。那么使用`Date`完全正确。**   
+
+**可能的问题出在服务端的 Http 实现上，如果服务端完全遵守 Http 语义，采用时间比较的方式来验证`If-Modified-Since`，判断服务器资源文件修改时间是不是在`If-Modified-Since`之后。那么使用`Date`完全正确。**
 **可是有的服务端实现不是比较时间，而是直接的判断服务器资源文件修改时间，是否和`If-Modified-Since`所传时间相等。这样使用`Date`就不能实现正确的再验证，因为`Date`的时间总不会和服务器资源文件修改时间相等。**  
 
 尽管使用`Date`可能出现的不正确情况，归结于服务端没有正确的实现 Http 语义。  

@@ -3,23 +3,22 @@ Handler
 
 ### Handler的作用
 
-Android主线程中的操作超过5秒还未完成，会出现ANR。因此对于耗时操作如联网读取数据或读取本地较大文件，需放在子线程中处理，而Android更新UI只能在主线程中，这时就需要使用Handler。Handler间接控制了各个线程的MessageQueen来实现主线程与子线程的相互通信。
+在 Android 主线程进行耗时操作超过 5 秒，如网络请求或本地读取大文件，会出现 ANR。因此这些操作需放在子线程中处理，
+而 Android 更新 UI 只能在主线程中，这时就需要通过 Handler 实现线程间通信。
 
-Handler主线程与子线程通信流程如下：
-
-1. 子线程 Handler 通过主线程的 Looper 间接得到主线程 Handler 引用（或直接调用主线程Handler引用），
+1. 子线程 Handler 通过主线程的 Looper 间接得到主线程 Handler 引用（或直接调用主线程 Handler 引用），
 发送到 MessageQueue 消息队列里。
 2. 由于该 Looper 由主线程创建的，因此消息会在主线程处理，Looper 从 MessageQueue 中依次取出 Message。
 3. 通过主线程的 Handler 的 dispatchMessage 函数进行消息的处理（可见消息的处理是Handler负责）。
-4. 消息处理完毕后，Message 对象被放入 Message Pool 中，以便下次使用。
+4. 消息处理完毕后，Message 对象被放入 Message Pool 中。
 
 
 ### Message与Runnable
 
-子线程可通过两种方式的Handler与主线程通信：
+子线程可通过两种方式的 Handler 与主线程通信：
 
-1. message对象：传递参数，Handler根据返回的参数做相应处理。
-2. Runnable对象：直接给出具体处理的方法。
+1. message 对象：传递参数，Handler 根据返回的参数做相应处理。
+2. Runnable 对象：直接给出具体处理的方法。
 
 这些队列中的内容可以立即执行，延迟一定时间执行或者指定某个时刻执行。
 
@@ -167,4 +166,100 @@ handler.postAtTime(runnableObject, SystemClock.uptimeMillis() + 15 * 1000);
 // 注：
 SystemClock.uptimeMillis()   // 从开机到现在的毫秒数（手机睡眠的时间不包括在内）
 System.currentTimeMillis()   // 从1970年1月1日 UTC到现在的毫秒数，注意该值随手机时间更改后改变
+```
+
+### Looper
+
+Looper 用于将一个普通线程变为 Looper 线程。所谓 Looper 线程就是循环工作的线程。在程序开发中（尤其是GUI开发中），
+经常会需要一个线程不断循环，一旦有新任务则执行，执行完继续等待下一个任务，这就是 Looper 线程。Android 中使用 Looper 类创建 Looper 线程很简单：
+
+```java
+public class LooperThread extends Thread {
+    @Override
+    public void run() {
+        // 将当前线程初始化为Looper线程
+        Looper.prepare();
+
+        // 其他处理，如实例化handler
+
+        // 开始循环处理消息队列
+        Looper.loop();
+    }
+}
+```
+
+Looper类源码：
+
+```java
+public class Looper {
+    // 每个线程中的 Looper 对象其实是一个 ThreadLocal，即线程本地存储(TLS)对象
+    private static final ThreadLocal sThreadLocal = new ThreadLocal();
+    // Looper 内的消息队列
+    final MessageQueue mQueue;
+    // 当前线程
+    Thread mThread;
+    // ...
+
+    // 每个 Looper 对象中有它的消息队列，和它所属的线程
+    private Looper() {
+        mQueue = new MessageQueue();
+        mRun = true;
+        mThread = Thread.currentThread();
+    }
+
+    // 我们调用该方法会在调用线程的 TLS 中创建 Looper 对象
+    public static final void prepare() {
+        if (sThreadLocal.get() != null) {
+            // 试图在有 Looper 的线程中再次创建 Looper 将抛出异常
+            throw new RuntimeException("Only one Looper may be created per thread");
+        }
+        sThreadLocal.set(new Looper());
+    }
+    // 其他方法
+}
+```
+
+```java
+public static final void loop() {
+    // 得到当前线程 Looper
+    Looper me = myLooper();
+    // 得到当前 looper 的 MQ
+    MessageQueue queue = me.mQueue;
+
+    Binder.clearCallingIdentity();
+    final long ident = Binder.clearCallingIdentity();
+    // 开始循环
+    while (true) {
+        // 取出message
+        Message msg = queue.next();
+        if (msg != null) {
+            if (msg.target == null) {
+                // message 没有 target 为结束信号，退出循环
+                return;
+            }
+            // 日志
+            if (me.mLogging!= null) me.mLogging.println(
+                    ">>>>> Dispatching to " + msg.target + " "
+                    + msg.callback + ": " + msg.what
+                    );
+            // 非常重要！将真正的处理工作交给 message 的 target，即后面要讲的 handler
+            msg.target.dispatchMessage(msg);
+            // 日志
+            if (me.mLogging!= null) me.mLogging.println(
+                    "<<<<< Finished to    " + msg.target + " "
+                    + msg.callback);
+
+            final long newIdent = Binder.clearCallingIdentity();
+            if (ident != newIdent) {
+                Log.wtf("Looper", "Thread identity changed from 0x"
+                        + Long.toHexString(ident) + " to 0x"
+                        + Long.toHexString(newIdent) + " while dispatching to "
+                        + msg.target.getClass().getName() + " "
+                        + msg.callback + " what=" + msg.what);
+            }
+            // 回收 message 资源
+            msg.recycle();
+        }
+    }
+}
 ```

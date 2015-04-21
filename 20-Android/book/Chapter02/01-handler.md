@@ -1,19 +1,17 @@
 Handler
 ===
 
-
 ### Handler的作用
 
 Android主线程中的操作超过5秒还未完成，会出现ANR。因此对于耗时操作如联网读取数据或读取本地较大文件，需放在子线程中处理，而Android更新UI只能在主线程中，这时就需要使用Handler。Handler间接控制了各个线程的MessageQueen来实现主线程与子线程的相互通信。
 
 Handler主线程与子线程通信流程如下：
 
-1. 子线程Handler通过主线程的Looper间接得到主线程Handler引用（或直接调用主线程Handler引用），
-发送到MessageQueue消息队列里。
-2. 由于该Looper由主线程创建的，因此消息会在主线程处理，Looper从MessageQueue中从前往后取出Message。
-Looper就像一个管道工，主要作用是循环迭代MessageQueen。
-3. 通过主线程的Handler的dispatchMessage函数进行消息的处理（可见消息的处理是Handler负责）。
-4. 消息处理完毕后，Message对象被放被Message Pool中，以便下次使用。
+1. 子线程 Handler 通过主线程的 Looper 间接得到主线程 Handler 引用（或直接调用主线程Handler引用），
+发送到 MessageQueue 消息队列里。
+2. 由于该 Looper 由主线程创建的，因此消息会在主线程处理，Looper 从 MessageQueue 中依次取出 Message。
+3. 通过主线程的 Handler 的 dispatchMessage 函数进行消息的处理（可见消息的处理是Handler负责）。
+4. 消息处理完毕后，Message 对象被放入 Message Pool 中，以便下次使用。
 
 
 ### Message与Runnable

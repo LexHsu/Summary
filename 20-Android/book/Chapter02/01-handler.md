@@ -65,29 +65,30 @@ public final boolean postDelayed (Runnable r, long delayMillis)
 
 ### Handler传递Message对象
 
-在Android中，线程分为有消息循环的线程和没有消息循环的线程，子线程默认没有消息循环。
-主线程（UI线程）就是一个消息循环的线程，带有一个Looper。
-Handler只能应用于有消息循环的线程，毕竟Handler是通过Looper向消息队列里面添加消息的。
-每个线程可以有多个Handler，但只能有一个Looper，各个Handler可直接操作不同的Looper，可通过如下方式得到Looper的句柄：
+在 Android 中，线程分为有消息循环的线程和没有消息循环的线程，子线程默认没有消息循环。
+主线程（UI线程）就是一个消息循环的线程，带有一个 Looper。
+Handler 通过 Looper 向消息队列里面添加消息，因此 Handler 只能应用于有消息循环的线程。
+每个线程可以有多个 Handler，但只能有一个 Looper，各个 Handler 可直接操作不同的 Looper，可通过如下方式得到Looper的句柄：
 
 ```java
-// mHandler对象控制UI主线程的Looper对象，即间接控制MessageQueen。
-// 将消息发到UI线程的MessageQueue中，由主线程的Looper自行处理mHandler的handleMessage回调
+// mHandler 对象控制 UI 主线程的 Looper 对象，即间接控制 MessageQueen。
+// 将消息发到 UI 线程的 MessageQueue 中，由主线程的 Looper 自行处理 mHandler 的 handleMessage 回调
 Handler mHandler = new Handler(Looper.getMainLooper);
 
-// 就是控制当前线程(也可能是UI主线程)的MessageQueen。
+// 就是控制当前线程(也可能是 UI 主线程)的 MessageQueen。
 Handler mHandler = new Handler(Looper.myLooper);
 ```
-子线程默认没有消息循环，如何创建Looper？
 
-1. 调用Looper.prepare()创建子线程的Looper。
-2. 调用Looper.myLooper()获得Looper对象句柄，最后就是把这个Looper
-3. 构造子线程Handler时传入该Looper进行绑定。
+子线程默认没有消息循环，如何创建 Looper？
 
-这样就可以在主线程调用handler.sendMessage把message发到子线程。实现主线程到子线程的通信。
-注意，Looper对象的执行一定要初始化Looper.prepare方法，同时退出时还要释放资源，使用Looper.release方法。
+1. 调用 Looper.prepare() 创建子线程的 Looper。
+2. 调用 Looper.myLooper() 获得Looper对象句柄
+3. 构造子线程 Handler 时传入该 Looper 进行绑定。
 
-Android子线程中调用Looper.prepare()后，系统就会自动的为该线程建立一个消息队列，然后调用 Looper.loop()之后就进入了消息循环，之后就可以发消息、取消息、和处理消息。
+这样就可以在主线程调用 handler.sendMessage 把 message 发到子线程。实现主线程到子线程的通信。
+注意，Looper 对象的执行一定要初始化 Looper.prepare 方法，退出时还要通过 Looper.release 释放资源。
+
+Android 子线程中调用 Looper.prepare() 后，系统就会自动的为该线程建立一个消息队列，然后调用 Looper.loop() 之后就进入了消息循环，之后就可以发消息、取消息、和处理消息。
 
 ```java
 class MyThread extends Thread{
@@ -103,7 +104,8 @@ class MyThread extends Thread{
 }
 ```
 
-这个如何发送消息和如何处理消息可以再其他的线程中通过Handler来做，但前提是Handle知道该子线程的Looper，但是如果不是在子线程运行 Looper.myLooper()，一般是得不到子线程的looper的。
+这个如何发送消息和如何处理消息可以再其他的线程中通过 Handler 来做，但前提是 Handle 知道该子线程的 Looper，
+但是如果不是在子线程运行 Looper.myLooper()，一般是无法得到子线程的 looper。
 
 ```java
 class MyThread extends Thread {

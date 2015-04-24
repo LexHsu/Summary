@@ -63,7 +63,7 @@ public final boolean postDelayed (Runnable r, long delayMillis)
 两种方式本质上都是在Handler的队列中放入内容，一般使用Messge方式，因为它可实现更灵活的需求，如执行代码后进入相应回调。而Runnable在某些简单明确的方式中使用。
 
 
-### Handler传递Message对象
+### Handler 传递 Message 对象
 
 在 Android 中，线程分为有消息循环的线程和没有消息循环的线程，子线程默认没有消息循环。
 主线程（UI线程）就是一个消息循环的线程，带有一个 Looper。
@@ -128,32 +128,37 @@ class MyThread extends Thread {
         }
         mHandler.removeMessages(0);
         Message m = mHandler .obtainMessage(1, 1, 1, obj);
-        mHandler.sendMessage(m); // 同m.sendToTarget();
+        // 同 m.sendToTarget();
+        mHandler.sendMessage(m);
     }
   }
 ```
 
-对任何的Handle，里面必须要重载一个函数public void handleMessage(Message msg)。这个函数用于处理接收的消息，但是这个handler可以根据获取looper决定运行在主线程还是子线程。在需要发送消息的地方，先通过 obtainMessage获取Message对象，如myMessage = mHandler.obtainMessage();。任何一个handler发送消息都是到自身的handleMessage中，(我原先以为子线程新建的handler可以发送消息到主线程中自行new的mHandler，这是错误的。其实是handle可以绑定的不同的线程，如主线程的Handler可以绑定到子线程，子线程的handler可以绑定到主线程)。
-然后通过sendMessage等发送消息，给Handler的处理函数handleMessage(Message msg)去处理。 其中removeMessages(0)来清除消息队列。
+Handle 须要重载方法 `public void handleMessage(Message msg)`，用于处理接收的消息。
+在需要发送消息的地方，先通过 obtainMessage 获取 Message 对象，如 myMessage = mHandler.obtainMessage();
+任何一个 handler 发送消息都是到自身的 handleMessage 中，
+然后通过 sendMessage 等发送消息，给 Handler 的处理函数 handleMessage(Message msg) 去处理。
+handle 可根据 looper 绑定不同的线程，如主线程的 Handler 可绑定到子线程，子线程的 handler 可以绑定到主线程。
 
+### Handler 传递 Runnable 对象
 
-### Handler传递Runnable对象
-
-Runnable对象的run方法可以立刻执行某个操作，也可以在指定时间后执行（预约执行）。
-Handler类主要可以使用如下方法来设置执行Runnable对象的时间(单位是毫秒)，执行的线程即为Handler所在的线程：
+Runnable 对象的 run 方法可以立刻执行某个操作，也可以在指定时间后执行（预约执行）。
+Handler 类主要可以使用如下方法来设置执行 Runnable 对象的时间(单位是毫秒)，执行的线程即为 Handler 所在的线程：
 
 ```java
 public final boolean post(Runnable r);
-//  立即执行Runnable对象  
+//  立即执行 Runnable 对象
 public final boolean postAtTime(Runnable r, long uptimeMillis);
-//  在指定的时间（uptimeMillis）执行Runnable对象
+//  在指定的时间（uptimeMillis）执行 Runnable 对象
 public final boolean postDelayed(Runnable r, long delayMillis);
-//  在指定的时间间隔（delayMillis）执行Runnable对象  
+//  在指定的时间间隔（delayMillis）执行 Runnable 对象
 ```
 
-每次调用Runnable对象只能运行一次。一般在run方法的最后再次执行post、postAtTime或postDelayed方法实现循环调用。
+每次调用 Runnable 对象只能运行一次。一般在 run 方法的最后再次执行 post、postAtTime 或 postDelayed 方法实现循环调用。
 
-上述方法的第1个参数的类型都是Runnable，因此，在调用这3个方法之前，需要有一个实现Runnable接口的类，在Runnable接口中只有一个run方法，该方法为线程执行方法。如果某个类实现了Runnable接口。可以使用如下代码指定在5秒后调用run方法：
+上述方法的第 1 个参数的类型都是 Runnable，
+因此，在调用这 3 个方法之前，需要有一个实现 Runnable 接口的类，在 Runnable 接口中只有一个 run 方法，该方法为线程执行方法。
+如果某个类实现了Runnable接口。可以使用如下代码指定在5秒后调用run方法：
 
 ```java
 Handler handler = new Handler();
@@ -190,7 +195,7 @@ public class LooperThread extends Thread {
 }
 ```
 
-Looper类源码：
+Looper 类源码：
 
 ```java
 public class Looper {
@@ -209,7 +214,7 @@ public class Looper {
         mThread = Thread.currentThread();
     }
 
-    // 我们调用该方法会在调用线程的 TLS 中创建 Looper 对象
+    // 调用该方法会在调用线程的 TLS 中创建 Looper 对象
     public static final void prepare() {
         if (sThreadLocal.get() != null) {
             // 试图在有 Looper 的线程中再次创建 Looper 将抛出异常
@@ -217,7 +222,7 @@ public class Looper {
         }
         sThreadLocal.set(new Looper());
     }
-    // 其他方法
+    // ...
 }
 ```
 
@@ -244,7 +249,7 @@ public static final void loop() {
                     ">>>>> Dispatching to " + msg.target + " "
                     + msg.callback + ": " + msg.what
                     );
-            // 非常重要！将真正的处理工作交给 message 的 target，即后面要讲的 handler
+            // 非常重要！将真正的处理工作交给 message 的 target，即 handler
             msg.target.dispatchMessage(msg);
             // 日志
             if (me.mLogging!= null) me.mLogging.println(

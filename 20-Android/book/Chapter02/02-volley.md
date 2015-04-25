@@ -1,7 +1,9 @@
 Volley 源码解析
 ===
-> 本文为 [Android 开源项目源码解析](https://github.com/android-cn/android-open-project-analysis) 中 Volley 部分  
-> 项目地址：[Volley](https://android.googlesource.com/platform/frameworks/volley/)，分析的版本：[35ce778](https://android.googlesource.com/platform/frameworks/volley/+/35ce77836d8e1e951b8e4b2ec43e07fb7336dab6)，Demo 地址：[Volley Demo](https://github.com/android-cn/android-open-project-demo/tree/master/volley-demo)
+  
+- 项目地址：[Volley](https://android.googlesource.com/platform/frameworks/volley/)，
+- 分析版本：[35ce778](https://android.googlesource.com/platform/frameworks/volley/+/35ce77836d8e1e951b8e4b2ec43e07fb7336dab6)，
+- Demo 地址：[Volley Demo](https://github.com/android-cn/android-open-project-demo/tree/master/volley-demo)
 
 
 ###1. 功能介绍
@@ -521,37 +523,3 @@ private void addCacheHeaders(Map<String, String> headers, Cache.Entry entry) {
 
 尽管使用`Date`可能出现的不正确情况，归结于服务端没有正确的实现 Http 语义。  
 **但我还是希望Volley也能完全正确的实现Http语义，至少同时处理`Last-Modified`和`Date`,并且优先使用`Last-Modified`。**  
-
-####5.2 Bug
-#####(1). BasicNetwork.performRequest(…)
-如下代码：  
-```java
-@Override
-public NetworkResponse performRequest(Request<?> request) throws VolleyError {
-    ……
-    while (true) {
-        ……
-        try {
-            ……
-        } catch (IOException e) {
-            int statusCode = 0;
-            NetworkResponse networkResponse = null;
-            ……
-            if (responseContents != null) {
-              ……
-            } else {
-                throw new NetworkError(networkResponse);
-            }
-        }
-    }
-}
-```
-BasicNetwork.performRequest(…) 最后的  
-```java
-throw new NetworkError(networkResponse);
-```
-应该是  
-```java
-throw new NetworkError(e);
-```
-更合理。  

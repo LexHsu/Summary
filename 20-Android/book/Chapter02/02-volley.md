@@ -481,14 +481,19 @@ Volley 中所有错误异常的父类，继承自 Exception，可通过此类设
 
 ###5. 杂谈
 ####5.1 关于 Http 缓存
-Volley 构建了一套相对完整的符合 Http 语义的缓存机制。  
-**优点和特点**
-(1). 根据`Cache-Control`和`Expires`首部来计算缓存的过期时间。如果两个首部都存在情况下，以`Cache-Control`为准。  
-(2). 利用`If-None-Match`和`If-Modified-Since`对过期缓存或者不新鲜缓存，进行请求再验证，并处理 304 响应，更新缓存。  
-(3). 默认的缓存实现，将缓存以文件的形式存储在 Disk，程序退出后不会丢失。
 
-**我个人认为的不足之处**  
+Volley 构建了一套相对完整的符合 Http 语义的缓存机制。  
+
+**优点和特点**
+
+1. 根据`Cache-Control`和`Expires`首部来计算缓存的过期时间。如果两个首部都存在情况下，以`Cache-Control`为准。  
+2. 利用`If-None-Match`和`If-Modified-Since`对过期缓存或者不新鲜缓存，进行请求再验证，并处理 304 响应，更新缓存。  
+3. 默认的缓存实现，将缓存以文件的形式存储在 Disk，程序退出后不会丢失。
+
+**不足**
+
 缓存的再验证方面，在构建`If-Modified-Since`请求首部时，Volley 使用了服务端响应的`Date`首部，没有使用`Last-Modified`首部。整个框架没有使用`Last-Modified`首部。这与 Http 语义不符。
+
 ```java
 private void addCacheHeaders(Map<String, String> headers, Cache.Entry entry) {
     // If there's no cache entry, we're done.

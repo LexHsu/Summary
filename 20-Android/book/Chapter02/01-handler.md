@@ -72,7 +72,7 @@ Handler 通过 Looper 向消息队列里面添加消息，因此 Handler 只能�
 
 ```java
 // mHandler 对象控制 UI 主线程的 Looper 对象，即间接控制 MessageQueen。
-// 将消息发到 UI 线程的 MessageQueue 中，由主线程的 Looper 自行处理 mHandler 的 handleMessage 回调
+// 将消息发到 MessageQueue 中，主线程 Looper 自行处理 mHandler 的 handleMessage 回调
 Handler mHandler = new Handler(Looper.getMainLooper);
 
 // 就是控制当前线程(也可能是 UI 主线程)的 MessageQueen。
@@ -163,16 +163,16 @@ public final boolean postDelayed(Runnable r, long delayMillis);
 ```java
 Handler handler = new Handler();
 handler.postDelayed(this, 5000);
-// 如果想在5秒内停止计时，可以使用如下代码：
+// 如果想在 5 秒内停止计时，可以使用如下代码：
 handler.removeCallbacks(this);
-// 除此之外，还可以使用postAtTime方法指定未来的某一个精确时间来执行Runnable对象，代码如下：
+// 除此之外，还可以使用 postAtTime 方法指定未来的某一个精确时间来执行 Runnable 对象，代码如下：
 Handler handler = new Handler();
-// 15秒后执行指定的Runnable对象
+// 15 秒后执行指定的 Runnable 对象
 handler.postAtTime(runnableObject, SystemClock.uptimeMillis() + 15 * 1000);
 
 // 注：
 SystemClock.uptimeMillis()   // 从开机到现在的毫秒数（手机睡眠的时间不包括在内）
-System.currentTimeMillis()   // 从1970年1月1日 UTC到现在的毫秒数，注意该值随手机时间更改后改变
+System.currentTimeMillis()   // 从1970 年 1 月 1 日 UTC 到现在的毫秒数，注意该值随手机时间更改后改变
 ```
 
 ### Looper

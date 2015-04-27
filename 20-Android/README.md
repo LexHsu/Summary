@@ -9,7 +9,6 @@
  - 01. [Handler原理](Chapter02/01-handler.md)
  - 02. [Volley源码解析](Chapter02/02-volley.md)
  - 03. [ViewPagerindicator源码解析](Chapter02/03-ViewPagerindicator.md)
- - 04. [dagger源码解析](Chapter02/04-dagger.md)
 * **第三章 工具**
  - 01. [使用chrome调试](Chapter03/01-chrome.md)
  - 02. [jar与aar](Chapter03/02-aar.md)

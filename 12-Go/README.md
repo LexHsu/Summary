@@ -26,7 +26,7 @@
 * **第七章 包**
  - 01 [package](book/Chapter07/01-package.md)
 * **第八章 测试**
- - 01 [package](book/Chapter08/01-package.md)
+ - 01 [test](book/Chapter08/01-test.md)
 * **第九章 应用**
  - 01 [http(s)服务器](book/Chapter09/01-http-https.md)
  - 02 [Tips](book/Chapter09/02-tips.md)

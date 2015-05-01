@@ -26,10 +26,10 @@
 * **第七章 包**
  - 01 [package](book/Chapter07/01-package.md)
 * **第八章 测试**
- - 01 [package](book/Chapter07/01-package.md)
+ - 01 [package](book/Chapter08/01-package.md)
 * **第九章 应用**
- - 01 [http(s)服务器](book/Chapter08/01-http-https.md)
- - 02 [Tips](book/Chapter08/02-tips.md)
+ - 01 [http(s)服务器](book/Chapter09/01-http-https.md)
+ - 02 [Tips](book/Chapter09/02-tips.md)
 * **第十章 源码分析**
- - 01 [Martini](book/Chapter08/01-http-https.md)
- - 02 [Tips](book/Chapter08/02-tips.md)
+ - 01 [Martini](book/Chapter10/01-http-https.md)
+ - 02 [Tips](book/Chapter10/02-tips.md)

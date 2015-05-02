@@ -6,12 +6,14 @@ import java.util.Map;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.log;
 
 public class SPUtils {
     /**
      * SP 文件名
      */
     public static final String FILE_NAME = "share_data";
+    private static final String TAG = "SPUTils";
 
     /**
      * 保存数据，拿到保存数据的具体类型，然后根据类型调用不同的保存方法
@@ -54,13 +56,17 @@ public class SPUtils {
 
         if (defaultObject instanceof String) {
             return sp.getString(key, (String) defaultObject);
-        } else if (defaultObject instanceof Integer) {
+        }
+        if (defaultObject instanceof Integer) {
             return sp.getInt(key, (Integer) defaultObject);
-        } else if (defaultObject instanceof Boolean) {
+        }
+        if (defaultObject instanceof Boolean) {
             return sp.getBoolean(key, (Boolean) defaultObject);
-        } else if (defaultObject instanceof Float) {
+        }
+        if (defaultObject instanceof Float) {
             return sp.getFloat(key, (Float) defaultObject);
-        } else if (defaultObject instanceof Long) {
+        }
+        if (defaultObject instanceof Long) {
             return sp.getLong(key, (Long) defaultObject);
         }
         return null;
@@ -131,6 +137,7 @@ public class SPUtils {
                 Class clz = SharedPreferences.Editor.class;
                 return clz.getMethod("apply");
             } catch (NoSuchMethodException e) {
+                Log.e(TAG, "NoSuchMethodException");
             }
             return null;
         }
@@ -147,8 +154,11 @@ public class SPUtils {
                     return;
                 }
             } catch (IllegalArgumentException e) {
+                Log.e(TAG, "IllegalArgumentException");
             } catch (IllegalAccessException e) {
+                Log.e(TAG, "IllegalAccessException");
             } catch (InvocationTargetException e) {
+                Log.e(TAG, "InvocationTargetException");
             }
             editor.commit();
         }

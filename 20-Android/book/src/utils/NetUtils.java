@@ -1,4 +1,4 @@
-package com.zhy.utils;
+package com.test.utils;
 
 import android.app.Activity;
 import android.content.ComponentName;

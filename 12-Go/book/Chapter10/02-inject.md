@@ -29,7 +29,7 @@ func Say(name, gender string, age int) {
 }
 
 func main() {
-    Say("陈一回", "男", 20)
+    Say("Jack", "Man", 20)
 }
 ```
 
@@ -197,10 +197,10 @@ type SpecialString interface{}
 
 func main() {
     inj := inject.New()
-    inj.Map("陈一回")
-    inj.MapTo("男", (*SpecialString)(nil))
+    inj.Map("Jack")
+    inj.MapTo("Man", (*SpecialString)(nil))
     inj.Map(20)
-    fmt.Println("string is valid?", inj.Get(reflect.TypeOf("姓陈名一回")).IsValid())
+    fmt.Println("string is valid?", inj.Get(reflect.TypeOf("Jack")).IsValid())
     fmt.Println("SpecialString is valid?", inj.Get(inject.InterfaceOf((*SpecialString)(nil))).IsValid())
     fmt.Println("int is valid?", inj.Get(reflect.TypeOf(18)).IsValid())
     fmt.Println("[]byte is valid?", inj.Get(reflect.TypeOf([]byte("Golang"))).IsValid())
@@ -257,8 +257,8 @@ func Say(name string, gender SpecialString, age int) {
 
 func main() {
     inj := inject.New()
-    inj.Map("陈一回")
-    inj.MapTo("男", (*SpecialString)(nil))
+    inj.Map("Jack")
+    inj.MapTo("Man", (*SpecialString)(nil))
     inj2 := inject.New()
     inj2.Map(20)
     inj.SetParent(inj2)
@@ -321,8 +321,8 @@ type TestStruct struct {
 func main() {
     s := TestStruct{}
     inj := inject.New()
-    inj.Map("陈一回")
-    inj.MapTo("男", (*SpecialString)(nil))
+    inj.Map("Jack")
+    inj.MapTo("Man", (*SpecialString)(nil))
     inj2 := inject.New()
     inj2.Map(20)
     inj.SetParent(inj2)
@@ -335,7 +335,7 @@ func main() {
 $ cd $GOPATH/src/injector_test
 $ go build
 $ ./injector_test
-s.Name = 陈一回
-s.Gender = 男
+s.Name = Jack
+s.Gender = Man
 s.Age = 20
 ```

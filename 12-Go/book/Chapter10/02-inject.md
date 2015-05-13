@@ -157,7 +157,8 @@ interface {}
 main.SpecialString
 ```
 
-上面的输出一点也不奇怪。InterfaceOf方法就是用来得到参数类型，而不关心它具体存储的是什么值。值得一提的是，我们定义了一个SpecialString接口。我们在之前的代码也有定义SpecialString接口，用在Say方法的参数声明中，之后您就会知道为什么要这么做。当然您不一定非得命名为SpecialString。
+上面的输出一点也不奇怪。InterfaceOf 方法就是用来得到参数类型，而不关心它具体存储的是什么值。
+值得一提的是，我们定义了一个 SpecialString 接口。我们在之前的代码也有定义 SpecialString 接口，用在 Say 方法的参数声明中，之后您就会知道为什么要这么做。当然您不一定非得命名为 SpecialString。
 
 ```go
 func (i *injector) Map(val interface{}) TypeMapper {
@@ -182,12 +183,12 @@ func (i *injector) SetParent(parent Injector) {
     i.parent = parent
 }
 ```
-Map和MapTo方法都用于注入参数，保存于injector的成员values中。这两个方法的功能完全相同，唯一的区别就是Map方法用参数值本身的类型当键，而MapTo方法有一个额外的参数可以指定特定的类型当键。
-但是MapTo方法的第二个参数ifacePtr必须是接口指针类型，因为最终ifacePtr会作为InterfaceOf方法的参数。
+Map 和 MapTo 方法都用于注入参数，保存于 injector 的成员 values 中。这两个方法的功能完全相同，唯一的区别就是 Map 方法用参数值本身的类型当键，而 MapTo 方法有一个额外的参数可以指定特定的类型当键。
+但是 MapTo 方法的第二个参数 ifacePtr 必须是接口指针类型，因为最终 ifacePtr 会作为 InterfaceOf 方法的参数。
 
-为什么需要有MapTo方法？因为注入的参数是存储在一个以类型为键的map中，可想而知，当一个函数中有一个以上的参数的类型是一样时，后执行Map进行注入的参数将会覆盖前一个通过Map注入的参数。
+为什么需要有 MapTo 方法？因为注入的参数是存储在一个以类型为键的 map 中，可想而知，当一个函数中有一个以上的参数的类型是一样时，后执行 Map 进行注入的参数将会覆盖前一个通过 Map 注入的参数。
 
-SetParent方法用于给某个Injector指定父Injector。Get方法通过reflect.Type从injector的values成员中取出对应的值，它可能会检查是否设置了parent，直到找到或返回无效的值，最后Get方法的返回值会经过IsValid方法的校验。举个例子来加深理解：
+SetParent 方法用于给某个Injector指定父Injector。Get方法通过reflect.Type从injector的values成员中取出对应的值，它可能会检查是否设置了 parent，直到找到或返回无效的值，最后 Get 方法的返回值会经过 IsValid 方法的校验。举个例子来加深理解：
 
 ```go
 package main

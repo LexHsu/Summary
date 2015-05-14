@@ -245,7 +245,8 @@ func (inj *injector) Invoke(f interface{}) ([]reflect.Value, error) {
     return reflect.ValueOf(f).Call(in), nil
 }
 ```
-Invoke方法用于动态执行函数，当然执行前可以通过Map或MapTo来注入参数，因为通过Invoke执行的函数会取出已注入的参数，然后通过reflect包中的Call方法来调用。Invoke接收的参数f是一个接口类型，但是f的底层类型必须为func，否则会panic。
+Invoke 方法用于动态执行函数，当然执行前可以通过 Map 或 MapTo 来注入参数，因为通过 Invoke 执行的函数会取出已注入的参数，然后通过 reflect 包中的 Call 方法来调用。
+Invoke 接收的参数 f 是一个接口类型，但是 f 的底层类型必须为 func，否则会 panic。
 
 ```go
 package main
@@ -271,7 +272,7 @@ func main() {
     inj.Invoke(Say)
 }
 ```
-上面的例子如果没有定义SpecialString接口作为gender参数的类型，而把name和gender都定义为string类型，那么gender会覆盖name的值。如果您还没有明白，建议您把这篇文章从头到尾再看几遍。
+上面的例子如果没有定义 SpecialString 接口作为 gender 参数的类型，而把 name 和 gender 都定义为 string 类型，那么 gender 会覆盖 name 的值。
 
 ```go
 func (inj *injector) Apply(val interface{}) error {
@@ -305,7 +306,8 @@ func (inj *injector) Apply(val interface{}) error {
     return nil
 }
 ```
-Apply方法是用于对struct的字段进行注入，参数为指向底层类型为结构体的指针。可注入的前提是：字段必须是导出的(也即字段名以大写字母开头)，并且此字段的tag设置为`inject`。以例子来说明：
+
+Apply 方法是用于对 struct 的字段进行注入，参数为指向底层类型为结构体的指针。可注入的前提是：字段必须是导出的(也即字段名以大写字母开头)，并且此字段的 tag 设置为 `inject`。以例子来说明：
 
 ```go
 package main

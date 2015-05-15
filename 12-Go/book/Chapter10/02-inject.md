@@ -188,7 +188,7 @@ Map 和 MapTo 方法都用于注入参数，保存于 injector 的成员 values 
 
 为什么需要有 MapTo 方法？因为注入的参数是存储在一个以类型为键的 map 中，可想而知，当一个函数中有一个以上的参数的类型是一样时，后执行 Map 进行注入的参数将会覆盖前一个通过 Map 注入的参数。
 
-SetParent 方法用于给某个Injector指定父Injector。Get方法通过reflect.Type从injector的values成员中取出对应的值，它可能会检查是否设置了 parent，直到找到或返回无效的值，最后 Get 方法的返回值会经过 IsValid 方法的校验。举个例子来加深理解：
+SetParent 方法用于给某个 Injector 指定父 Injector。Get 方法通过 reflect.Type 从 injector 的 values 成员中取出对应的值，它可能会检查是否设置了 parent，直到找到或返回无效的值，最后 Get 方法的返回值会经过 IsValid 方法的校验。举个例子来加深理解：
 
 ```go
 package main

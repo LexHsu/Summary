@@ -1,9 +1,8 @@
 inject 源码分析
 ===
 
-依赖注入（Dependency Injection）和控制反转（Inversion of Control）为同一个概念。
 在传统的程序设计过程中，调用者是自己来决定使用哪些被调用者实现的。
-但是在依赖注入模式中，创建被调用者的工作不再由调用者来完成，因此称为控制反转；
+但是在依赖注入（Dependency Injection）模式中，创建被调用者的工作不再由调用者来完成，因此称为控制反转（Inversion of Control）；
 创建被调用者实例的工作通常由注入器来完成，然后注入调用者，因此也称为依赖注入。
 
 inject 是依赖注入的 golang 实现，其能在运行时注入参数，调用方法，是 Martini 框架的基础核心。
@@ -63,7 +62,6 @@ $ ./injector_test
 My name is Jack, gender is Man, age is 20!
 ```
 
-看不懂？没关系，因为我们对于 inject 还没有足够的知识储备，一切从分析 inject 源码开始。
 inject.go 短小精悍。定义了 4 个接口，包括一个父接口和三个子接口，这样的好处稍后介绍。
 
 

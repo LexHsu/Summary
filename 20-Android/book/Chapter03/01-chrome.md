@@ -28,22 +28,22 @@ public class MyApplication extends Application {
 ```
 - chrome 调试
 
-![chrome](/img/debug1.png)
+![chrome](img/debug1.png)
 
 
 ### 基本功能
 
 - 检测网络状态
 
-![network](/img/network.png)
+![network](img/network.png)
 
 - 查看 App 本地数据库且可直接执行 SQL
 
-![sql](/img/sql.png)
+![sql](img/sql.png)
 
 - 查看 App 本地 SharedPreference 且可直接编辑
 
-![sp](/img/sp.png)
+![sp](img/sp.png)
 
 
 ### 注意事项

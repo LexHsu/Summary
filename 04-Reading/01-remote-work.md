@@ -1,7 +1,7 @@
 远程办公
 ===
 
-## 远程工作的问题
+## 远程工作问题
 
 作息乱，容易被干扰。如凌晨睡，中午起，注意力不知不觉中从工作转移到微博，技术教程。
 
@@ -30,6 +30,6 @@ iPhone 应用。如其名字, 这是一个记录时间的应用, 如果你想了
 - [番茄时间](http://en.wikipedia.org/wiki/Pomodoro_Technique)
 - [RescueTime](http://www.rescuetime.com/)
 - [拖拉一点也无妨](2013-10-01-improve-remote-work-productivity/The-Art-of-Procrastination.jpg)
-- [拖拉一点也无妨-豆瓣](http://book.douban.com/subject/24839553/)
-- [每周工作4小时-豆瓣](http://book.douban.com/subject/3353904/)
+- [拖拉一点也无妨](http://book.douban.com/subject/24839553/)
+- [每周工作4小时](http://book.douban.com/subject/3353904/)
 - [远程工作经验谈 — 如何适应及如何管理](http://yedingding.com/2013/07/24/remote-team-the-things-you-should-know.html)

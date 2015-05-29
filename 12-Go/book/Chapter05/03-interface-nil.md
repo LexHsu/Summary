@@ -1,21 +1,16 @@
 interface 与 nil
 ===
 
-golang的nil在概念上和其它语言的null、None、nil、NULL一样，都指代零值或空值。nil是预先说明的标识符，也即通常意义上的关键字。在golang中，nil只能赋值给指针、channel、func、interface、map或slice类型的变量。如果未遵循这个规则，则会引发panic。对此官方有明确的说明：http://pkg.golang.org/pkg/builtin/#Type
+go 中，nil 只能赋值给指针、channel、func、interface、map 或 slice 类型的变量。否则会导致 panic。[官方说明](http://pkg.golang.org/pkg/builtin/#Type)
 
-golang中的interface类似于java的interface、PHP的interface或C++的纯虚基类。接口就是一个协议，规定了一组成员。这个没什么好说的，本文不打算对宏观上的接口概念和基于接口的范式编程做剖析。golang语言的接口有其独到之处：只要类型T的公开方法完全满足接口I的要求，就可以把类型T的对象用在需要接口I的地方。这种做法的学名叫做 [Structural Typing](http://en.wikipedia.org/wiki/Structural_type_system)，有人也把它看作是一种静态的Duck Typing。所谓类型T的公开方法完全满足接口I的要求，也即是类型T实现了接口I所规定的一组成员。
+[英文原文](http://golang.org/doc/go_faq.html#nil_error)，
+[中文版本](http://my.oschina.net/chai2010/blog/117923) 。
 
-在底层，interface作为两个成员来实现，一个类型和一个值。对此官方也有文档说明：http://golang.org/doc/go_faq.html#nil_error，如果您不习惯看英文，这里有一篇柴大的翻译：[Go 中 error 类型的 nil 值和 nil](http://my.oschina.net/chai2010/blog/117923) 。
+接下来通过编写测试代码和gdb来看看interface倒底是什么。会用到反射，关于 go 中的反射概念：
+[英文原文](http://blog.golang.org/laws-of-reflection)，
+[中文版本](http://mikespook.com/2011/09/%E5%8F%8D%E5%B0%84%E7%9A%84%E8%A7%84%E5%88%99/)。
 
-接下来通过编写测试代码和gdb来看看interface倒底是什么。会用到反射，如果您不太了解golang的反射是什么，这里有刑星翻译自官方博客的一篇文章：[反射的规则](http://mikespook.com/2011/09/%E5%8F%8D%E5%B0%84%E7%9A%84%E8%A7%84%E5%88%99/)，原文在：[laws-of-reflection](http://blog.golang.org/laws-of-reflection)。
-
-$GOPATH/src
-
-----interface_test
-
---------main.go
-
-main.go的代码如下：
+代码如下：
 
 ```go
 package main
@@ -33,7 +28,10 @@ func main() {
 }
 ```
 
-我们已经知道接口类型的变量底层是作为两个成员来实现，一个是type，一个是data。type用于存储变量的动态类型，data用于存储变量的具体数据。在上面的例子中，第一条打印语句输出的是：int64。这是因为已经显示的将类型为int64的数据58赋值给了interface类型的变量val，所以val的底层结构应该是：(int64, 58)。我们暂且用这种二元组的方式来描述，二元组的第一个成员为type，第二个成员为data。第二条打印语句输出的是：int。这是因为字面量的整数在golang中默认的类型是int，所以这个时候val的底层结构就变成了：(int, 50)。借助于gdb很容易观察到这点：
+接口类型的变量底层是作为两个成员来实现：type，data。type 用于存储变量的动态类型，data 用于存储变量的具体数据。
+在上面的例子中，第一条打印语句输出的是：int64。这是因为已经显示的将类型为 int64 的数据 58 赋值给了 interface 类型的变量 val，所以 val 的底层结构应该是：(int64, 58)。
+我们暂且用这种二元组的方式来描述，二元组的第一个成员为type，第二个成员为data。第二条打印语句输出的是：int。
+这是因为字面量的整数在golang中默认的类型是int，所以这个时候val的底层结构就变成了：(int, 50)。
 
 ```go
 $ cd $GOPATH/src/interface_test

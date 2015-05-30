@@ -26,15 +26,18 @@ func main() {
     val = 50
     fmt.Println(reflect.TypeOf(val))
 }
+
+// 输出
+(int64, 58)
+(int, 50)
 ```
 
-接口类型的变量底层是作为两个成员来实现：type，data。type 用于存储变量的动态类型，data 用于存储变量的具体数据。
-在上面的例子中，第一条打印语句输出的是：int64。这是因为已经显示的将类型为 int64 的数据 58 赋值给了 interface 类型的变量 val，所以 val 的底层结构应该类似于：(int64, 58)。
-我们暂且用这种二元组的方式来描述，二元组的第一个成员为 type，第二个成员为 data。第二条打印语句输出的是：int。
-这是因为字面量的整数在 golang 中默认的类型是 int，所以这个时候 val 的底层结构就变成了：(int, 50)。
+接口类型的变量底层是作为两个成员来实现：type，data。
 
+1. type 用于存储变量的动态类型。
+2. data 用于存储变量的具体数据。
 
-接下来说说 interface 类型的值和 nil 的比较问题。golang 中的一个坑：
+### interface 和 nil
 
 ```go
 package main
@@ -54,7 +57,7 @@ func main() {
 ```
 
 变量 val 是 interface 类型，它的底层结构必然是(type, data)。由于 nil 是 untyped(无类型)，而又将 nil 赋值给了变量 val，所以 val 实际上存储的是(nil, nil)。
-因此很容易就知道 val 和 nil 的相等比较是为 true 的。
+因此很容易就知道 val 和 nil 的相等比较为 true。
 对于将任何其它有意义的值类型赋值给 val，都导致 val 持有一个有效的类型和数据。也就是说变量 val 的底层结构肯定不为(nil, nil)，因此它和 nil 的相等比较总是为 false。
 
 上面的讨论都是在围绕值类型来进行的。在继续讨论之前，让我们来看一种特例：`(*interface{})(nil)`。将nil转成interface类型的指针，其实得到的结果仅仅是空接口类型指针并且它指向无效的地址。
@@ -64,7 +67,7 @@ func main() {
 上面的代码定义了接口指针类型变量val，它指向无效的地址(0x0)，因此val持有无效的数据。但它是有类型的`(*interface{})`。所以val的底层结构应该是：
 `(*interface{}, nil)`。有时候您会看到`(*interface{})(nil)`的应用，比如`var ptrIface = (*interface{})(nil)`，
 如果您接下来将ptrIface指向其它类型的指针，将通不过编译。或者您这样赋值：`*ptrIface = 123`，那样的话编译是通过了，但在运行时还是会panic的，
-这是因为ptrIface指向的是无效的内存地址。其实声明类似ptrIface这样的变量，是因为使用者只是关心指针的类型，而忽略它存储的值是什么。还是以例子来说明：
+这是因为 ptrIface 指向的是无效的内存地址。其实声明类似 ptrIface 这样的变量，是因为使用者只是关心指针的类型，而忽略它存储的值是什么。还是以例子来说明：
 
 ```go
 package main

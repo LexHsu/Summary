@@ -26,27 +26,28 @@ func main() {
     val = 50
     fmt.Println(reflect.TypeOf(val))
     
-    var val interface{} = nil
-    if val == nil {
-        fmt.Println("val is nil")
+    var val2 interface{} = nil
+    if val2 == nil {
+        fmt.Println("val2 is nil")
     } else {
-        fmt.Println("val is not nil")
+        fmt.Println("val2 is not nil")
     }
 }
 
 // 输出
-(int64, 58)
-(int, 50)
+int64
+int
+val2 is nil
 ```
 
-接口类型的变量底层是作为两个成员来实现：type，data。
+接口类型的变量底层是作为两个成员来实现：type，data。上例中 val 底层可看成一个二元组(int64, 58)。
 
 1. type 用于存储变量的动态类型。
 2. data 用于存储变量的具体数据。
 
+
 看一种特例：`(*interface{})(nil)`，其将 nil 转成 interface 类型的指针，一个空接口类型指针且指向无效地址。
 注意是空接口类型指针而不是空指针，两者区别很大。同理`(*int)(nil)、(*byte)(nil)`。
-上面的代码定义了接口指针类型变量val，它指向无效的地址(0x0)，因此val持有无效的数据。但它是有类型的`(*interface{})`。所以val的底层结构应该是：`(*interface{}, nil)`。
 
 ```go
 package main

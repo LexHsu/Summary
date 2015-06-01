@@ -1,16 +1,9 @@
 interface 与 nil
 ===
 
-go 中，nil 只能赋值给指针、channel、func、interface、map 或 slice 类型的变量。否则会导致 panic。[官方说明](http://pkg.golang.org/pkg/builtin/#Type)
-
-[英文原文](http://golang.org/doc/go_faq.html#nil_error)，
-[中文版本](http://my.oschina.net/chai2010/blog/117923) 。
-
-接下来通过编写测试代码和gdb来看看interface倒底是什么。会用到反射，关于 go 中的反射概念：
-[英文原文](http://blog.golang.org/laws-of-reflection)，
-[中文版本](http://mikespook.com/2011/09/%E5%8F%8D%E5%B0%84%E7%9A%84%E8%A7%84%E5%88%99/)。
-
-代码如下：
+1. go 中，nil 只能赋值给指针、channel、func、interface、map 或 slice 类型的变量。否则会导致 panic。
+2. 接口类型的变量底层是作为两个成员来实现：type，data。type 用于存储变量的动态类型，data 用于存储变量的具体数据。
+下例子中 val 接口可看成一个二元组(int64, 58)。
 
 ```go
 package main
@@ -32,51 +25,27 @@ func main() {
     } else {
         fmt.Println("val2 is not nil")
     }
+    
+    // 可将 nil 转成 interface 类型的指针，一个空接口类型指针且指向无效地址
+    // 注意是空接口类型指针而不是空指针，两者区别很大。
+    // 同理，也可转换为 (*int)(nil) 或 (*byte)(nil)
+    var val3 interface{} = (*interface{})(nil)
+    // val3 = (*int)(nil)
+    if val3 == nil {
+        fmt.Println("val3 is nil")
+    } else {
+        fmt.Println("val3 is not nil")
+    }
 }
 
 // 输出
 int64
 int
 val2 is nil
+val3 is not nil
 ```
 
-接口类型的变量底层是作为两个成员来实现：type，data。上例中 val 底层可看成一个二元组(int64, 58)。
-
-1. type 用于存储变量的动态类型。
-2. data 用于存储变量的具体数据。
-
-
-看一种特例：`(*interface{})(nil)`，其将 nil 转成 interface 类型的指针，一个空接口类型指针且指向无效地址。
-注意是空接口类型指针而不是空指针，两者区别很大。同理`(*int)(nil)、(*byte)(nil)`。
-
-```go
-package main
-
-import (
-    "fmt"
-)
-
-func main() {
-    var val interface{} = (*interface{})(nil)
-    // val = (*int)(nil)
-    if val == nil {
-        fmt.Println("val is nil")
-    } else {
-        fmt.Println("val is not nil")
-    }
-}
-```
-
-很显然，无论该指针的值是什么：`(*interface{}, nil)`，这样的接口值总是非nil的，即使在该指针的内部为nil。
-
-```go
-$ cd $GOPATH/src/interface_test
-$ go build
-$ ./interface_test
-val is not nil
-```
-
-interface 类型的变量和 nil 的相等比较出现最多的地方应该是 error 接口类型的值与 nil 的比较。如自定义一个返回错误的函数：
+interface 类型变量和 nil 常出现于 error 接口变量与 nil 的比较。如自定义一个返回错误的函数：
 
 ```go
 package main
@@ -104,7 +73,7 @@ func main() {
 }
 ```
 
-但是很可惜，以上代码是有问题的。
+以上代码是有问题的。
 
 ```go
 $ cd $GOPATH/src/interface_test
@@ -113,10 +82,7 @@ $ ./interface_test
 e is not nil
 ```
 
-error 是一个接口类型，test 方法中返回的指针 p 虽然数据是 nil，但是由于它被返回成包装的 error 类型，也即它是有类型的。
-所以它的底层结构应该是 `(*data, nil)`，很明显是非 nil 的。
-
-可以打印观察下底层结构数据：
+error 是一个接口类型，test 方法中返回的指针 p 虽然数据是 nil，但是由于它被返回成包装的 error 类型，也即它是有类型的。它的底层结构应该是 `(*data, nil)`，是非 nil 的。可以打印观察下底层结构数据：
 
 ```go
 package main
@@ -154,7 +120,7 @@ $ ./interface_test
 &{3078907912 0}
 ```
 
-正确的做法应该是：
+正确做法如下：
 
 ```go
 package main

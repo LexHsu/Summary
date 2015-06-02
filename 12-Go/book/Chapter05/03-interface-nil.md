@@ -1,7 +1,7 @@
 interface 与 nil
 ===
 
-1. go 中，nil 只能赋值给指针、channel、func、interface、map 或 slice 类型的变量。否则会导致 panic。
+1. go 语言中，nil 只能赋值给指针、channel、func、interface、map 或 slice 类型的变量，否则会导致 panic。
 2. 接口类型的变量底层是作为两个成员来实现：type，data。type 用于存储变量的动态类型，data 用于存储变量的具体数据。
 下例子中 val 接口可看成一个二元组(int64, 58)。
 

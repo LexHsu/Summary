@@ -17,6 +17,7 @@
  - 01 [函数](book/Chapter03/01-function.md)
 * **第四章 方法**
  - 01 [方法](book/Chapter04/01-method.md)
+ - 02 [接受者类型选择](book/Chapter04/02-receiver-type.md)
 * **第五章 接口**
  - 01 [接口](book/Chapter05/01-interface.md)
  - 02 [反射机制](book/Chapter05/02-reflect.md)

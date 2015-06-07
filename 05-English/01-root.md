@@ -1,31 +1,31 @@
-英文字根
+基础字根
 ===
 
 ```
-AB- =从
-AD-= AF-AP-= = = AC-AX-（此x只要不是b皆可）=去，使
-EX- =向外
-CON- = =的COM一起
-德=向下
-显示= = SE-离开
-产前= =前...在之前
-亲=向前
-per- =凭借，完全
-恩= =的EM = IN- = im-向内
-重新=一再，向后
-后= retro- =向后
-转播=朝向
-分=在...之下
-超= =外加......在之上
-接口= =介绍 - ...在之间，互相
-反式= =荟萃横过
-防反= =对抗（反对）
-非=非=否定
-误=错误
-bene- =好的
-mal- =坏的
-过度=过多
-欠=不足
-单=单向=一
-双=二=二
+ab~ = from
+ad~ = af~ = ap~ = ac~ = ax~ (此 x 只要不是 b 皆可) = 去、使
+ex~ = 向外
+con~ = com~ = 一起
+de~ = 向下
+dis~ = se~ = 离开
+ante~ = pre~ = 在...之前
+pro~ = 向前
+per~ = 凭借、完全
+en~ = em~ = in~ = im~ = 向內
+re~ = 一再、向後
+post~ = retro~ = 向后
+ob~ = 朝向
+sub~ = 在...之下
+super~ = sur~ = 在...之上
+inter~ = intro~ = 在...之間、互相
+trans~ = meta~ = 橫过
+anti~ = counter~ = 对抗 (against)
+un~ = non~ = 否定
+mis~ = 错误
+bene~ = 好的
+mal~ = 坏的
+over~ = 过多
+under~ = 不足
+mono~ = uni~ = 一
+bi~ = di~ = 二
 ```

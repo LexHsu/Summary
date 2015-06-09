@@ -2,29 +2,36 @@
 ===
 
 ```
-1. abject = ab~ (from) + ject (丢) = 从某地把(某人)丢出去
-                                   = (adj.)悲惨的
-                                   = poor = miserable
+1. abject = ab~ (from) + ject (丢)
+          = 从某地把(某人)丢出去
+          = (adj.)悲惨的
+          = poor
+          = miserable
 
-2. object = ob~ (toward) + ject (丢) = 丢东西的事物= (n.)物体
-                                     = 朝着丢的对象 = (n.)受词、目标
-                                     = 大家朝着事物丢东西 = (vi.)反对
+2. object = ob~ (toward) + ject (丢)
+          = 丢东西的事物
+          = (n.)物体
+          = 朝着丢的对象
+          = (n.)受词、目标
+          = 大家朝着事物丢东西
+          = (vi. object to)反对
 
-    ★这个字的词类变化非常重要。从字根来看，就知道 object 当「反
-      对」时，后面的介系词为什么一定要用to 了~~ 这样学英文不才是
-      轻松、合理吗？ oppose 跟object 不同，前者是及物动词，后者是
-      不及物。
+从字根来看，就知道 object 当「反对」时，后面的介词为何要用 to。
+oppose 跟 object 不同，前者是及物动词，后者是不及物动词。
 
-3. subject = sub~ (在下方) + ject (丢) = 把(某人)丢到脚下= (vt.)使臣服
-                                 = 把(事物)丢到下方(征服它) = (n.)科目
+3. subject = sub~ (在下方) + ject (丢)
+           = 把(某人)丢到脚下
+           = (vt.)使臣服
+           = 把(事物)丢到下方(征服它)
+           = (n.)科目
 
-    ★这个字的名词字义演变非常之大，背后故事暂且不提，要想办法记喔。
-
-4. deject = de~ (往下) + ject (丢) = 把(某人)往下丢= (vt.)使灰心沮丧
-                                                    = depress
-                                                    = discourage
-                                                    = disappoint
-                                                    = let (sb.) down
+4. deject = de~ (往下) + ject (丢)
+          = 把(某人)往下丢
+          = (vt.)使灰心沮丧
+          = depress
+          = discourage
+          = disappoint
+          = let (sb.) down
 
 5. inject = in~ (往内) + ject (丢) = 把事物丢进(人体)内= (vt.)注射
 

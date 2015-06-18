@@ -36,7 +36,7 @@ mysql -h 主机名 -u 用户名 -p
 -p : 若登录的用户名密码为空, 可以忽略此选项。
 
 例：
-mysql -u root -p 
+mysql -u root -p
 按回车确认，提示如下：
 Enter password:
 若密码存在, 输入密码登录, 不存在则直接按回车登录。
@@ -45,16 +45,16 @@ Enter password:
 ##### 2.2 创建数据库
 
 ```
-create database 数据库名 [其他选项];
+CREATE DATABASE 数据库名 [其他选项];
 
 例:
-create database samp_db character set gbk;
+CREATE DATABASE samp_db character SET gbk;
 
 Query OK, 1 row affected(0.02 sec)
 ```
 
 1. MySQL 语句以分号作为语句结束。
-2. 可使用 `show databases;` 显示已经创建的数据库。
+2. 可使用 `show databases` 显示已经创建的数据库。
 
 ##### 2.3 选择所要操作的数据库
 
@@ -64,11 +64,11 @@ Query OK, 1 row affected(0.02 sec)
 ```
 选择数据库有两种方式，语句结尾可不加分号:
 
-1. 在登录数据库时指定: 
+1. 在登录数据库时指定:
 mysql -D 数据库名 -h 主机名 -u 用户名 -p;
 mysql -D mydb -u root -p;
 
-2. 在登录后使用 use 语句指定: 
+2. 在登录后使用 use 语句指定:
 use 数据库名;
 use mydb;
 ```
@@ -76,13 +76,13 @@ use mydb;
 ##### 2.4 创建表
 
 ```
-create table 表名称(列声明);
+CREATE TABLE 表名称(列声明);
 ```
 
 括号内声明列的名称以及该列的数据类型，列与列之间用逗号隔开。示例：
 
 ```
-create table students
+CREATE TABLE students
 (
     id int unsigned not null auto_increment primary key,
     name char(8) not null,
@@ -129,33 +129,33 @@ mysqladmin -u root -p password newpassword
 
 ##### 3.1 向表中插入数据
 
-insert 语句可以用来将一行或多行数据插到数据库表中, 使用的一般形式如下:
+INSERT 语句可以用来将一行或多行数据插到数据库表中, 使用的一般形式如下:
 
 ```
-insert [into] 表名 [(列名1, 列名2, 列名3, ...)] values (值1, 值2, 值3, ...);
+INSERT [INTO] 表名 [(列名1, 列名2, 列名3, ...)] VALUES (值1, 值2, 值3, ...);
 
 [] 中的内容可选, 如给 samp_db 数据库中的 students 表插入一条记录:
 
-insert into students values(NULL, "ligang", "男", 20, "13811371377");
+INSERT INTO students VALUES(NULL, "ligang", "男", 20, "13811371377");
 ```
 
 按回车键确认后若提示 Query Ok, 1 row affected (0.05 sec) 表示数据插入成功。
 若插入失败请检查是否已选择需要操作的数据库。有时只需要插入部分数据, 或者不按照列的顺序进行插入:
 
 ```
-insert into students (name, sex, age) values("孙丽华", "女", 21);
+INSERT INTO students (name, sex, age) VALUES("孙丽华", "女", 21);
 ```
 
 ##### 3.2 查询表中的数据
 
-select 语句常用来根据一定的查询规则到数据库中获取数据, 其基本的用法为:
+SELECT 语句常用来根据一定的查询规则到数据库中获取数据, 其基本的用法为:
 
-select 列名称 from 表名称 [查询条件];
+SELECT 列名称 FROM 表名称 [查询条件];
 
-例如要查询 students 表中所有学生的名字和年龄, 输入语句 select name, age from students; 执行结果如下:
+例如要查询 students 表中所有学生的名字和年龄, 输入语句 SELECT name, age FROM students; 执行结果如下:
 
 ```
-mysql> select name, age from students;
+mysql> SELECT name, age FROM students;
 +--------+-----+
 | name   | age |
 +--------+-----+
@@ -166,67 +166,67 @@ mysql> select name, age from students;
 | 陈芳   |  22 |
 | 张伟朋 |  21 |
 +--------+-----+
-6 rows in set (0.00 sec)
+6 rows in SET (0.00 sec)
 
 mysql>
 ```
 
-也可以使用通配符 `*` 查询表中所有的内容, 语句: `select * from students;`
+也可以使用通配符 `*` 查询表中所有的内容, 语句: `SELECT * FROM students;`
 
 ##### 3.3 按特定条件查询
 
-where 关键词用于指定查询条件, 用法形式为: select 列名称 from 表名称 where 条件;
+WHERE 关键词用于指定查询条件, 用法形式为: SELECT 列名称 FROM 表名称 WHERE 条件;
 
-以查询所有性别为女的信息为例, 输入查询语句: `select * from students where sex = "女";`
+以查询所有性别为女的信息为例, 输入查询语句: `SELECT * FROM students WHERE sex = "女";`
 
-where 子句不仅仅支持 "where 列名 = 值" 这种名等于值的查询形式, 对一般的比较运算的运算符都是支持的,
+WHERE 子句不仅仅支持 "WHERE 列名 = 值" 这种名等于值的查询形式, 对一般的比较运算的运算符都是支持的,
 例如 `=、>、<、>=、<、!=` 以及一些扩展运算符 is [not] null、in、like 等等。
 还可以对查询条件使用 or 和 and 进行组合查询。示例:
 
 ```
 查询年龄在21岁以上的所有人信息:
-select * from students where age > 21;
+SELECT * FROM students WHERE age > 21;
 
 查询名字中带有 "王" 字的所有人信息:
-select * from students where name like "%王%";
+SELECT * FROM students WHERE name like "%王%";
 
 查询id小于 5 且年龄大于20的所有人信息:
-select * from students where id < 5 and age > 20;
+SELECT * FROM students WHERE id < 5 and age > 20;
 ```
 
 ##### 3.4 更新表中的数据
 
-update 语句可用来修改表中的数据, 基本的使用形式为:
+UPDATE 语句可用来修改表中的数据, 基本的使用形式为:
 
-update 表名称 set 列名称=新值 where 更新条件;
+UPDATE 表名称 SET 列名称=新值 WHERE 更新条件;
 
 示例：
 
 ```
 将 id 为 5 的手机号改为默认的"-":
-update students set tel=default where id=5;
+UPDATE students SET tel=default WHERE id=5;
 
 将所有人的年龄增加 1:
-update students set age=age+1;
+UPDATE students SET age=age+1;
 
 将手机号为 13288097888 的姓名改为 "张伟鹏", 年龄改为 19:
-update students set name="张伟鹏", age = 19 where tel = "13288097888";
+UPDATE students SET name="张伟鹏", age = 19 WHERE tel = "13288097888";
 ```
 
 ##### 3.5 删除表中的数据
 
-delete 语句用于删除表中的数据, 基本用法为:
+DELETE 语句用于删除表中的数据, 基本用法为:
 
-delete from 表名称 where 删除条件;
+DELETE FROM 表名称 WHERE 删除条件;
 
 示例:
 
 ```
-删除 id 为 2 的行: delete from students where id=2;
+删除 id 为 2 的行: DELETE FROM students WHERE id=2;
 
-删除所有年龄小于 21 岁的数据: delete from students where age<20;
+删除所有年龄小于 21 岁的数据: DELETE FROM students WHERE age<20;
 
-删除表中的所有数据: delete from students;
+删除表中的所有数据: DELETE FROM students;
 ```
 
 ### 四、创建后表的修改
@@ -234,59 +234,59 @@ delete from 表名称 where 删除条件;
 ##### 4.1 添加列
 
 ```
-基本形式: alter table 表名 add 列名 列数据类型 [after 插入位置];
+基本形式: ALTER TABLE 表名 add 列名 列数据类型 [after 插入位置];
 
 示例:
 
-在表的最后追加列 address: alter table students add address char(60);
+在表的最后追加列 address: ALTER TABLE students add address char(60);
 
-在名为 age 的列后插入列 birthday: alter table students add birthday date after age;
+在名为 age 的列后插入列 birthday: ALTER TABLE students add birthday date after age;
 ```
 
 ##### 4.2 修改列
 
 ```
-基本形式: alter table 表名 change 列名称 列新名称 新数据类型;
+基本形式: ALTER TABLE 表名 change 列名称 列新名称 新数据类型;
 
 示例:
 
-将表 tel 列改名为 telphone: alter table students change tel telphone char(13) default "-";
+将表 tel 列改名为 telphone: ALTER TABLE students change tel telphone char(13) default "-";
 
-将 name 列的数据类型改为 char(16): alter table students change name name char(16) not null;
+将 name 列的数据类型改为 char(16): ALTER TABLE students change name name char(16) not null;
 ```
 
 ##### 4.3 删除列
 
 ```
-基本形式: alter table 表名 drop 列名称;
+基本形式: ALTER TABLE 表名 DROP 列名称;
 
 示例:
 
-删除 birthday 列: alter table students drop birthday;
+删除 birthday 列: ALTER TABLE students DROP birthday;
 ```
 
 ##### 4.4 重命名表
 
 ```
-基本形式: alter table 表名 rename 新表名;
+基本形式: ALTER TABLE 表名 rename 新表名;
 
 示例:
 
-重命名 students 表为 workmates: alter table students rename workmates;
+重命名 students 表为 workmates: ALTER TABLE students rename workmates;
 ```
 
 ##### 4.5 删除整张表
 
 ```
-基本形式: drop table 表名;
+基本形式: DROP TABLE 表名;
 
-示例: 删除 workmates 表: drop table workmates;
+示例: 删除 workmates 表: DROP TABLE workmates;
 ```
 
 ##### 4.6 删除整个数据库
 
 ```
-基本形式: drop database 数据库名;
+基本形式: DROP DATABASE 数据库名;
 
-示例: 删除 samp_db 数据库: drop database samp_db;
+示例: 删除 samp_db 数据库: DROP DATABASE samp_db;
 ```

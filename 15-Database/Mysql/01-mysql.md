@@ -3,14 +3,14 @@ MySQL
 
 ### MySQL 数据类型
 
-MySQL 有三大类数据类型：数字、日期、字符串, 更细致的划分如下:
+MySQL 有三大类数据类型：数字、日期、字符串,细分如下:
 
 ##### 1.数字类型
 
 - 整数: tinyint、smallint、mediumint、int、bigint
 - 浮点数: float、double、real、decimal
 
-##### 2.日期和时间:
+##### 2.日期和时间
 
 - date、time、datetime、timestamp、year
 
@@ -18,7 +18,7 @@ MySQL 有三大类数据类型：数字、日期、字符串, 更细致的划分
 
 - 字符串: char、varchar
 - 文本: tinytext、text、mediumtext、longtext
-- 二进制(可用来存储图片、音乐等): tinyblob、blob、mediumblob、longblob
+- 二进制(可存储图片、音乐等): tinyblob、blob、mediumblob、longblob
 
 详细介绍参见: [MySQL数据类型](http://www.cnblogs.com/zbseoag/archive/2013/03/19/2970004.html)
 
@@ -53,23 +53,25 @@ create database samp_db character set gbk;
 Query OK, 1 row affected(0.02 sec)
 ```
 
-1. MySQL 语句以分号作为语句结束, 若在语句结尾不添加分号时, 命令提示符会以 -> 提示继续输入。
-2. 可使用 show databases; 命令查看已经创建了哪些数据库。
+1. MySQL 语句以分号作为语句结束。
+2. 可使用 `show databases;` 已经创建的数据库。
 
 ##### 3.选择所要操作的数据库
 
-要对一个数据库进行操作, 必须先选择该数据库, 否则会提示错误:
+要对操作一个数据库, 必须先选择该数据库, 否则会提示错误:
+`ERROR 1046(3D000): No database selected`。
 
 ```
-ERROR 1046(3D000): No database selected
+选择数据库有两种方式，语句结尾可不加分号:
+
+1. 在登录数据库时指定: 
+mysql -D 数据库名 -h 主机名 -u 用户名 -p;
+mysql -D mydb -u root -p;
+
+2. 在登录后使用 use 语句指定: 
+use 数据库名;
+use mydb;
 ```
-
-选择数据库有两种方式:
-
-1. 在登录数据库时指定: mysql -D 数据库名 -h 主机名 -u 用户名 -p
-如登录时选择刚刚创建的数据库: mysql -D samp_db -u root -p
-2. 在登录后使用 use 语句指定, 命令: use 数据库名;
-use 语句可以不加分号, 执行 use samp_db, 成功后提示: Database changed
 
 ##### 4.创建表
 
@@ -77,7 +79,7 @@ use 语句可以不加分号, 执行 use samp_db, 成功后提示: Database chan
 create table 表名称(列声明);
 ```
 
-括号内声明列的名称以及该列的数据类型，列与列的描述用逗号隔开。以创建 students 表为例, 表中将存放学号(id)、姓名(name)、性别(sex)、年龄(age)、联系电话(tel):
+括号内声明列的名称以及该列的数据类型，列与列之间用逗号隔开。示例：
 
 ```
 create table students
@@ -89,8 +91,8 @@ create table students
     tel char(13) null default "-"
 );
 ```
-
-以 "id int unsigned not null auto_increment primary key" 为例：
+创建 students 表, 表中存放学号(id)、姓名(name)、性别(sex)、年龄(age)、联系电话(tel):
+`id int unsigned not null auto_increment primary key` 表示：
 
 1. id：列的名称;
 2. int：指定该列的类型为 int(取值范围为 -8388608到8388607), 在后面我们又用 "unsigned" 加以修饰, 表示该类型为无符号型, 此时该列的取值范围为 0 到 16777215;

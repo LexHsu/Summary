@@ -5,16 +5,16 @@ MySQL
 
 MySQL 有三大类数据类型：数字、日期、字符串,细分如下:
 
-##### 1. 数字类型
+##### 1.1 数字类型
 
 - 整数: tinyint、smallint、mediumint、int、bigint
 - 浮点数: float、double、real、decimal
 
-##### 2. 日期和时间
+##### 2.2 日期和时间
 
 - date、time、datetime、timestamp、year
 
-##### 3. 字符串类型
+##### 3.3 字符串类型
 
 - 字符串: char、varchar
 - 文本: tinytext、text、mediumtext、longtext
@@ -24,7 +24,7 @@ MySQL 有三大类数据类型：数字、日期、字符串,细分如下:
 
 ### 二、使用 MySQL
 
-##### 1. 登录 MySQL
+##### 2.1 登录 MySQL
 
 命令行输入如下命令：
 
@@ -42,7 +42,7 @@ Enter password:
 若密码存在, 输入密码登录, 不存在则直接按回车登录。
 ```
 
-##### 2. 创建数据库
+##### 2.2 创建数据库
 
 ```
 create database 数据库名 [其他选项];
@@ -56,7 +56,7 @@ Query OK, 1 row affected(0.02 sec)
 1. MySQL 语句以分号作为语句结束。
 2. 可使用 `show databases;` 已经创建的数据库。
 
-##### 3. 选择所要操作的数据库
+##### 2.3 选择所要操作的数据库
 
 要对操作一个数据库, 必须先选择该数据库, 否则会提示错误:
 `ERROR 1046(3D000): No database selected`。
@@ -73,7 +73,7 @@ use 数据库名;
 use mydb;
 ```
 
-##### 4. 创建表
+##### 2.4 创建表
 
 ```
 create table 表名称(列声明);
@@ -102,7 +102,7 @@ create table students
 
 char(8) 表示存储的字符长度为 8, tinyint 的取值范围为 -127 到 128, default 属性指定当该列值为空时的默认值。
 
-##### 5. 通过 SQL 文件执行
+##### 2.5 通过 SQL 文件执行
 
 上述语句也可保存为 createtable.sql 的文件，在命令行输入:
 

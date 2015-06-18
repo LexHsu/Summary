@@ -54,7 +54,7 @@ Query OK, 1 row affected(0.02 sec)
 ```
 
 1. MySQL 语句以分号作为语句结束。
-2. 可使用 `show databases;` 已经创建的数据库。
+2. 可使用 `show databases;` 显示已经创建的数据库。
 
 ##### 2.3 选择所要操作的数据库
 
@@ -117,6 +117,13 @@ mysql -D samp_db -u root -p < createtable.sql
 3. 使用 show tables; 命令可查看已创建了表的名称。
 4. 使用 describe 表名; 命令可查看已创建的表的详细信息。
 
+##### 修改 root 用户密码
+
+命令行执行:
+
+```
+mysqladmin -u root -p password newpassword
+```
 
 ### 三、操作 MySQL 数据库
 

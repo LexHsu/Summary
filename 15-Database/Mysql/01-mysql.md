@@ -24,43 +24,39 @@ MySQL 有三大类数据类型：数字、日期、字符串, 更细致的划分
 
 ### 使用 MySQL
 
-##### 登录 MySQL
+##### 1.登录 MySQL
 
 命令行输入如下命令：
 
 ```
 mysql -h 主机名 -u 用户名 -p
 
--h : 该命令用于指定客户端所要登录的MySQL主机名, 登录当前机器该参数可以省略;
--u : 所要登录的用户名;
--p : 告诉服务器将会使用一个密码来登录, 如果所要登录的用户名密码为空, 可以忽略此选项。
+-h : MySQL 主机名, 若登录当前机器该参数可以省略;
+-u : 要登录的用户名;
+-p : 若登录的用户名密码为空, 可以忽略此选项。
 
-以登录刚刚安装在本机的 MySQL 数据库为例, 在命令行下输入 mysql -u root -p 按回车确认,
-如果安装正确且 MySQL 正在运行, 会得到以下响应:
-
+例：
+mysql -u root -p 
+按回车确认，提示如下：
 Enter password:
 若密码存在, 输入密码登录, 不存在则直接按回车登录。
 ```
 
-##### 创建一个数据库
-
-使用 create database 语句可完成对数据库的创建, 创建命令的格式如下:
+##### 2.创建数据库
 
 ```
 create database 数据库名 [其他选项];
 
-如创建一个名为 samp_db 的数据库, 在命令行下执行以下命令:
-
+例:
 create database samp_db character set gbk;
+
+Query OK, 1 row affected(0.02 sec)
 ```
 
-为了便于在命令提示符下显示中文, 在创建时通过 character set gbk 将数据库字符编码指定为 gbk。创建成功时会得到 Query OK, 1 row affected(0.02 sec) 的响应。
+1. MySQL 语句以分号作为语句结束, 若在语句结尾不添加分号时, 命令提示符会以 -> 提示继续输入。
+2. 可使用 show databases; 命令查看已经创建了哪些数据库。
 
-注意: MySQL语句以分号(;)作为语句的结束, 若在语句结尾不添加分号时, 命令提示符会以 -> 提示你继续输入(有个别特例, 但加分号是一定不会错的);
-
-提示: 可以使用 show databases; 命令查看已经创建了哪些数据库。
-
-##### 选择所要操作的数据库
+##### 3.选择所要操作的数据库
 
 要对一个数据库进行操作, 必须先选择该数据库, 否则会提示错误:
 
@@ -68,22 +64,20 @@ create database samp_db character set gbk;
 ERROR 1046(3D000): No database selected
 ```
 
-两种方式对数据库进行使用的选择:
+选择数据库有两种方式:
 
-1. 在登录数据库时指定, 命令: mysql -D 所选择的数据库名 -h 主机名 -u 用户名 -p
+1. 在登录数据库时指定: mysql -D 数据库名 -h 主机名 -u 用户名 -p
 如登录时选择刚刚创建的数据库: mysql -D samp_db -u root -p
 2. 在登录后使用 use 语句指定, 命令: use 数据库名;
-use 语句可以不加分号, 执行 use samp_db 来选择刚刚创建的数据库, 选择成功后会提示: Database changed
+use 语句可以不加分号, 执行 use samp_db, 成功后提示: Database changed
 
-##### 创建数据库表
-
-使用 create table 语句可完成对表的创建, create table 的常见形式:
+##### 4.创建表
 
 ```
 create table 表名称(列声明);
 ```
 
-以创建 students 表为例, 表中将存放 学号(id)、姓名(name)、性别(sex)、年龄(age)、联系电话(tel) 这些内容:
+括号内声明列的名称以及该列的数据类型，列与列的描述用逗号隔开。以创建 students 表为例, 表中将存放学号(id)、姓名(name)、性别(sex)、年龄(age)、联系电话(tel):
 
 ```
 create table students
@@ -96,13 +90,9 @@ create table students
 );
 ```
 
+以 "id int unsigned not null auto_increment primary key" 为例：
 
-create table tablename(columns) 为创建数据库表的命令, 列的名称以及该列的数据类型将在括号内完成;
-括号内声明了5列内容, id、name、sex、age、tel为每列的名称, 后面跟的是数据类型描述, 列与列的描述之间用逗号(,)隔开;
-
-以 "id int unsigned not null auto_increment primary key"为例：
-
-1. id：为列的名称;
+1. id：列的名称;
 2. int：指定该列的类型为 int(取值范围为 -8388608到8388607), 在后面我们又用 "unsigned" 加以修饰, 表示该类型为无符号型, 此时该列的取值范围为 0 到 16777215;
 3. not null：说明该列的值不能为空, 必须要填, 如果不指定该属性, 默认可为空;
 4. auto_increment：需在整数列中使用, 其作用是在插入数据时若该列为 NULL, MySQL 将自动产生一个比现存值更大的唯一标识符值。在每张表中仅能有一个这样的值且所在列必须为索引列。
@@ -114,11 +104,13 @@ char(8) 表示存储的字符长度为 8, tinyint 的取值范围为 -127 到 12
 
 上述语句也可保存为 createtable.sql 的文件，在命令行输入:
 
+```
 mysql -D samp_db -u root -p < createtable.sql
+```
 
 注意：
 
-1. 如果连接远程主机请加上 -h 指令。
+1. 如果连接远程主机，加上 -h 指令。
 2. createtable.sql 文件若不在当前工作目录下需指定文件的完整路径。
 3. 使用 show tables; 命令可查看已创建了表的名称。
 4. 使用 describe 表名; 命令可查看已创建的表的详细信息。

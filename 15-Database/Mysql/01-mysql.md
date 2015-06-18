@@ -1,20 +1,20 @@
 MySQL
 ===
 
-### MySQL 数据类型
+### 一、MySQL 数据类型
 
 MySQL 有三大类数据类型：数字、日期、字符串,细分如下:
 
-##### 1.数字类型
+##### 1. 数字类型
 
 - 整数: tinyint、smallint、mediumint、int、bigint
 - 浮点数: float、double、real、decimal
 
-##### 2.日期和时间
+##### 2. 日期和时间
 
 - date、time、datetime、timestamp、year
 
-##### 3.字符串类型
+##### 3. 字符串类型
 
 - 字符串: char、varchar
 - 文本: tinytext、text、mediumtext、longtext
@@ -22,9 +22,9 @@ MySQL 有三大类数据类型：数字、日期、字符串,细分如下:
 
 详细介绍参见: [MySQL数据类型](http://www.cnblogs.com/zbseoag/archive/2013/03/19/2970004.html)
 
-### 使用 MySQL
+### 二、使用 MySQL
 
-##### 1.登录 MySQL
+##### 1. 登录 MySQL
 
 命令行输入如下命令：
 
@@ -42,7 +42,7 @@ Enter password:
 若密码存在, 输入密码登录, 不存在则直接按回车登录。
 ```
 
-##### 2.创建数据库
+##### 2. 创建数据库
 
 ```
 create database 数据库名 [其他选项];
@@ -56,7 +56,7 @@ Query OK, 1 row affected(0.02 sec)
 1. MySQL 语句以分号作为语句结束。
 2. 可使用 `show databases;` 已经创建的数据库。
 
-##### 3.选择所要操作的数据库
+##### 3. 选择所要操作的数据库
 
 要对操作一个数据库, 必须先选择该数据库, 否则会提示错误:
 `ERROR 1046(3D000): No database selected`。
@@ -73,7 +73,7 @@ use 数据库名;
 use mydb;
 ```
 
-##### 4.创建表
+##### 4. 创建表
 
 ```
 create table 表名称(列声明);
@@ -102,7 +102,7 @@ create table students
 
 char(8) 表示存储的字符长度为 8, tinyint 的取值范围为 -127 到 128, default 属性指定当该列值为空时的默认值。
 
-### 执行 SQL 文件
+##### 5. 通过 SQL 文件执行
 
 上述语句也可保存为 createtable.sql 的文件，在命令行输入:
 
@@ -118,9 +118,9 @@ mysql -D samp_db -u root -p < createtable.sql
 4. 使用 describe 表名; 命令可查看已创建的表的详细信息。
 
 
-### 操作 MySQL 数据库
+### 三、操作 MySQL 数据库
 
-##### 向表中插入数据
+##### 3.1 向表中插入数据
 
 insert 语句可以用来将一行或多行数据插到数据库表中, 使用的一般形式如下:
 
@@ -139,7 +139,7 @@ insert into students values(NULL, "ligang", "男", 20, "13811371377");
 insert into students (name, sex, age) values("孙丽华", "女", 21);
 ```
 
-##### 查询表中的数据
+##### 3.2 查询表中的数据
 
 select 语句常用来根据一定的查询规则到数据库中获取数据, 其基本的用法为:
 
@@ -166,7 +166,7 @@ mysql>
 
 也可以使用通配符 `*` 查询表中所有的内容, 语句: `select * from students;`
 
-##### 按特定条件查询
+##### 3.3 按特定条件查询
 
 where 关键词用于指定查询条件, 用法形式为: select 列名称 from 表名称 where 条件;
 
@@ -187,7 +187,7 @@ select * from students where name like "%王%";
 select * from students where id < 5 and age > 20;
 ```
 
-##### 更新表中的数据
+##### 3.4 更新表中的数据
 
 update 语句可用来修改表中的数据, 基本的使用形式为:
 
@@ -206,7 +206,7 @@ update students set age=age+1;
 update students set name="张伟鹏", age = 19 where tel = "13288097888";
 ```
 
-##### 删除表中的数据
+##### 3.5 删除表中的数据
 
 delete 语句用于删除表中的数据, 基本用法为:
 
@@ -222,9 +222,9 @@ delete from 表名称 where 删除条件;
 删除表中的所有数据: delete from students;
 ```
 
-### 创建后表的修改
+### 四、创建后表的修改
 
-##### 1.添加列
+##### 4.1 添加列
 
 ```
 基本形式: alter table 表名 add 列名 列数据类型 [after 插入位置];
@@ -236,7 +236,7 @@ delete from 表名称 where 删除条件;
 在名为 age 的列后插入列 birthday: alter table students add birthday date after age;
 ```
 
-##### 2.修改列
+##### 4.2 修改列
 
 ```
 基本形式: alter table 表名 change 列名称 列新名称 新数据类型;
@@ -248,7 +248,7 @@ delete from 表名称 where 删除条件;
 将 name 列的数据类型改为 char(16): alter table students change name name char(16) not null;
 ```
 
-##### 3.删除列
+##### 4.3 删除列
 
 ```
 基本形式: alter table 表名 drop 列名称;
@@ -258,7 +258,7 @@ delete from 表名称 where 删除条件;
 删除 birthday 列: alter table students drop birthday;
 ```
 
-##### 4.重命名表
+##### 4.4 重命名表
 
 ```
 基本形式: alter table 表名 rename 新表名;
@@ -268,7 +268,7 @@ delete from 表名称 where 删除条件;
 重命名 students 表为 workmates: alter table students rename workmates;
 ```
 
-##### 5.删除整张表
+##### 4.5 删除整张表
 
 ```
 基本形式: drop table 表名;
@@ -276,7 +276,7 @@ delete from 表名称 where 删除条件;
 示例: 删除 workmates 表: drop table workmates;
 ```
 
-##### 6.删除整个数据库
+##### 4.6 删除整个数据库
 
 ```
 基本形式: drop database 数据库名;

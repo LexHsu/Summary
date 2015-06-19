@@ -234,59 +234,59 @@ DELETE FROM 表名称 WHERE 删除条件;
 ##### 4.1 添加列
 
 ```
-基本形式: ALTER TABLE 表名 add 列名 列数据类型 [after 插入位置];
+ALTER TABLE 表名 ADD 列名 列数据类型 [AFTER 插入位置];
 
-示例:
+在表的最后追加列 address:
+ALTER TABLE students ADD address char(60);
 
-在表的最后追加列 address: ALTER TABLE students add address char(60);
-
-在名为 age 的列后插入列 birthday: ALTER TABLE students add birthday date after age;
+在名为 age 的列后插入列 birthday:
+ALTER TABLE students ADD birthday date AFTER age;
 ```
 
 ##### 4.2 修改列
 
 ```
-基本形式: ALTER TABLE 表名 change 列名称 列新名称 新数据类型;
+ALTER TABLE 表名 CHANGE 列名称 列新名称 新数据类型;
 
-示例:
+将表 tel 列改名为 telphone:
+ALTER TABLE students CHANGE tel telphone char(13) default "-";
 
-将表 tel 列改名为 telphone: ALTER TABLE students change tel telphone char(13) default "-";
-
-将 name 列的数据类型改为 char(16): ALTER TABLE students change name name char(16) not null;
+将 name 列的数据类型改为 char(16):
+ALTER TABLE students CHANGE name name char(16) not null;
 ```
 
 ##### 4.3 删除列
 
 ```
-基本形式: ALTER TABLE 表名 DROP 列名称;
+ALTER TABLE 表名 DROP 列名称;
 
-示例:
-
-删除 birthday 列: ALTER TABLE students DROP birthday;
+删除 birthday 列:
+ALTER TABLE students DROP birthday;
 ```
 
 ##### 4.4 重命名表
 
 ```
-基本形式: ALTER TABLE 表名 rename 新表名;
+ALTER TABLE 表名 RENAME 新表名;
 
-示例:
-
-重命名 students 表为 workmates: ALTER TABLE students rename workmates;
+重命名 students 表为 workmates:
+ALTER TABLE students RENAME workmates;
 ```
 
 ##### 4.5 删除整张表
 
 ```
-基本形式: DROP TABLE 表名;
+DROP TABLE 表名;
 
-示例: 删除 workmates 表: DROP TABLE workmates;
+删除 workmates 表:
+DROP TABLE workmates;
 ```
 
 ##### 4.6 删除整个数据库
 
 ```
-基本形式: DROP DATABASE 数据库名;
+DROP DATABASE 数据库名;
 
-示例: 删除 samp_db 数据库: DROP DATABASE samp_db;
+删除 mydb 数据库:
+DROP DATABASE mydb;
 ```

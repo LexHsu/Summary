@@ -159,12 +159,9 @@ mysql> SELECT name, age FROM students;
 +--------+-----+
 | name   | age |
 +--------+-----+
-| 王刚   |  20 |
-| 孙丽华 |  21 |
-| 王永恒 |  23 |
-| 郑俊杰 |  19 |
-| 陈芳   |  22 |
-| 张伟朋 |  21 |
+| wangang   |  20 |
+| sunlihua  |  21 |
+| zhangwei  |  21 |
 +--------+-----+
 6 rows in SET (0.00 sec)
 

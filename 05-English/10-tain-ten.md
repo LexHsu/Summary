@@ -56,47 +56,42 @@
             = 用手握持住(事物) = (vt.)保持、维持
             = 手中握住(事物而发言) = (vt.)主张、坚称
 
-  ★首先，man~ 这个字首并不罕见，manuscript、manual、manipulate...等
-    字都跟「手」有关，会法文的同学自然知道法文中的「手」叫做main ~~
-    这就是我常说的：学法文对于认识英文字汇有相当的帮助，~tain 这个字
-    根在法文中是 tenir，很像吧？
-    再者，maintain 当「主张」用，比较少人知道，但是不难领会：「手中抓
-    着事物不放」自然就是坚称、主张的意象出来了。
-    小心maintenance 这个名词通常指「机械的维修」以保持良好。
+            manuscript、manual、manipulate...等字都跟「手」有关
 
-8. obtain = ob~ (朝向) + tain (拿) = 对着(事物)伸手拿
-                                   = (vt.)获得 = gain = acquire
-                                               = receive
 
-9. attain = at~ (ad~的变体，去使) + tain (拿) = 去把(事物)拿​​过来
-                                   = (vt.)获致、得到 = achieve
+8. obtain = ob~ (朝向) + tain (拿)
+          = 对着(事物)伸手拿
+          = (vt.)获得
+          = gain
+          = acquire
+          = receive
 
-  ★attain 和obtain 这两个字也是学子们头痛的字辨，很麻烦的是从字源
-    上看不出端倪（都是「去拿事物」），attain 着重于取得抽象之事物（如
-    目标、结果那一类的字），而obtain 着重于取得实质上的物体（如薪
-    水、奖赏那一类的字），所以我们会说：He attained the age of 85.
-    而I obtained the first prize. 两者不能互换。
 
-10. pertain = per~ (through) + tain (拿) = 穿过(某事物)而去拿目标物
-                                         = (vi.)产生关连、附属
+9. attain = at~ (ad~的变体，去使) + tain (拿)
+          = 去把(事物)拿​​过来
+          = (vt.)获致、得到
+          = achieve
+          
+          attain 着重于取得抽象之事物（如目标、结果）He attained the age of 85.
+          obtain 着重于取得实质上的物体（如薪水、奖赏）I obtained the first prize。
 
-  ★我说过，per~ 是个很难的字首，原本是「穿过」而引伸为「完全」，你
-    必须要穿过A 而拿到B，因此B 为A 的附属，而透过B 产生对A 的
-    关连，这原本是个很简单的道理，只是per~ 慢慢意义增多，很多学子只
-    记得「完全」的意义，那就失去学字根字源的本意了。这也是为什么有时
-    候「原文书」比翻译书管用的原因，因为一个through 表达的观念，在中
-    文中必须转好几个圈子。
-    至于pertain 后面为啥接to，我想这已经是很简单的问题了：表达「两者
-    之间相对、附属的关系」不用to，不然呢？
 
-11. retain = re~ (向后、回来) + tain (握持) = 把(事物)拿​​回来
-                                            = (vt.)保留、维持、记得
+10. pertain = per~ (through) + tain (拿)
+            = 穿过(某事物)而去拿目标物
+            = (vi.)产生关连、附属
+            
+            per~ 原本是「穿过」而引伸为「完全」
 
-  ★很多人一看到「维持」就跟maintain 搞不清了，请记得re~ 是「回来」
-    的意味，因此retain 强调「保持不希望失去的事物」，而maintain 用
-    手握持住，只是「期待保持原状」而已，因此retain my dignity、retain
-    all the past events，而 maintain world peace。
-    而这里的retain 跟reserve 也不同，后者是「事先留存」以备后用。
+
+11. retain = re~ (向后、回来) + tain (握持)
+           = 把(事物)拿​​回来
+           = (vt.)保留、维持、记得
+           
+           re~ 是「回来」的意思，
+           因此 retain 强调「保持不希望失去的事物」retain my dignity
+           而 maintain 用手握持住，只是「期待保持原状」而已，maintain world peace。
+           retain 跟 reserve 也不同，后者是「事先留存」以备后用。
+
 
 12. sustain = sus~ (sub~的变体，在下方) + tain (握持)
             = 在下方拿着(事物) = (vt.)支撑、承受、供养、证实

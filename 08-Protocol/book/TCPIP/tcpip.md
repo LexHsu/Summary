@@ -1,4 +1,4 @@
 TCP/IP
 ===
 
-![tcpip](tcpip.gif)
+![tcpip](img/tcpip.gif)

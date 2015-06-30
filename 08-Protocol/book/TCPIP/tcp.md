@@ -6,16 +6,16 @@ TCP 三次握手与四次挥手
 
 ### 三次握手
 
-1. 第一次握手：客户端发送连接请求报文段，将 SYN 位置为 1，Sequence Number 为 x；客户端进入 SYN_SEND 状态，等待服务器确认；
-2. 第二次握手：服务器收到客户端的 SYN 报文段，需要对这个SYN报文段进行确认，设置 Acknowledgment Number 为 x+1(Sequence Number+1)；同时，自己自己还要发送 SYN 请求信息，将 SYN 位置为 1，Sequence Number 为 y；服务器端将上述所有信息放到一个报文段（即 SYN + ACK 报文段）中，一并发送给客户端，此时服务器进入 SYN_RECV 状态；
-3. 第三次握手：客户端收到服务器的 SYN+ACK 报文段。然后将 Acknowledgment Number 设置为 y + 1，向服务器发送 ACK 报文段，这个报文段发送完毕以后，客户端和服务器端都进入 ESTABLISHED 状态，完成 TCP 三次握手。
+1. 第一次握手：客户端发送连接请求报文段，将 SYN 置为 1，Sequence Number 置为 x；客户端进入 SYN_SEND 状态，等待服务器确认；
+2. 第二次握手：服务器收到客户端的 SYN 报文段，需要对这个 SYN 报文段进行确认，设置 Acknowledgment Number 为 x+1(Sequence Number + 1)；同时，自己自己还要发送 SYN 请求信息，将 SYN 置为 1，Sequence Number 为 y；服务器端将上述所有信息放入一个报文段（即 SYN + ACK 报文段），一并发送给客户端，此时服务器进入 SYN_RECV 状态；
+3. 第三次握手：客户端收到服务器的 SYN + ACK 报文段。然后将 Acknowledgment Number 设置为 y + 1，向服务器发送 ACK 报文段，这个报文段发送完毕以后，客户端和服务器端都进入 ESTABLISHED 状态，完成 TCP 三次握手。
 
 ### 为何需要三次握手
 
 为了防止已失效的连接请求报文段突然又传送到了服务端，因而产生错误，防止服务器一直等待浪费资源。举例说明“已失效的连接请求报文段”发生场景：
 
-1. client 发出的第一个连接请求报文段并没有丢失，而是在某个网络结点长时间的滞留，延迟到连接释放以后才到达server。
-本来这是一个早已失效的报文段。但 server 收到此失效的连接请求报文段后，误认为是 client 再次发出的一个新的连接请求。于是就向 client 发出确认报文段，同意建立连接。
+1. client 发出的第一个连接请求报文段并没有丢失，而是在某个网络结点长时间滞留，直到连接释放以后才到达 server,
+本来这是一个早已失效的报文段。但 server 误认为是 client 再次发出的新的连接请求,于是就向 client 发出确认报文段，同意建立连接。
 2. 如果不采用“三次握手”，只要 server 发出确认，新的连接就会建立。而 client 并没有发出建立连接的请求，因此不会理睬 server 的确认，也不会向 server 发送数据，但 server 却以为新的运输连接已经建立，并一直等待 client 发来数据，耗费 server 资源。
 3. 而采用“三次握手”，client 不会对 server 响应进行确认。server 收不到确认，可知 client 并没有要求建立连接，从而防止耗费服务器资源。
 

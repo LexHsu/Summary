@@ -38,7 +38,7 @@
           「驻美国外交官」会用 reside 而不会用 live：
           the diplomat residing in the States。
           而 inhabit 本身已经有 in，因此 inhabit 一直是个及物动词，后面无须再加 in。
-          reside 不常用，但是resident 和residence 却常用，而从 sid 演变成 side 纯粹是发音的考量。
+          reside 不常用，但是 resident 和 residence 却常用，而从 sid 演变成 side 纯粹是发音的考量。
 
 6. preside = pre~ (在...之前) + side (坐)
            = 坐在(人们)之前
@@ -66,8 +66,8 @@
 
            「坐下来的时间」通常不是开会，就是上课。一般人以为这个字很冷门，其实不然，
            开会开得很久，可以说是a long session，倒没有人说a long meeting 的。
-           另外，有科被当了，所以「暑修」，那叫做summer session。
-           可是这个字只是指「上课的日子」，不全然等于semester 或 term。
+           另外，有科被当了，所以「暑修」，那叫做 summer session。
+           可是这个字只是指「上课的日子」，不全然等于 semester 或 term。
 
 10. assess = as~ (去使) + sess (坐)
            = 去使得(某事物能)坐定
@@ -133,7 +133,7 @@
             = 始终坐在那里
             = (vi.)固执、坚持到底、持续
 
-            由于字首per~ 的关系，这个字比vinsist 更强调时间之长久，
+            由于字首per~ 的关系，这个字比 vinsist 更强调时间之长久，
             凸显「长时间地持续于某事」，所以慢慢也有负面意义产生，叫做「固执」。
             但是要小心这个字是中性的，是正面还是负面的意义，需要上下文表明。
 

@@ -1,4 +1,4 @@
-TCP 三次握手与四次挥手
+TCP
 ===
 
 ### TCPIP 网络模型 与 OSI 参考模型
@@ -57,7 +57,7 @@ TCP 三次握手与四次挥手
 
 ### 三次握手与四次挥手
 
-![tcp](img/tcp.jpg)
+![tcp](img/create-close.png)
 
 ### 三次握手
 

@@ -1,4 +1,4 @@
-字根十一】~sta = ~stat = ~stitute = 站
+字根十一：~sta = ~stat = ~stitute = 站
 ===
 
 ```

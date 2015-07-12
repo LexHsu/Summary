@@ -9,36 +9,34 @@
            species 是 specy 的复数，原意是「看到的事物」
            比 things、stuff 都还文言，泛指生物学上生物的种类（从外观上得知异同处）。
 
-2. special = spec (看) + -ial (具有...性质的) = 具有某事物外观上特质的
-                                              = (adj.)特殊的、独特的
 
-  ★special 其实是species 的形容词，各个物种的特性，所以「特殊而相异」。
-    就像人一样，一看之下各个不同，所以每个人都special。有一个很接近的
-    形容词叫做specious，这两个形容词来源紧密，但是意义差多了。后者是
-    spec (看) + -ious (多...的) = 很多人所看到的= (adj.)似是而非的。
-    造字真妙：很多人所看到的事却通常不是真的，只是为外表所蒙蔽-- 就像
-    很多美女不都这样吗？古人很幽默：大家都认为美的事物，可能就是假的。
-    令人惊讶的是，这层道理到今日一样没变。
-    especial 只是前头再加个e-，也就是ex- 的变体：「事物外头所看到的
-    形式」，慢慢跟special 同义，可是形容词时special 比especial 常
-    用，而副词时especially 比specially 常用，这层演变则是受到法文的
-    影响了，在此不多谈。
+2. special = spec (看) + -ial (具有...性质的)
+           = 具有某事物外观上特质的
+           = (adj.)特殊的、独特的
+           
+           special 是 species 的形容词，各个物种的特性，所以「特殊而相异」。
+           especial 只是前头再加个 e-，也就是 ex- 的变体：「事物外头所看到的形式」，
+           慢慢跟special 同义，由于收到法文的影响:
+           形容词时 special 比 especial 常用，
+           而副词时 especially 比specially 常用。
 
-3. specify = spec (看) + -ify (使得) = 使得(某人)能清楚见到
-                                     = (vt.)具体指定、详述
-                                     = clarify = make clear
 
-  ★这个字未必常用，但是其形容词specific 可是大名鼎鼎呢，很多学子以为
-    clear 就相当于specific，其实不全然是。 clear 常强调「自然的」清晰
-    明白，而specific 常指「人工的」使清晰明白：所以specific 可以指
-    「特有的」，而clear 可以指事物「清澈的」。
+3. specify = spec (看) + -ify (使得)
+           = 使得(某人)能清楚见到
+           = (vt.)具体指定、详述
+           = clarify
+           = make clear
+           
+           很多人认为 clear 就相当于 specific，其实不然。
+           clear 常强调「自然的」清晰明白，而 specific 常指「人工的」使清晰明白：
+           所以 specific 可以指「特有的」，而 clear 可以指事物「清澈的」。
+
 
 4. specimen = spec (看) + -i- + -ment(-ment 的变体，事物结果)
-            = 用来看的事物结果= (n.)样本、标本= sample
+            = 用来看的事物结果
+            = (n.)样本、标本
+            = sample
 
-  ★speciment 为什么会变成specimen 已不可考，但可确定的是那个i 是方便
-    发音用的。要小心「老虎标本」当然是说为tiger specimens 没错，但是
-    stuffed tigers 要更为口语、常用-- 前者听起来像是实验室用语了。
 
 5. conspicuous = con- (共同) + spic (spec 的变体，看) + -uous (多...的)
                = 大家都能看见的= (adj.) = 明显的、引人注目的

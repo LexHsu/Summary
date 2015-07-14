@@ -11,6 +11,9 @@ import org.junit.Test;
 /**
  * DH 校验, 需要下载 commons-codec.jar
  * http://commons.apache.org/proper/commons-codec/download_codec.cgi
+ * 
+ * error: java.security.InvalidKeyException: Illegal key size
+ * http://stackoverflow.com/questions/6481627/java-security-illegal-key-size-or-default-parameters
  *
  */
 public class DHCoderTest {

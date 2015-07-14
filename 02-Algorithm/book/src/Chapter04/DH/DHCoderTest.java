@@ -9,7 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * DH 校验
+ * DH 校验, 需要下载 commons-codec.jar
+ * http://commons.apache.org/proper/commons-codec/download_codec.cgi
  *
  */
 public class DHCoderTest {

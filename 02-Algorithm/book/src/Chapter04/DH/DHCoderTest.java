@@ -13,7 +13,7 @@ import org.junit.Test;
  * http://commons.apache.org/proper/commons-codec/download_codec.cgi
  * 
  * error: java.security.InvalidKeyException: Illegal key size
- * http://stackoverflow.com/questions/6481627/java-security-illegal-key-size-or-default-parameters
+ * @see http://stackoverflow.com/questions/6481627/java-security-illegal-key-size-or-default-parameters
  *
  */
 public class DHCoderTest {

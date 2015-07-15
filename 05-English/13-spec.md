@@ -75,6 +75,7 @@
            ghost、apparition、vampire、zombie...等等，
            除非写做论文，不然实在无须用到这种单字。
 
+
 9. expect = ex~ (向外) + spect (看)
           = 向外(一直)看
           = (vt.)期待
@@ -85,14 +86,15 @@
           那个for 是多余的，不要被 to hope for your letter 所影响。
           至于这个字作女人怀孕解，是衍生的意义，从字源上看也很贴切
 
+
 10. inspect = in~ (向内) + spect (看)
             = 往(事物)内部看
             = (vt.)检查
             = examine
             = check
 
-            inspect 这个字比较文言文，通常指规模较大的检测，如a tour of
-    inspection 叫做「考察团」，这个词无法代换。
+            inspect 这个字比较文言文，通常指规模较大的检测，
+            如 a tour of inspection 叫做「考察团」，这个词无法代换。
 
 11. respect = re~ (一再) + spect (看)
             = (某人事物需要)一再去看
@@ -103,6 +105,7 @@
             这里的 for 当然是「因果」和「朝向」，不能用 to ~~
             如果用 to 会变成「把 respect 这事物拿给我的老师看」了。
 
+
 12. aspect = a~ (去使) + spect (看)
            = 去看(人事物)的结果
            = (n.)见解、方面
@@ -111,6 +114,7 @@
            这个字中文的解释群中，我觉得「见解」最生动，既兼顾字源又涵盖字义，实为良译！
            「看到人事物而得到之结果」谓之「见解」~~ 这个字古早的意思保留在「外表、容貌」这个意义之中，
            可惜这层意义已经慢慢被时代淘汰掉了，现代人都用 appearance 这个字啰。
+
 
 13. prospect = pro~ (往前) + spect (看)
              = (人们)往前看(事物)的结果
@@ -124,6 +128,7 @@
              注意在这句中，prospect 的意义跟 future 根本不同。
              至于 vista 则是个文言用词，比不上prospect 的口语。
 
+
 14. retrospect = retro~ (往后) + spect (看)
                = 往过去回头看
                = (n.)回忆、回顾
@@ -134,6 +139,7 @@
                再者，retrospect 并不等于memory，小心其字源：
                In retrospect, all my happy past days seem like just yesterday. ​​这里可无法代换。
 
+
 15. suspect = sus~ (sub~ 的变体，在下) + spect (看)
             = 由下往上一直看
             = (vt.)怀疑、推测(n.)疑犯
@@ -143,142 +149,147 @@
             当然，suspect 后面接「事情」，而不可能接不定词，这是可以推理的，
             因此：to suspect his lying = to suspect him to lie。
 
-16. despise = de~ (向下) + spise (spect 的变体，看) = 往下看(人事物)
-                                                    = (vt.)鄙视、蔑视
-                                                    = look down on
 
-  ★despise 和despite 是同一个字源演变出来的，后者已经变意，从「轻视、
-    忽略」演变为「不顾」：He went ahead despite my warning. ~~ 他藐视
-    我的警告而一意孤行~~ 并不见得不合理。
-    而那个 spise 是从何而来的呢？在拉丁文中，「看」这个动词原形长成
-    specere 这个样子，而spectus 只是它的过去分词型态，而spect 却比
-    spec 常见，因为在印欧语系的语言之中，动词原形（infinitive）并不
-    常见，熟悉法文或德文的人应该了解这句话。 spise 是从 spec 这个动词
-    原形演变而来的~~ 不过这个知不知道对于背单字没太大的助益了，只是
-    给有志之士参考罢了。
+16. despise = de~ (向下) + spise (spect 的变体，看)
+            = 往下看(人事物)
+            = (vt.)鄙视、蔑视
+            = look down on
+            
+            despise 和 despite 由同一个字源演变，后者已经变意，从「轻视、忽略」演变为「不顾」
+            He went ahead despite my warning. ~~ 他藐视我的警告而一意孤行
+            spise 是从 spec 这个动词原形演变而来
+
 
 17. espy = e~ (ex~ 的变体，在外) + ~spy (~spise 的变体，看)
-         = 在外头看到= (vt.)察觉、发现= discover、find
+         = 在外头看到
+         = (vt.)察觉、发现
+         = discover、find
+         
+         espy 字很文言文，所以认得出即可。
+         spy 是从法文的 espier 变来的：「在外头张望的人」，完全符合字源规律
 
-  ★这个字很文言文，所以认得出即可。有人会问：那 spy 呢？难道不是相
-    关字？问得真好，当然是！ spy 是从法文的espier 变来的：「在外头
-    张望的人」，完全符合字源规律，只是拼字有变异，因此提出供参考而已。
 
-18. scope = 看 = (n.)眼界、范围
+18. scope = 看
+          = (n.)眼界、范围
+          
+          scope 这一串字根是由希腊文演变而来的，原指「所能看到的范围」，衍生为「活动或研究的范围领域」
 
-  ★scope 这一串字根是由希腊文演变而来的，拉丁文是spec 而希腊文是
-    scope，这可真有趣的呢，两个子音互换一下摆明就是同一个字根咩！
-    scope 原本指「所能看到的范围」，衍生为「活动或研究的范围领域」。
 
-19. microscope = micro~ (小) + scope (看) = 看小事物的器具
-                                          = (n.)显微镜
+19. microscope = micro~ (小) + scope (看)
+               = 看小事物的器具
+               = (n.)显微镜
 
-  ★可别看字源，以为是「小镜子」的意思喔！另外放大镜不叫做 macroscope，
-    纵然macro~ 是micro~ 的相反词，有macroscopic 这个字是没错，但是
-    跟「放大镜」可没关系，「放大镜」叫做magnifier。
 
-20. telescope = tele~ (远) + scope (看) = 看远处事物的器具
-                                        = (n.)望远镜
+20. telescope = tele~ (远) + scope (看)
+              = 看远处事物的器具
+              = (n.)望远镜
+              
+              很多人一直以为 tele~ 意思是「电」，其实不然，tele~ 是一个希腊字根，表示「远」
+              telephone 叫做「听到远处的声音」，television 叫做「看到远处的事物」。
+              望远镜有两种，一种是单管的，用来看星星、夜景的，比较贵的，那叫做 telescope，
+              另一种是双管的，用来听歌剧、戏剧时常看到贵夫人拿的，比较便宜的，那叫做 binocular
 
-  ★很多学子自从学了telephone 和television 之后，一直以为tele~ 叫做
-   「电」，可差得远了呢，tele~ 是一个希腊字根，表示「远」~~ telephone
-   叫做「听到远处的声音」，television 叫做「看到远处的事物」。
-   望远镜有两种，一种是单管的，用来看星星、夜景的，比较贵的，那叫做
-   telescope，另一种是双管的，用来听歌剧、戏剧时常看到贵夫人拿的，比
-   较便宜的，那叫做binocular ~~ 可别混淆呢！
 
-21. periscope = peri~ (四周) + scope (看) = 用来看四周事物的器具
-                                          = (n.)潜望镜
+21. periscope = peri~ (四周) + scope (看)
+              = 用来看四周事物的器具
+              = (n.)潜望镜
+              
+              很多学子都以为「潜望镜」是由下往上看的，叫做subscope，听起来似乎合理，
+              但 periscope 更能说明其用途呢，不是吗？
 
-  ★小心很多学子都以为「潜望镜」是由下往上看的，叫做subscop​​e，听起来
-    似乎合理，但periscope 更能说明其用途呢，不是吗？
 
 22. skeptical = skept (scept 的变体，看) + ~ic (相关的) + al (本质的)
-              = 去看事物本质的 = (adj.)挑剔怀疑的
+              = 去看事物本质的
+              = (adj.)挑剔怀疑的
+              
+              skeptical 是美式拼法，英国人拼成 sceptical，
+              很多时候，英国英文比美式英文更接近古意。就像大陆的北京话和台湾的国语一般。
 
-  ★这个字看起来很突兀，可是这是美式拼法，英国人拼成sceptical，这就
-    很明显了吧？很多时候，英国英文比美式英文更接近古意，这是事实。就
-    像大陆的北京话和台湾的国语一般。
 
-23. video = vide (看) + ~o (第一人称单数动词字尾) = 我看到(的事物)
-                                                  = (n.)录影带、电视影像
+23. video = vide (看) + ~o (第一人称单数动词字尾)
+          = 我看到(的事物)
+          = (n.)录影带、电视影像
+          
+          video 来自于拉丁文的videre = to see（动词原形），而字尾 ~o 是 I 的字尾变化并不突兀，
+          只要对西文、义文熟悉的读者都可以了解。它跟 audio 的来源一样，audio = I listen。
+          「录影带」这个意思反而是后来的衍生，video games 更符合字源！
 
-  ★video 来自于拉丁文的videre = to see（动词原形），而字尾~o 是 I
-    的字尾变化并不突兀，只要对西文、义文熟悉的读者都可以了解。它跟 audio
-    的来源一样，audio = I listen。
-   「录影带」这个意思反而是后来的衍生，video games 更符合字源！
 
-24. divide = di~ (dis~ 的变体，分离) + vide (看) = 把事物看分离
-           = (vt.)分隔、分配 = separate = group
+24. divide = di~ (dis~ 的变体，分离) + vide (看)
+           = 把事物看分离
+           = (vt.)分隔、分配
+           = separate
+           = group
+           
+           di~ 这个字首有两个意思:
+           1. dis~ 的变体，分离
+           2. 数字 2,也叫 di~
+           这个字最重要的用法不外乎 to divide A into groups，那个 into 表示「结果」，并不罕见。
 
-  ★di~ 这个字首有两个意思，第一个是dis~ 的变体，另外，在希腊文中，
-    数字「二」也叫做di~（拉丁文叫做bi~），反正这两个解释在这个字之中
-    都可以自圆其说。这个字最重要的用法不外乎to divide A into groups，
-    那个 into 表示「结果」，并不罕见。
-    division 只是词类变化，但是在一家公司里头division 到底是什么单位，
-    是「部」、「处」、还是「分店」...？这可需要大伤脑筋啰！
 
-25. provide = pro~ (往前) + vide (看) = 预料到(事件而先做准备)
-                                      = (vt.)供应、备用、规定
+25. provide = pro~ (往前) + vide (看)
+            = 预料到(事件而先做准备)
+            = (vt.)供应、备用、规定
+            
+            provided that 是个很古雅的片语，相当于 if，
+            Provided it rains tomorrow, 「预料到明天会下雨的情况，那么...」，
 
-  ★provided that 是个很古雅的片语，很多人都知道这个词相当于if，但却
-    很少人知道其来源 ~~ 这里就是了。 Provided it rains tomorrow, ...
-    叫做「预料到明天会下雨的情况，那么...」，在这个片语中反而保留了最
-    古早字源的含意。至于「供应」虽是后来的衍生意义，但是原本的意象：
-   「顾及即将来临的事件」而互相补给食物，早期农村的形象油然而生，虽然
-    这种景象在我们社会中已经不可能重现了，但是看字源而思故人，这是不变
-    的。
 
 26. evident = e~ (ex~ 的变体，在外) + vid (看) + ~ent (事物本质的)
-            = 从外头可看见事物本质的= (adj.)显然的、明显的
-            = apparent = obvious = conspicuous
+            = 从外头可看见事物本质的
+            = (adj.)显然的、明显的
+            = apparent = obvious
+            = conspicuous
+            
+            这个字的名词 evidence 反而更红，叫做「证据、迹象」，
+            注意，evidence 有百分之九十五以上的情况下是不可数名词，不用复数！ 
+            There is evidence that...，表示「有迹象显示」,没有复数。 
+            Her silence is evidence of anger. 这句也没有复数，切记。
+            It is evident for her to flee. 这是错句，
+            因为 evident 是「外观看起来」的字根，所以介词搭配用 to
+            It is evident to everybody that she will flee. 
+            ~~ to 是表达「相对关系」，在这里才是正确的选择：
+            文法需要思考，而不是死记。
 
-  ★这个字的名词evidence 反而更红，叫做「证据、迹象」，这个字知道的学
-    生很多，但用错的更多~~ 请注意，evidence 有百分之九十五以上的情况下
-    是不可数名词，不用复数！ 「有迹象显示」叫做There is evidence that...，
-    没有复数。 Her silence is evidence of anger. 这句也没有复数，切记。
-    而且It is evident for her to flee.这是错句，因为evident 是「外观看
-    起来」的字根，所以介词搭配用to：It is evident to everybody that she
-    will flee. ~~ to 是表达「相对关系」，在这里才是正确的选择：文法需要
-    思考，而不是死记，这是唯一的座右铭。
 
 27. providence = pro~ (在...之前) + vid (看) + ~ence (事物本质)
-               = 在(事件发生)之前即可预见= (n.)先见之明、天意、天命
-               = God = fate
+               = 在(事件发生)之前即可预见
+               = (n.)先见之明、天意、天命
+               = God
+               = fate
+               
+               中文是个文言文的字，在英文中倒还好，因为宗教对于东方人的影响并不显著，
+               宗教在西方世界有时几乎等同于最高的法律，因此宗教词汇在英语中可谓比比皆是，
+               每个西方知识份子对于圣经必然都有适度熟悉的，无论他信不信基督教，这点基础常识必须要有。
+               形容词 provident 和 improvident 比较接近古意，这两个字反而都跟宗教无关，
+               因为 providence 本来也不是宗教的字，只是后人把「先见之明」归因于宗教、神所赋予人类的「特殊力量」，
+               所以才衍生出最后的「天命」之意。
 
-  ★这在中文是个文言文的字，在英文中倒还好，因为宗教对于东方人的影响
-    并不显著，宗教在西方世界有时几乎等同于最高的法律，因此宗教词汇在
-    英语中可谓比比皆是，每个西方知识份子对于圣经必然都有适度熟悉的，
-    无论他信不信基督教，这点基础常识必须要有。
-    形容词provident 和improvident 比较接近古意，这两个字反而都跟宗
-    教无关，因为providence 本来也不是宗教的字，只是后人把「先见之明」
-    归因于宗教、神所赋予人类的「特殊力量」，所以才衍生出最后的「天命」
-    之意。
+28. visage = vis (看) + ~age (集合物)
+           = 看到(人)的结果集合
+           = (n.)容貌
+           = countenance
+           
+           这个字很少用,知道即可。有个常用的衍生字，叫做 vis~a~vis = face to face
 
-28. visage = vis (看) + ~age (集合物) = 看到(人)的结果集合
-                                      = (n.)容貌 = countenance
 
-  ★这个字字源很简单，但是却很罕用，只是来自于法文visage（脸）的一个
-    文学文雅用字而已，知道即可。
-    不过这个字却有一个衍生字，叫做vis~a~vis = face to face，也是来自
-    于法文的一个缩写词，但这个却常用多了。
+29. visible = vis (看) + ~ible (能够的)
+            = (adj.)能见到的 ←→ invisible
 
-29. visible = vis (看) + ~ible (能够的) = (adj.)能见到的
-                                         ←→ invisible
-
-30. vision = vis (看) + ~ion (动作结果) = 看到的结果
-                                        = (n.)视力、幻象、洞察力
-
-  ★这个字字源也不难，但是这个字跟sight 的字义却是难分难解，其实这两
-    个字非常好分，除了「视觉」之外，这两个字几乎都不大一样。 vision 凸
-    显抽象的「见到之事物」，如：a man of great vision、the failure
-    shattered my vision、the girl's image appeared in my vision ~~ 以
-    上这些例句都无法以sight 来替代，因为sight 更强调具体的「见到之事
-    物」，因此有「视野、见解、景象」这些意义，例句：Mt. Ali is a
-    beautiful sight、In my sight, you did a great job、I caught sight
-    of the boat....不管怎么变，读者会发现到「抽象」和「具体」这两个
-    概念可以判断九成九以上的片语~~ 这两个字并不是都能代换的！
-    至于 visual 只是词类变化而已。
+30. vision = vis (看) + ~ion (动作结果)
+           = 看到的结果
+           = (n.)视力、幻象、洞察力
+           
+           这个字跟 sight 除了「视觉」之外，几乎都不大一样。
+           vision 凸显抽象的「见到之事物」，如：
+           a man of great vision、the failure
+           shattered my vision、
+           the girl's image appeared in my vision
+           以上这些例句都无法以 sight 来替代，因为 sight 更强调具体的「见到之事物」，
+           因此有「视野、见解、景象」这些意义，例句：
+           Mt. Ali is a beautiful sight、
+           In my sight, you did a great job、
+           I caught sight of the boat
 
 31. advise = ad~ (去使) + vise (看) = 去使得(某人)认清(事物)
                                     = (vt.)忠告、劝告 = suggest

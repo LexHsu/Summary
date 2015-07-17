@@ -76,6 +76,7 @@ Alter table tabname add column col type
 总数：SELECT COUNT AS totalcount FROM table1
 求和：SELECT SUM(field1) AS sumvalue FROM table1
 平均：SELECT AVG(field1) AS avgvalue FROM table1
+
 最大：SELECT MAX(field1) AS maxvalue FROM table1
 最小：SELECT MIN(field1) AS minvalue FROM table1
 

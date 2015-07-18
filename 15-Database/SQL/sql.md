@@ -11,32 +11,31 @@ CREATE DATABASE dbname
 DROP DATABASE dbname
 
 3、备份数据库
-
-备份 MySQL 数据库
+备份 MySQL 数据库，不带删除表的格式
 mysqldump -h hostname -u username -p password dbname > bak.sql
 
-备份 MySQL 数据库为带删除表的格式，能够让该备份覆盖已有数据库而不需要手动删除原有数据库。
+备份 MySQL 数据库，带删除表的格式，还原时直接覆盖已有数据库，不需要再手动删除原有数据库
 mysqldump -–add-drop-table -u username -p password dbname > bak.sql
 
-直接将MySQL数据库压缩备份
+直接将 MySQL 数据库压缩备份
 mysqldump -h hostname -u username -p password dbname | gzip > bak.sql.gz
 
-备份MySQL数据库某个(些)表
-mysqldump -h hostname -u username -p password dbname specific_table1 specific_table2 > bak.sql
+备份 MySQL 数据库某个(些)表
+mysqldump -h hostname -u username -p password dbname table1 table2 > bak.sql
 
-同时备份多个MySQL数据库
+同时备份多个 MySQL 数据库
 mysqldump -h hostname -u username -p password –databases dbname1 dbname2 dbname3 > bak.sql
 
 仅仅备份数据库结构
 mysqldump –no-data –databases dbname1 dbname2 dbname3 > bak.sql
 
 备份服务器上所有数据库
-mysqldump –all-databases > allbak.sql
+mysqldump –all-databases > bak.sql
 
-还原MySQL数据库的命令
+还原 MySQL 数据库的命令
 mysql -h hostname -u username -p password dbname < bak.sql
 
-还原压缩的MySQL数据库
+还原压缩的 MySQL 数据库
 gunzip < bak.sql.gz | mysql -u username -p password dbname
 
 将数据库转移到新服务器
@@ -66,7 +65,7 @@ Alter table tabname add column col type
 9、创建视图：create view viewname as SELECT statement
 删除视图：drop view viewname
 
-10、几个简单的基本的sql语句
+10、几个简单的基本的 SQL 语句
 选择：SELECT * FROM table1 WHERE 范围
 插入：INSERT INTO table1(field1,field2) values(value1,value2)
 删除：DELETE FROM table1 WHERE 范围

@@ -87,26 +87,44 @@ SELECT column_name(s) FROM table1 UNION SELECT column_name(s) FROM table2
 
 B： EXCEPT 运算符
 EXCEPT运算符通过包括所有在 TABLE1 中但不在 TABLE2 中的行并消除所有重复行而派生出一个结果表。当 ALL 随 EXCEPT 一起使用时 (EXCEPT ALL)，不消除重复行。
+
 C： INTERSECT 运算符
 INTERSECT运算符通过只包括 TABLE1 和 TABLE2 中都有的行并消除所有重复行而派生出一个结果表。当 ALL随 INTERSECT 一起使用时 (INTERSECT ALL)，不消除重复行。
-注：使用运算词的几个查询结果行必须是一致的。
-12、使用外连接
-A、left （outer） join：
-左外连接（左连接）：结果集几包括连接表的匹配行，也包括左连接表的所有行。
-SQL: SELECT a.a, a.b, a.c, b.c, b.d, b.f FROM a LEFT OUT JOIN b ON a.a = b.c
-B：right （outer） join:
-右外连接(右连接)：结果集既包括连接表的匹配连接行，也包括右连接表的所有行。
-C：full/cross （outer） join：
-全外连接：不仅包括符号连接表的匹配行，还包括两个连接表中的所有记录。
 
-12、分组:Group by:
-   一张表，一旦分组 完成后，查询后只能得到组相关的信息。
-    组相关的信息：（统计信息） count,sum,max,min,avg  分组的标准)
-    在SQLServer中分组时：不能以text,ntext,image类型的字段作为分组依据
-   在SELECTe统计函数中的字段，不能和普通的字段放在一起；
+注：使用运算词的几个查询结果行必须是一致的。
 
 13、对数据库进行操作：
    分离数据库： sp_detach_db;附加数据库：sp_attach_db 后接表明，附加需要完整的路径名
+
 14.如何修改数据库的名称:
 sp_renamedb 'old_name', 'new_name'
+
+1、复制表
+将 mydb 数据库中的 oldtable 表复制为 newtable：
+
+CREATE TABLE newtable LIKE mydb.oldtable;
+INSERT newtable SELECT * FROM mydb.oldtable;
+
+复制整个表
+CREATE TABLE new_table SELECT * FROM old_table;
+
+复制,不复制数据
+CREATE TABLE new_table SELECT * FROM old_table where 0;
+注意：本方案其实只是把 select 语句的结果建一个表，所以 newtable 这个表不会有主键、索引。
+
+
+8、between的用法,between限制查询数据范围时包括了边界值,not between不包括
+select * from table1 where time between time1 and time2
+select a,b,c, from table1 where a not between 数值1 and 数值2
+
+9、in 的使用方法
+select * from table1 where a [not] in (‘value1’,’value2’,’value3,’value4’)
+
+20、列出数据库里所有的表名
+select name from sysobjects where type='U' // U代表用户
+
+21、列出表里的所有的列名
+select name from syscolumns where id=object_id('TableName')
+
+
 ```

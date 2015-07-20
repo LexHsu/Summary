@@ -15,27 +15,23 @@ SELECT * FROM 表名称
 ##### Persons 表:
 
 | Id  |  LastName	   |   FirstName   | Address   |
-|:---:|:------------:|:-------------:|:---------:|
+|:----|:-------------|:--------------|:----------|
 |  1  |	Adams	John   | Oxford Street |	London   |
 |  2  | Bush George  | Fifth Avenue  | New York  |
 |  3  | Carter Thomas| Changan Street| Beijing   |
 
-1. 'SELECT LastName,FirstName FROM Persons'
-
-结果:
+1. `SELECT LastName,FirstName FROM Persons`, 结果:
 
 |  LastName	   |   FirstName   |
-|:------------:|:-------------:|
+|:-------------|:--------------|
 |	Adams	John   | Oxford Street |
 | Bush George  | Fifth Avenue  |
 | Carter Thomas| Changan Street|
 
-2. 'SELECT * FROM Persons'
-
-结果:
+2. `SELECT * FROM Persons`, 结果:
 
 | Id  |  LastName	   |   FirstName   | Address   |
-|:---:|:------------:|:-------------:|:---------:|
+|:----|:-------------|:--------------|:----------|
 |  1  |	Adams	John   | Oxford Street |	London   |
 |  2  | Bush George  | Fifth Avenue  | New York  |
 |  3  | Carter Thomas| Changan Street| Beijing   |

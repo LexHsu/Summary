@@ -21,7 +21,8 @@ SELECT * FROM 表名称
 |  2  | Bush George  | Fifth Avenue  | New York  |
 |  3  | Carter Thomas| Changan Street| Beijing   |
 
-##### `SELECT LastName,FirstName FROM Persons`, 结果:
+
+##### `SELECT LastName,FirstName FROM Persons`, 结果如下:
 
 |  LastName	   |   FirstName   |
 |:-------------|:--------------|
@@ -29,7 +30,8 @@ SELECT * FROM 表名称
 | Bush George  | Fifth Avenue  |
 | Carter Thomas| Changan Street|
 
-##### `SELECT * FROM Persons`, 结果:
+
+##### `SELECT * FROM Persons`, 结果如下:
 
 | Id  |  LastName	   |   FirstName   | Address   |
 |:----|:-------------|:--------------|:----------|

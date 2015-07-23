@@ -15,26 +15,25 @@ SELECT * FROM 表名称
 
 ##### Persons 表:
 
-| Id  |  LastName    |   FirstName   | Address   |
-|:----|:-------------|:--------------|:----------|
-|  1  | Adams John   | Oxford Street | London    |
-|  2  | Bush George  | Fifth Avenue  | New York  |
-|  3  | Carter Thomas| Changan Street| Beijing   |
+| Id  | LastName | FirstName |     Address    |   city   |
+|:----|:---------|:----------|:---------------|:---------|
+|  1  | Adams    | John      | Oxford Street  | London   |
+|  2  | Bush     | George    | Fifth Avenue   | New York |
+|  3  | Carter   | Thomas    | Changan Street | Beijing  |
 
 
 ##### `SELECT LastName,FirstName FROM Persons`, 结果如下:
 
-|  LastName    |   FirstName   |
-|:-------------|:--------------|
-| Adams John   | Oxford Street |
-| Bush George  | Fifth Avenue  |
-| Carter Thomas| Changan Street|
-
+| Id  | LastName | FirstName |
+|:----|:---------|:----------|
+|  1  | Adams    | John      |
+|  2  | Bush     | George    |
+|  3  | Carter   | Thomas    |
 
 ##### `SELECT * FROM Persons`, 结果如下:
 
-| Id  |  LastName    |   FirstName   | Address   |
-|:----|:-------------|:--------------|:----------|
-|  1  | Adams John   | Oxford Street | London    |
-|  2  | Bush George  | Fifth Avenue  | New York  |
-|  3  | Carter Thomas| Changan Street| Beijing   |
+| Id  | LastName | FirstName |     Address    |   city   |
+|:----|:---------|:----------|:---------------|:---------|
+|  1  | Adams    | John      | Oxford Street  | London   |
+|  2  | Bush     | George    | Fifth Avenue   | New York |
+|  3  | Carter   | Thomas    | Changan Street | Beijing  |

@@ -31,9 +31,9 @@ Persons 表:
 |  2  | Bush     | George    | Fifth Avenue   | New York |
 |  3  | Carter   | Thomas    | Changan Street | Beijing  |
 
-选取居住在城市 "Beijing" 中的人，`SELECT * FROM Persons WHERE Address='Beijing'`，结果：
+选取居住在城市 "Beijing" 中的人，`SELECT * FROM Persons WHERE City='Beijing'`，结果：
 
-| Id  | LastName | FirstName |     Address    |   city   |
+| Id  | LastName | FirstName |     Address    |   City   |
 |:----|:---------|:----------|:---------------|:---------|
 |  3  | Carter   | Thomas    | Changan Street | Beijing  |
 

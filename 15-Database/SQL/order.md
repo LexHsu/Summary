@@ -46,6 +46,7 @@ ORDER BY 语句默认按照升序对记录进行排序，通过追加 DESC 关�
 
 以逆字母顺序显示公司名称，并以数字顺序显示顺序号：
 `SELECT Company, OrderNumber FROM Orders ORDER BY Company DESC, OrderNumber ASC`
+
 | Company    | OrderNumber  |
 |:-----------|:-------------|
 | IBM        | 3532         |

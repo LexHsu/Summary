@@ -287,3 +287,12 @@ DROP DATABASE 数据库名;
 删除 mydb 数据库:
 DROP DATABASE mydb;
 ```
+
+### Mac MySQL 配置
+```
+vi .bash_profile
+export PATH=${PATH}:/usr/local/mysql/bin
+export PATH=${PATH}:/usr/local/mysql/bin/mysqladmin
+source .bash_profile
+mysqladmin -u root -p password "****"
+```

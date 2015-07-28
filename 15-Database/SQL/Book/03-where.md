@@ -23,19 +23,27 @@ SELECT 列名称 FROM 表名称 WHERE 列 运算符 值
 
 ### 实例
 
+```
 Persons 表:
 
-| Id  | LastName | FirstName |     Address    |   city   |
-|:----|:---------|:----------|:---------------|:---------|
-|  1  | Adams    | John      | Oxford Street  | London   |
-|  2  | Bush     | George    | Fifth Avenue   | New York |
-|  3  | Carter   | Thomas    | Changan Street | Beijing  |
+mysql> SELECT * FROM people;
++----+-----------+------------+----------------+----------+
+| id | last_name | first_name | address        | city     |
++----+-----------+------------+----------------+----------+
+|  1 | Ada       | John       | Oxford Street  | London   |
+|  2 | Bush      | George     | Fifth Avenue   | New York |
+|  3 | Carter    | Thomas     | Changan Street | Beijing  |
++----+-----------+------------+----------------+----------+
 
-选取居住在城市 "Beijing" 中的人，`SELECT * FROM Persons WHERE City='Beijing'`，结果：
+选取居住在城市 "Beijing" 中的人：
+mysql> SELECT * FROM people WHERE city = 'Beijing';
++----+-----------+------------+----------------+---------+
+| id | last_name | first_name | address        | city    |
++----+-----------+------------+----------------+---------+
+|  3 | Carter    | Thomas     | Changan Street | Beijing |
++----+-----------+------------+----------------+---------+
 
-| Id  | LastName | FirstName |     Address    |   City   |
-|:----|:---------|:----------|:---------------|:---------|
-|  3  | Carter   | Thomas    | Changan Street | Beijing  |
+```
 
 ### 引号的使用
 
@@ -44,18 +52,18 @@ Persons 表:
 ##### 文本值：
 ```
 正确：
-SELECT * FROM Persons WHERE FirstName='Bush'
+SELECT * FROM Persons WHERE FirstName = 'Bush'
 
 错误：
-SELECT * FROM Persons WHERE FirstName=Bush
+SELECT * FROM Persons WHERE FirstName = Bush
 ```
 
 ##### 数值：
 
 ```
 正确：
-SELECT * FROM Persons WHERE Year>1965
+SELECT * FROM Persons WHERE Year > 1965
 
 错误：
-SELECT * FROM Persons WHERE Year>'1965'
+SELECT * FROM Persons WHERE Year > '1965'
 ```

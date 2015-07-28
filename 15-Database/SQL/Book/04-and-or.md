@@ -3,43 +3,53 @@ AND OR
 
 AND 和 OR 可在 WHERE 子语句中把两个或多个条件结合起来。
 
-Persons 表：
+### 示例
 
-| Id  | LastName | FirstName |     Address    |   city   |
-|:----|:---------|:----------|:---------------|:---------|
-|  1  | Adams    | John      | Oxford Street  | London   |
-|  2  | Bush     | George    | Fifth Avenue   | New York |
-|  3  | Carter   | Thomas    | Changan Street | Beijing  |
+```
+表名：people
+
++----+-----------+------------+----------------+----------+
+| id | last_name | first_name | address        | city     |
++----+-----------+------------+----------------+----------+
+|  1 | Ada       | John       | Oxford Street  | London   |
+|  2 | Bush      | George     | Fifth Avenue   | New York |
+|  3 | Carter    | Thomas     | Changan Street | Beijing  |
++----+-----------+------------+----------------+----------+
+
+使用 AND 显示所有姓为 Ada 并且名为 John 的人：
+
+mysql> SELECT * FROM people WHERE first_name = 'John' AND last_name = 'Ada';
++----+-----------+------------+----------------+----------+
+| id | last_name | first_name | address        | city     |
++----+-----------+------------+----------------+----------+
+|  1 | Ada       | John       | Oxford Street  | London   |
++----+-----------+------------+----------------+----------+
 
 
-### 实例
+使用 OR 显示所有姓为 Carter 或者名为 Thomas 的人：
 
-使用 AND 来显示所有姓为 "Carter" 并且名为 "Thomas" 的人：
-
-`SELECT * FROM Persons WHERE FirstName='John' AND LastName='Adams'`
-
-结果：
-
-| Id  | LastName | FirstName |     Address    |   city   |
-|:----|:---------|:----------|:---------------|:---------|
-|  1  | Adams    | John      | Oxford Street  | London   |
-
-
-使用 OR 来显示所有姓为 "Carter" 或者名为 "Thomas" 的人：
-
-`SELECT * FROM Persons WHERE firstname='Thomas' OR lastname='Bush'`
-
-结果：
-
-| Id  | LastName | FirstName |     Address    |   city   |
-|:----|:---------|:----------|:---------------|:---------|
-|  2  | Bush     | George    | Fifth Avenue   | New York |
-|  3  | Carter   | Thomas    | Changan Street | Beijing  |
+mysql> SELECT * FROM people WHERE first_name = 'Thomas' OR last_name = 'Bush';
++----+-----------+------------+----------------+----------+
+| id | last_name | first_name | address        | city     |
++----+-----------+------------+----------------+----------+
+|  1 | Ada       | John       | Oxford Street  | London   |
+|  2 | Bush      | George     | Fifth Avenue   | New York |
+|  3 | Carter    | Thomas     | Changan Street | Beijing  |
++----+-----------+------------+----------------+----------+
 
 
 结合 AND 和 OR 运算符
 
-`SELECT * FROM Persons WHERE (FirstName='Thomas' OR FirstName='William') AND LastName='Carter'``
+SELECT * FROM people WHERE (first_name = 'Thomas' OR first_name = 'William') AND last_name = 'Carter';
++----+-----------+------------+----------------+----------+
+| id | last_name | first_name | address        | city     |
++----+-----------+------------+----------------+----------+
+|  3 | Carter    | Thomas     | Changan Street | Beijing  |
++----+-----------+------------+----------------+----------+
+```
+
+
+
 
 结果：
 

@@ -8,11 +8,11 @@
  - 2.3. [MAC算法](book/2.3-mac.md)
  - 2.4. [CRC算法](book/2.4-crc.md)
 * **第三章 对称加密算法--初级数据加密**
- - 3.1 [DES--数据加密标准](book/3.1-des.md)
- - 3.2 [3DES--三重DES](book/3.2-desede.md)
- - 3.3 [AES--高级数据加密标准](book/3.3-aes.md)
- - 3.4 [IDEA--国际数据加密标准](book/3.4-idea.md)
- - 3.5 [PBE--基于口令加密](book/3.5-peb.md)
+ - 3.1 [DES--数据加密标准](book/3.1-symmetric-encryption.md.md)
+ - 3.2 [3DES--三重DES](book/3.1-symmetric-encryption.md.md)
+ - 3.3 [AES--高级数据加密标准](book/3.1-symmetric-encryption.md.md)
+ - 3.4 [IDEA--国际数据加密标准](book/3.1-symmetric-encryption.md.md)
+ - 3.5 [PBE--基于口令加密](book/3.1-symmetric-encryption.md.md)
 * **第四章 非对称加密算法--高级数据加密**
  - 4.1 [DH--密钥交换算法](book/4.1-dh.md)
  - 4.2 [RSA--典型非对称加密算法](book/4.2-rsa.md)

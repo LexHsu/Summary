@@ -40,19 +40,11 @@ mysql> SELECT * FROM people WHERE first_name = 'Thomas' OR last_name = 'Bush';
 
 结合 AND 和 OR 运算符
 
-SELECT * FROM people WHERE (first_name = 'Thomas' OR first_name = 'William') AND last_name = 'Carter';
+SELECT * FROM people WHERE (first_name = 'Thomas' OR first_name = 'William') 
+                           AND last_name = 'Carter';
 +----+-----------+------------+----------------+----------+
 | id | last_name | first_name | address        | city     |
 +----+-----------+------------+----------------+----------+
 |  3 | Carter    | Thomas     | Changan Street | Beijing  |
 +----+-----------+------------+----------------+----------+
 ```
-
-
-
-
-结果：
-
-| Id  | LastName | FirstName |     Address    |   city   |
-|:----|:---------|:----------|:---------------|:---------|
-|  3  | Carter   | Thomas    | Changan Street | Beijing  |

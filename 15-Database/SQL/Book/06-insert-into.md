@@ -4,12 +4,12 @@ INSERT INTO
 INSERT INTO 语句用于向表格中插入新的行，语法：
 
 ```
-INSERT INTO table_name VALUES (value1, value2, ...)
+INSERT INTO table_name VALUES (value1, value2, ...);
 ```
 
 也可以指定所要插入数据的列：
 ```
-INSERT INTO table_name (co1, col2,...) VALUES (value1, value2, ...)
+INSERT INTO table_name (co1, col2,...) VALUES (value1, value2, ...);
 ```
 
 ### 示例：

@@ -11,4 +11,5 @@
  - 07. [SQL UPDATE](book/Chapter01/08-update.md)
  - 08. [SQL DELETE](book/Chapter01/08-delete.md)
 * **第二章 SQL 进阶**
- - 09. [SQL TOP](book/Chapter01/09-convert.md)
+ - 01. [SQL TOP](book/Chapter02/09-limit-top.md)
+ - 02. [SQL LIKE](book/Chapter02/02-like.md)

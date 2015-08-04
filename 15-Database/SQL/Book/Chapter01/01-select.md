@@ -16,6 +16,19 @@ SELECT * FROM 表名称
 ```
 表名：people
 
+mysql> SELECT * FROM people;
+Empty set (0.05 sec)
+
+mysql> INSERT INTO people VALUeS (1, "Ada", "John", "Oxford Street", "London");
+Query OK, 1 row affected (0.07 sec)
+
+mysql> INSERT INTO people VALUeS (2, "Bush", "George", "Fifth Avenue", "New York");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO people VALUeS (3, "Carter", "Thomas", "Changan Street", "Beijing");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> SELECT * FROM people;
 +----+-----------+------------+----------------+----------+
 | id | last_name | first_name | address        | city     |
 +----+-----------+------------+----------------+----------+

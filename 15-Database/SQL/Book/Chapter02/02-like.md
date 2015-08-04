@@ -18,6 +18,15 @@ SELECT column_name(s) FROM table_name WHERE column_name LIKE pattern
 ### 示例
 
 ```
+表名 people：
++----+-----------+------------+----------------+----------+
+| id | last_name | first_name | address        | city     |
++----+-----------+------------+----------------+----------+
+|  1 | Ada       | John       | Oxford Street  | London   |
+|  2 | Bush      | George     | Fifth Avenue   | New York |
+|  3 | Carter    | Thomas     | Changan Street | Beijing  |
++----+-----------+------------+----------------+----------+
+
 从 people 表中选取居住在以 "N" 开始的城市里的人：
 mysql> SELECT * FROM people WHERE city LIKE "N%";
 +----+-----------+------------+--------------+----------+

@@ -9,6 +9,7 @@ SELECT column_name(s) FROM table_name WHERE column_name BETWEEN value1 AND value
 
 ### 示例
 
+```
 1. 以字母顺序显示介于 "Adams"（包括）和 "Carter"（不包括）之间的人：
 mysql> SELECT * FROM people WHERE last_name BETWEEN 'Ada' AND 'Carter';
 +----+-----------+------------+----------------+----------+
@@ -29,3 +30,4 @@ mysql> SELECT * FROM people WHERE last_name BETWEEN 'Ada' AND 'Carter';
 2. 显示上述范围之外的人，使用 NOT 操作符：
 mysql> SELECT * FROM people WHERE last_name NOT BETWEEN 'Ada' AND 'Carter';
 Empty set (0.00 sec)
+```

@@ -23,5 +23,48 @@ UNION 结果集中的列名总是等于 UNION 中第一个 SELECT 语句中的�
 ### 示例
 
 ```
+mysql> SELECT * FROM table1;
++----+-----------+
+| id | name      |
++----+-----------+
+|  1 | Zhang Hua |
+|  2 | Li Li     |
+|  3 | Xu Liang  |
++----+-----------+
+3 rows in set (0.00 sec)
 
+mysql> SELECT * FROM table2;
++----+-----------+
+| id | name      |
++----+-----------+
+|  1 | Jiang Yue |
+|  2 | Wang Min  |
+|  3 | Li Li     |
++----+-----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT name FROM table1 UNION SELECT name FROM table2;
++-----------+
+| name      |
++-----------+
+| Zhang Hua |
+| Li Li     |
+| Xu Liang  |
+| Jiang Yue |
+| Wang Min  |
++-----------+
+5 rows in set (0.01 sec)
+
+mysql> SELECT name FROM table1 UNION ALL SELECT name FROM table2;
++-----------+
+| name      |
++-----------+
+| Zhang Hua |
+| Li Li     |
+| Xu Liang  |
+| Jiang Yue |
+| Wang Min  |
+| Li Li     |
++-----------+
+6 rows in set (0.00 sec)
 ```

@@ -47,7 +47,9 @@ mysql> SELECT * FROM orders;
 +----+--------+-----------+
 5 rows in set (0.00 sec)
 
-mysql> SELECT people.last_name, people.first_name, orders.number FROM people, orders WHERE people.id = orders.id_people;
+mysql> SELECT people.last_name, people.first_name, orders.number
+    -> FROM people, orders
+    -> WHERE people.id = orders.id_people;
 +-----------+------------+--------+
 | last_name | first_name | number |
 +-----------+------------+--------+
@@ -58,7 +60,11 @@ mysql> SELECT people.last_name, people.first_name, orders.number FROM people, or
 +-----------+------------+--------+
 4 rows in set (0.00 sec)
 
-mysql> SELECT people.last_name, people.first_name, orders.number FROM people INNER JOIN orders ON people.id = orders.id_people ORDER BY people.last_name;
+mysql> SELECT people.last_name, people.first_name, orders.number
+    -> FROM people
+    -> INNER JOIN orders
+    -> ON people.id = orders.id_people
+    -> ORDER BY people.last_name;
 +-----------+------------+--------+
 | last_name | first_name | number |
 +-----------+------------+--------+
@@ -86,7 +92,11 @@ ON table_name1.column_name=table_name2.column_name
 列出所有的人，以及他们的订购:
 
 ```
-mysql> SELECT people.last_name, people.first_name, orders.number FROM people LEFT JOIN orders ON people.id = orders.id_people ORDER BY people.last_name;
+mysql> SELECT people.last_name, people.first_name, orders.number
+    -> FROM people
+    -> LEFT JOIN orders
+    -> ON people.id = orders.id_people
+    -> ORDER BY people.last_name;
 +-----------+------------+--------+
 | last_name | first_name | number |
 +-----------+------------+--------+
@@ -117,7 +127,11 @@ ON table_name1.column_name=table_name2.column_name
 列出所有的定单，以及定购它们的人
 
 ```
-mysql> SELECT people.last_name, people.first_name, orders.number FROM people RIGHT JOIN orders ON people.id = orders.id_people ORDER BY people.last_name;
+mysql> SELECT people.last_name, people.first_name, orders.number
+    -> FROM people
+    -> RIGHT JOIN orders
+    -> ON people.id = orders.id_people
+    -> ORDER BY people.last_name;
 +-----------+------------+--------+
 | last_name | first_name | number |
 +-----------+------------+--------+

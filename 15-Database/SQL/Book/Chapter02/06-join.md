@@ -144,7 +144,7 @@ mysql> SELECT people.last_name, people.first_name, orders.number
 5 rows in set (0.01 sec)
 ```
 
-### FULL JOIN
+### FULL JOIN 示例
 
 只要其中某个表存在匹配，FULL JOIN 关键字就会返回行。语法：
 FULL JOIN 关键字会从左表 (people) 和右表 (orders) 那里返回所有的行。

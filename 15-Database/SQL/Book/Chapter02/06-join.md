@@ -162,5 +162,33 @@ ON table_name1.column_name=table_name2.column_name
 列出所有的人，以及他们的定单，以及所有的定单，以及定购它们的人:
 
 ```
+mysql> SELECT people.last_name, people.first_name, orders.number
+    -> FROM people
+    -> FULL JOIN orders
+    -> ON people.id = orders.id_people
+    -> ORDER BY people.last_name;
+ERROR 1054 (42S22): Unknown column 'people.last_name' in 'field list'
 
+注：MySQL 不支持 FULL JOIN，替代方法如下：
+
+mysql> SELECT people.last_name, people.first_name, orders.number
+    -> FROM people
+    -> LEFT JOIN orders
+    -> ON people.id = orders.id_people
+    -> UNION
+    -> SELECT people.last_name, people.first_name, orders.number
+    -> FROM people
+    -> RIGHT JOIN orders
+    -> ON people.id = orders.id_people
++-----------+------------+--------+
+| last_name | first_name | number |
++-----------+------------+--------+
+| Ada       | John       |    300 |
+| Ada       | John       |    400 |
+| Bush      | George     |   NULL |
+| Carter    | Thomas     |    100 |
+| Carter    | Thomas     |    200 |
+| NULL      | NULL       |    500 |
++-----------+------------+--------+
+6 rows in set (0.02 sec)
 ```

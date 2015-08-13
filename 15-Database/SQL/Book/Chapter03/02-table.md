@@ -1,4 +1,4 @@
-table
+TABLE
 ===
 
 ##### 创建表
@@ -37,7 +37,7 @@ mysql> CREATE TABLE students
 1. 在系统命令行输入:
 mysql -D samp_db -u root -p < tbl.sql
 
-2. 在mysql命令行输入：
+2. 在 mysql 命令行输入：
 source tbl.sql;
 ```
 

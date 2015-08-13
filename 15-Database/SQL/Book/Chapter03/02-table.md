@@ -21,10 +21,10 @@ Query OK, 0 rows affected (0.12 sec)
 
 ```
 
-##### 通过 SQL 文件执行
+##### 通过 SQL 文件创建表
 
 ```
-mysql> CREATE TABLE students
+CREATE TABLE students
 (
     id int unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name char(8) NOT NULL,
@@ -32,7 +32,9 @@ mysql> CREATE TABLE students
     tel char(13) NULL DEFAULT "-"
 );
 ```
+
 上述语句保存为 tbl.sql：
+
 ```
 1. 在系统命令行输入:
 mysql -D samp_db -u root -p < tbl.sql

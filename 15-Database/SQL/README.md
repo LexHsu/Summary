@@ -1,5 +1,8 @@
 目录
 ===
+* **第零章 SQL**
+ - 01. [SQL TOP](book/Chapter02/01-db.md)
+ - 02. [SQL LIKE](book/Chapter02/02-table.md)
 * **第一章 SQL 基础**
  - 00. [SQL语法及规范](book/Chapter01/01-abstract.md)
  - 01. [SQL SELECT](book/Chapter01/02-select.md)

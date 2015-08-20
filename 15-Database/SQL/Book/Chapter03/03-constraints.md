@@ -15,7 +15,7 @@ SQL 约束
 ### NOT NULL
 约束强制列不接受 NULL 值。
 NOT NULL 约束强制字段始终包含值。这意味着，如果不向字段添加值，就无法插入新记录或者更新记录。
-下面的 SQL 语句强制 "Id_P" 列和 "LastName" 列不接受 NULL 值：
+下面的 SQL 语句强制 "id" 列和 "last_name" 列不接受 NULL 值：
 
 ```
 CREATE TABLE people
@@ -110,4 +110,66 @@ SQL Server / Oracle / MS Access:
 ```
 ALTER TABLE people
 DROP CONSTRAINT uc_people
+```
+
+### SQL PRIMARY KEY 约束
+PRIMARY KEY 约束唯一标识数据库表中的每条记录。
+主键必须包含唯一的值。
+主键列不能包含 NULL 值。
+每个表都应该有一个主键，并且每个表只能有一个主键。
+```
+SQL PRIMARY KEY Constraint on CREATE TABLE
+```
+下面的 SQL 在 "people" 表创建时在 "id" 列创建 PRIMARY KEY 约束：
+```
+MySQL:
+CREATE TABLE people
+(
+id int NOT NULL,
+last_name varchar(255) NOT NULL,
+first_name varchar(255),
+address varchar(255),
+city varchar(255),
+PRIMARY KEY (id)
+)
+SQL Server / Oracle / MS Access:
+CREATE TABLE people
+(
+id int NOT NULL PRIMARY KEY,
+last_name varchar(255) NOT NULL,
+first_name varchar(255),
+address varchar(255),
+city varchar(255)
+)
+```
+如果需要命名 PRIMARY KEY 约束，以及为多个列定义 PRIMARY KEY 约束，请使用下面的 SQL 语法：
+```
+MySQL / SQL Server / Oracle / MS Access:
+CREATE TABLE people
+(
+id int NOT NULL,
+last_name varchar(255) NOT NULL,
+first_name varchar(255),
+address varchar(255),
+city varchar(255),
+CONSTRAINT pk_PersonID PRIMARY KEY (id,last_name)
+)
+SQL PRIMARY KEY Constraint on ALTER TABLE
+如果在表已存在的情况下为 "id" 列创建 PRIMARY KEY 约束，请使用下面的 SQL：
+MySQL / SQL Server / Oracle / MS Access:
+ALTER TABLE people
+ADD PRIMARY KEY (id)
+如果需要命名 PRIMARY KEY 约束，以及为多个列定义 PRIMARY KEY 约束，请使用下面的 SQL 语法：
+MySQL / SQL Server / Oracle / MS Access:
+ALTER TABLE people
+ADD CONSTRAINT pk_PersonID PRIMARY KEY (id,last_name)
+注释：如果使用 ALTER TABLE 语句添加主键，必须把主键列声明为不包含 NULL 值（在表首次创建时）。
+撤销 PRIMARY KEY 约束
+如需撤销 PRIMARY KEY 约束，请使用下面的 SQL：
+MySQL:
+ALTER TABLE people
+DROP PRIMARY KEY
+SQL Server / Oracle / MS Access:
+ALTER TABLE people
+DROP CONSTRAINT pk_PersonID
 ```

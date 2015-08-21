@@ -173,3 +173,95 @@ SQL Server / Oracle / MS Access:
 ALTER TABLE people
 DROP CONSTRAINT pk_PersonID
 ```
+
+### FOREIGN KEY
+一个表中的 FOREIGN KEY 指向另一个表中的 PRIMARY KEY。
+FOREIGN KEY 约束用于预防破坏表之间连接的动作。
+FOREIGN KEY 约束也能防止非法数据插入外键列，因为它必须是它指向的那个表中的值之一。
+SQL FOREIGN KEY Constraint on CREATE TABLE
+
+下表 orders 中的 id_people 列指向 people 表中的 id 列。
+
+```
+mysql> SELECT * FROM people;
++----+-----------+------------+------------+----------+
+| id | last_name | first_name | address    | city     |
++----+-----------+------------+------------+----------+
+|  1 | Ada       | John       | Oxford Str | London   |
+|  2 | Bush      | George     | Fifth Aven | New York |
+|  3 | Carter    | Thomas     | Changan St | Beijing  |
++----+-----------+------------+------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM orders;
++----+--------+-----------+
+| id | number | id_people |
++----+--------+-----------+
+|  1 |    100 |         3 |
+|  2 |    200 |         3 |
+|  3 |    300 |         1 |
+|  4 |    400 |         1 |
+|  5 |    500 |         9 |
++----+--------+-----------+
+5 rows in set (0.00 sec)
+```
+
+- people 表中的 id 列是 people 表中的 PRIMARY KEY。
+- orders 表中的 id 列是 orders 表中的 FOREIGN KEY。
+
+下面的 SQL 在 orders 表创建时为 id 列创建 FOREIGN KEY：
+```
+MySQL:
+CREATE TABLE Orders
+(
+Id_O int NOT NULL,
+OrderNo int NOT NULL,
+Id_P int,
+PRIMARY KEY (Id_O),
+FOREIGN KEY (Id_P) REFERENCES Persons(Id_P)
+)
+
+SQL Server / Oracle / MS Access:
+CREATE TABLE Orders
+(
+Id_O int NOT NULL PRIMARY KEY,
+OrderNo int NOT NULL,
+Id_P int FOREIGN KEY REFERENCES Persons(Id_P)
+)
+
+如果需要命名 FOREIGN KEY 约束，以及为多个列定义 FOREIGN KEY 约束，请使用下面的 SQL 语法：
+MySQL / SQL Server / Oracle / MS Access:
+CREATE TABLE Orders
+(
+Id_O int NOT NULL,
+OrderNo int NOT NULL,
+Id_P int,
+PRIMARY KEY (Id_O),
+CONSTRAINT fk_PerOrders FOREIGN KEY (Id_P)
+REFERENCES Persons(Id_P)
+)
+SQL FOREIGN KEY Constraint on ALTER TABLE
+
+如果在 orders 表已存在的情况下为 id 列创建 FOREIGN KEY 约束，请使用下面的 SQL：
+MySQL / SQL Server / Oracle / MS Access:
+ALTER TABLE Orders
+ADD FOREIGN KEY (Id_P)
+REFERENCES Persons(Id_P)
+
+如果需要命名 FOREIGN KEY 约束，以及为多个列定义 FOREIGN KEY 约束，请使用下面的 SQL 语法：
+MySQL / SQL Server / Oracle / MS Access:
+ALTER TABLE Orders
+ADD CONSTRAINT fk_PerOrders
+FOREIGN KEY (Id_P)
+REFERENCES Persons(Id_P)
+撤销 FOREIGN KEY 约束
+
+如需撤销 FOREIGN KEY 约束，请使用下面的 SQL：
+MySQL:
+ALTER TABLE Orders
+DROP FOREIGN KEY fk_PerOrders
+
+SQL Server / Oracle / MS Access:
+ALTER TABLE Orders
+DROP CONSTRAINT fk_PerOrders
+```

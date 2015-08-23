@@ -20,7 +20,6 @@ mysql> CREATE TABLE students
     -> tel char(13) NULL DEFAULT "-"
     -> );
 Query OK, 0 rows affected (0.12 sec)
-
 ```
 
 ##### 通过 SQL 文件创建表
@@ -51,6 +50,15 @@ source tbl.sql;
 2. tbl.sql 文件若不在当前工作目录下需指定文件的完整路径。
 3. 使用 show tables; 命令可查看已创建了表的名称。
 4. 使用 describe 表名; 命令可查看已创建的表的详细信息。
+
+### AUTO_INCREMENT
+
+```
+AUTO_INCREMENT 会在新记录插入表中时生成一个唯一的数字。
+默认 AUTO_INCREMENT 的开始值是 1，每条新记录递增 1。
+要让 AUTO_INCREMENT 序列以其他的值起始，请使用下列 SQL 语法：
+ALTER TABLE Persons AUTO_INCREMENT=100
+```
 
 ### 添加列
 

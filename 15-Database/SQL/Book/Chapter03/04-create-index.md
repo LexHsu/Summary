@@ -36,3 +36,12 @@ ON Person (last_name DESC)
 CREATE INDEX people_index
 ON Person (last_name, first_name)
 ```
+
+### MySQL 删除 INDEX
+
+```
+ALTER TABLE table_name DROP INDEX index_name
+
+仅删除表内的数据，但并不删除表本身：
+TRUNCATE TABLE 表名称
+```

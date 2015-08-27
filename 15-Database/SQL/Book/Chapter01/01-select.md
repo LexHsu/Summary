@@ -5,11 +5,23 @@ SELECT 语句用于从表中选取出数据，存储在一个结果表（结果�
 
 ### SELECT 语法
 
+常见语法：
 ```
 SELECT 列名称 FROM 表名称
 或
 SELECT * FROM 表名称
 ```
+
+更复杂的语法如下，后续会详细介绍：
+```
+SELECT 列名或表达式
+FROM 表名或视图名
+[WHERE 行条件表达式]
+[GROUP BY 列名]
+[HAVING 组条件表达式]
+[ORDER BY 列名 [ASC | DESC]]
+```
+
 
 ### 实例
 

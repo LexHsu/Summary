@@ -5,7 +5,7 @@ VIEW
 可以向视图添加 SQL 函数、WHERE 以及 JOIN 语句，也可以提交数据，就像这些来自于某个单一的表。
 注：数据库的设计和结构不会受到视图中的函数、where 或 join 语句的影响。
 
-### CREATE VIEW 语法
+### SQL 创建视图
 ```
 CREATE VIEW view_name AS
 SELECT column_name(s)
@@ -13,12 +13,10 @@ FROM table_name
 WHERE condition
 
 注：视图总是显示最近的数据。每当用户查询视图时，数据库引擎通过使用 SQL 语句来重建数据。
-```
 
-### 示例
+示例，创建一个名为 address_view 的视图，包括 address，city 两列：
 
-```
-表明：people
+mysql> SELECT * FROM people;
 +----+-----------+------------+----------------+----------+
 | id | last_name | first_name | address        | city     |
 +----+-----------+------------+----------------+----------+
@@ -26,12 +24,21 @@ WHERE condition
 |  2 | Bush      | George     | Fifth Avenue   | New York |
 |  3 | Carter    | Thomas     | Changan Street | Beijing  |
 +----+-----------+------------+----------------+----------+
+3 rows in set (0.00 sec)
 
+mysql> CREATE VIEW address_view AS SELECT address, city FROM people;
+Query OK, 0 rows affected (0.06 sec)
 
+mysql> SELECT * FROM address_view;
++----------------+----------+
+| address        | city     |
++----------------+----------+
+| Oxford Street  | London   |
+| Fifth Avenue   | New York |
+| Changan Street | Beijing  |
++----------------+----------+
+3 rows in set (0.02 sec)
 
-CREATE VIEW address_view AS
-SELECT address, city
-FROM people;
 
 ```
 
@@ -39,22 +46,32 @@ FROM people;
 
 您可以使用下面的语法来更新视图：
 ```
-SQL CREATE OR REPLACE VIEW Syntax
 CREATE OR REPLACE VIEW view_name AS
 SELECT column_name(s)
 FROM table_name
 WHERE condition
 
-向 address_view 视图添加  first_name 列：
-CREATE VIEW [address_view] AS
-SELECT address, city, first_name
-FROM people;
+注：开始误认为CREATE 和 REPLACE 只要使用任意一个关键字即可，其实是需要同时使用。
+
+示例，向 address_view 视图添加  first_name 列：
+mysql> CREATE OR REPLACE VIEW address_view AS SELECT address, city, first_name FROM people;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> SELECT * FROM address_view;
++----------------+----------+------------+
+| address        | city     | first_name |
++----------------+----------+------------+
+| Oxford Street  | London   | John       |
+| Fifth Avenue   | New York | George     |
+| Changan Street | Beijing  | Thomas     |
++----------------+----------+------------+
+3 rows in set (0.00 sec)
+
 ```
 
 ### SQL 撤销视图
 
-可通过 DROP VIEW 命令来删除视图。
+可通过 DROP VIEW 命令删除视图。
 ```
-SQL DROP VIEW Syntax
 DROP VIEW view_name
 ```

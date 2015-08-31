@@ -1,0 +1,46 @@
+snprintf
+===
+
+### 函数原型
+
+```
+int snprintf(char *str, size_t size, const char *format, ...)
+```
+
+### 所需头文件
+
+```
+#include <stdio.h>
+```
+
+### 功能
+将可变个参数(...)按照 format 格式化成字符串，然后将其复制到 str 中
+
+1. 如果格式化后的字符串长度 < size，则将此字符串全部复制到 str 中，并给其后添加一个字符串结束符 `\0`；
+2. 如果格式化后的字符串长度 >= size，则只将其中的 (size-1) 个字符复制到 str 中，并给其后添加一个字符串结束符 `\0`；
+
+注意：返回值为欲写入的字符串长度。
+
+### 示例
+
+```
+#include<stdio.h>
+
+int main() {
+
+    char a[20] = {0};
+    int len = 0;
+    len = snprintf(a, 9, "%012d", 12345);
+    printf("i = %d, a = %s\n", len, a);
+
+    char s[100] = {0};
+    snprintf(s,100,"%.*s",3,"abcd");
+    printf("%s\n", s);
+
+    return 0;
+}
+
+结果
+i = 12, a = 00000001
+abc
+```

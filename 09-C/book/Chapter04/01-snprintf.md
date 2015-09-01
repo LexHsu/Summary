@@ -28,19 +28,19 @@ int snprintf(char *str, size_t size, const char *format, ...)
 
 int main() {
 
-    char a[20] = {0};
+    char a[3] = {0};
     int len = 0;
-    len = snprintf(a, 9, "%012d", 12345);
-    printf("i = %d, a = %s\n", len, a);
+    len = snprintf(a, sizeof(a), "%d", 12345);
+    printf("len = %d, a = %s\n", len, a);
 
-    char s[100] = {0};
-    snprintf(s,100,"%.*s",3,"abcd");
-    printf("%s\n", s);
+    char s[10] = {0};
+    len = snprintf(s, sizeof(s), "%.*s", 3, "abcd");
+    printf("len = %d, a = %s\n", len, s);
 
     return 0;
 }
 
 结果
-i = 12, a = 00000001
-abc
+len = 5, a = 12
+len = 3, a = abc
 ```

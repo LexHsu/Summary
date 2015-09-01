@@ -33,9 +33,19 @@ int main() {
     len = snprintf(a, sizeof(a), "%d", 12345);
     printf("len = %d, a = %s\n", len, a);
 
-    char s[10] = {0};
+    char s[5] = {0};
     len = snprintf(s, sizeof(s), "%.*s", 3, "abcd");
     printf("len = %d, a = %s\n", len, s);
+
+    char str[5] = {0};  
+    char *data = "abcd";  
+    len = snprintf(str, sizeof(str) - 1, "str:%s", data);  
+    printf("len = %d, a = %s\n", len, str);
+
+    char x[5] = {0};  
+    char *data2 = "abcd";  
+    len = snprintf(x, sizeof(x) - 1, "xis:%s", data2);  
+    printf("len = %d, a = %s\n", len, x);
 
     return 0;
 }
@@ -43,4 +53,6 @@ int main() {
 // 结果:
 len = 5, a = 12
 len = 3, a = abc
+len = 8, a = str
+len = 8, a = xis
 ```

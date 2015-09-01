@@ -3,13 +3,13 @@ snprintf
 
 ### 函数原型
 
-```
+```c
 int snprintf(char *str, size_t size, const char *format, ...)
 ```
 
 ### 所需头文件
 
-```
+```c
 #include <stdio.h>
 ```
 
@@ -23,7 +23,7 @@ int snprintf(char *str, size_t size, const char *format, ...)
 
 ### 示例
 
-```
+```c
 #include<stdio.h>
 
 int main() {
@@ -40,7 +40,7 @@ int main() {
     return 0;
 }
 
-结果
+// 结果:
 len = 5, a = 12
 len = 3, a = abc
 ```

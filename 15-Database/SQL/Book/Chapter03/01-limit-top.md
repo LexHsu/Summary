@@ -20,7 +20,6 @@ SELECT column_name(s) FROM table_name WHERE ROWNUM <= number
 ```
 Persons 表:
 
-
 1. 从 people 表中选取头两条记录
 SQL Server：
 SELECT TOP 2 * FROM people;
@@ -33,13 +32,13 @@ SELECT * FROM people WHERE id <= 2;
 
 2. 在 people 表中选取 50% 的记录：
 SQL Server：
-SELECT TOP 50 PERCENT * FROM Persons
+SELECT TOP 50 PERCENT * FROM people;
 
 MySQL：
-
+SELECT first_name FROM people WHERE id <= (SELECT COUNT(first_name) FROM people) / 2;
 
 Oracle：
-
+SELECT first_name FROM people WHERE id <= (SELECT COUNT(first_name) FROM people) / 2;
 
 3. 从第三条开始的 2 条记录：
 SQL Server：

@@ -154,7 +154,7 @@ FULL JOIN 关键字会从左表 (people) 和右表 (orders) 那里返回所有�
 SELECT column_name(s)
 FROM table_name1
 FULL JOIN table_name2
-ON table_name1.column_name=table_name2.column_name
+ON table_name1.column_name = table_name2.column_name
 ```
 
 注释：在某些数据库中， FULL JOIN 称为 FULL OUTER JOIN。

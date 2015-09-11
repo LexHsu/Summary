@@ -18,7 +18,7 @@ JOIN 用于根据两个或多个表中的列之间的关系，从这些表中查
 SELECT column_name(s)
 FROM table_name1
 INNER JOIN table_name2
-ON table_name1.column_name=table_name2.column_name
+ON table_name1.column_name = table_name2.column_name
 ```
 INNER JOIN 关键字在表中存在至少一个匹配时返回行。如果 people 表中的行在 orders 表中没有匹配，就不会列出这些行。
 
@@ -119,7 +119,7 @@ RIGHT JOIN 关键字会右表 (table_name2) 那里返回所有的行，即使在
 SELECT column_name(s)
 FROM table_name1
 RIGHT JOIN table_name2
-ON table_name1.column_name=table_name2.column_name
+ON table_name1.column_name = table_name2.column_name
 ```
 
 注释：在某些数据库中， RIGHT JOIN 称为 RIGHT OUTER JOIN。

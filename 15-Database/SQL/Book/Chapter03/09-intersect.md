@@ -12,7 +12,7 @@ SELECT member_id, name FROM table2;
 MySQL　不支持 INTERSECT，可用如下语句代替：
 
 ```
-SELECT table1.member_id, table1.name
+SELECT member_id, name
 FROM table1 INNER JOIN table2
 USING (member_id, name)
 ```

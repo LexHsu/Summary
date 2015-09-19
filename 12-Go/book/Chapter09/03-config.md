@@ -1,4 +1,4 @@
-环境搭建
+Go 环境配置
 ===
 
 ### GOROOT
@@ -17,7 +17,7 @@ export PATH=$PATH:$GOROOT/bin
 GOPATH 用于设置包加载路径。可设置多个目录，Ubuntu 下用冒号分隔(Win 下用分号)。每个目录应包含 src, pkg, bin 三个文件夹
 
 ```
-export GOPATH=$HOME/Applications/go:$HOME/Work/go;
+export GOPATH=$HOME/Applications/go:$HOME/Work/go
 ```
 
 go get 获取的开源包放入第一个 GOPATH 路径中，如：

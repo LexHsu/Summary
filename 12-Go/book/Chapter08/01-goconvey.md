@@ -55,7 +55,6 @@ package goconvey
 
 import (
     "testing"
-
     . "github.com/smartystreets/goconvey/convey"
 )
 
@@ -94,3 +93,30 @@ func TestDivide(t *testing.T) {
 }
 
 ```
+
+首先，使用官方推荐的方式导入 GoConvey 的辅助包以减少冗余代码：
+```
+. "github.com/smartystreets/goconvey/convey"。
+```
+
+其次，每个测试用例使用 Convey 函数包裹：
+
+1. 第一个参数为 string 类型的描述
+2. 第二个参数一般为 *testing.T，即本例中的变量 t
+3. 第三个参数为不接收任何参数也不返回任何值的函数（常用闭包形式）。
+
+Convey 语句同样可以无限嵌套，以体现各个测试用例之间的关系，如 TestDivision。
+注意，只有最外层的 Convey 需要传入变量 t，内层的嵌套均不需要传入。
+
+最后，使用 So 语句对条件进行判断。在本例中使用了 3 个不同类型的条件判断：ShouldBeNil、ShouldEqual 和 ShouldNotBeNil，分别表示值应该为 nil、值应该相等和值不应该为 nil。
+更详细的条件列表，可以参见[官方文档](https://github.com/smartystreets/goconvey/wiki/Assertions)。
+
+###　执行单元测试
+
+三种方式，在需要执行的测试文件目录命令行下执行：
+
+1. go test      (命令行统计)
+2. go test -v   (详细的命令行统计)
+3. goconvey     (Web页面统计)
+
+注：使用 goconvey 需要先将$GOPATH/bin　目录添加到 $PATH 路径下。

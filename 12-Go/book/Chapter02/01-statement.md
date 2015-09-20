@@ -145,6 +145,40 @@ for i, v := range s {               // 复制 struct slice { pointer, len, cap }
 
 - 另外两种引用类型 map、channel 是指针包装，而 slice 是 struct。
 
+- 对于 for range 中 idiomatic 使用方式，iteration variable 在每次循环中都会被重用
+
+```
+//details-in-go/5/iterationvariable.go
+var m = [...]int{1, 2, 3, 4, 5}
+
+for i, v := range m {
+    go func() {
+        time.Sleep(time.Second * 3)
+        fmt.Println(i, v)
+    }()
+}
+
+time.Sleep(time.Second * 10)
+
+$go run iterationvariable.go
+4 5
+4 5
+4 5
+4 5
+4 5
+```
+
+各个 goroutine 中输出的 i, v 值都是 for range 循环结束后的 i, v 最终值。可行的 fix 方法：
+
+```go
+for i, v := range m {
+    go func(i, v int) {
+        time.Sleep(time.Second * 3)
+        fmt.Println(i, v)
+    }(i, v)
+}
+```
+
 ### Switch
 
 - 分支表达式可以是任意类型，不限于常量。可省略 break，默认自动终止。

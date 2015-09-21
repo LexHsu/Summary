@@ -1,7 +1,7 @@
 MySQL 拷贝表操作
 ===
 
-- 拷贝表结构到新表 new_table 中，不拷贝表中的数据
+- 拷贝表结构到新表 new_table 中，不拷贝表中的数据。
 
 ```
 CREATE TABLE new_table LIKE origin_table  

@@ -1,7 +1,6 @@
 目录
 ===
 
-* ** 字根**
 - 01. [root](https://github.com/LexHsu/Summary/blob/master/05-English/01-root.md)
 - 02. [duc](https://github.com/LexHsu/Summary/blob/master/05-English/02-duc.md)
 - 03. [ject](https://github.com/LexHsu/Summary/blob/master/05-English/03-jec.md)

@@ -173,3 +173,97 @@ react-native start
 - [原始文档](https://github.com/liaohuqiu/liaohuqiu.github.io/edit/docs/_posts/blog/2015/2015-09-23-react-native-1.cn.md)
 - [翻译文档](http://www.liaohuqiu.net/cn/posts/react-native-1/)
 - [官方文档](https://facebook.github.io/react-native/docs/getting-started.html#content)
+
+### 独立发布 Android APK
+
+做了 React Native Android 开发的话，就会知道，开发的时候必须启动个 JS Server，然后要让手机连接这个 Server，否者会出现那个”吓人”的红色屏幕。这个我在第一篇 React Native 文章中就提到过。
+如果要发布一个 React Native 写的 Android 应用，不可能要别人来连接这个 JS Server。可不可以不要连接这个 Server 就能运行呢？在网上找了一圈，发现资料很少，官方文档上也没有说支持。这篇文章就来讨论一种实现方案。
+原理探究
+我们来看一下 RN 应用连接这个 JS Server 干了啥事情？第一次运行应用的时候，会提示正在加载 JS 文件。应该就是连接这个 JS Server 下载 JS 文件吧，我们同时看到 JS Server 的窗口中打印出如下的 log：
+```
+Running packager on port 8081.
+...
+transforming [========================================] 100% 330/330
+[19:45:44] <START> request:/index.android.bundle?platform=android
+[19:45:44] <START> find dependencies
+[19:45:44] <END>   find dependencies (127ms)
+[19:45:44] <START> transform
+[19:45:45] <END>   transform (490ms)
+[19:45:45] <END>   request:/index.android.bundle?platform=android (630ms)
+::ffff:10.237.208.110 - - [Thu, 24 Sep 2015 11:45:50 GMT] "GET /flow/ HTTP/1.1" 404 - "-" "okhttp/2.4.0"
+```
+
+可以看到一些信息，这是在访问 /index.android.bundle?platform=android 这个连接，服务器端口号是 8081。在浏览器中打开这个连接：http://localhost:8081/index.android.bundle?platform=android ，果然能加载一个文件，里面都是我们写的 React Native 的 JS 代码。这个时候我们在手机上看一下 APP 的应用数据，以我们这个知乎日报的客户端为例，应用数据路径在手机上的 /data/data/com.rctzhihudaily/ 目录（手机需要 Root 才能看到这个路径）。在这目录下 files 文件夹下找到一个 ReactNativeDevBundle.js 文件，文件内容就是我们刚才在浏览器打开那个连接得到的内容。
+哈，我们快接近真相了。我尝试重新安装一个新的 APK，然后把这个文件 push 到对应的目录下，修改一下权限，果然，不需要连接 JS Server 就能打开了。
+总结一下，第一次打开 React Native 应用的时候，会连接 JS Server 下载一个 ReactNativeDevBundle.js 文件，然后放到应用数据的 files 目录下，就能运行这个 JS 文件了。到这里我们也就找到解决方案了。
+解决方案
+知道原理了，我们就很好解决了，只要我们把这个 ReactNativeDevBundle.js 文件提前打包到 APK 中，然后 APK 运行的时候，把这个文件释放到 files 目录中。
+我们可以把 ReactNativeDevBundle.js 先保存下来，放在 Android 工程的 assets 目录中，这会自动打包到 APK 中。在 APP 第一次运行的时候，把文件拷贝到目的位置，代码如下：
+```
+public class MainActivity extends Activity {
+
+    private static final String JSBUNDLE_FILE = "ReactNativeDevBundle.js";
+
+    private static void copyFile(InputStream in, OutputStream out) throws IOException {
+        byte[] buffer = new byte[1024];
+        int read;
+        while((read = in.read(buffer)) != -1){
+            out.write(buffer, 0, read);
+        }
+    }
+
+    private void prepareJSBundle() {
+        File targetFile = new File(getFilesDir(), JSBUNDLE_FILE);
+        if (!targetFile.exists()) {
+            try {
+                OutputStream out = new FileOutputStream(targetFile);
+                InputStream in = getAssets().open(JSBUNDLE_FILE);
+
+                copyFile(in, out);
+                out.close();
+                in.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        prepareJSBundle();
+        ...
+    }
+}
+```
+使用实例可以参考这里：MainActivity.java。
+当然，这样已经可行了，但是还不够好，如果每次都要手动去添加这个 ReactNativeDevBundle.js 文件，难免会出错，或者遗漏。我这里在 build.gradle 中添加一个 task，让它每次打包的是自动访问 http://localhost:8081/index.android.bundle?platform=android 下载文件到 app/src/main/assets/ 目录中，脚本如下：
+```
+final def TARGET_BUNDLE_DIR = 'app/src/main/assets/'
+final def TARGET_BUNDLE_FILE = 'ReactNativeDevBundle.js'
+final def DOWNLOAD_URL = 'http://localhost:8081/index.android.bundle?platform=android'
+
+task downloadJSBundle << {
+    def dir = new File(TARGET_BUNDLE_DIR)
+    if (!dir.exists()) {
+        dir.mkdirs()
+    }
+    def f = new File(TARGET_BUNDLE_DIR + TARGET_BUNDLE_FILE)
+    if (f.exists()) {
+        f.delete()
+    }
+    new URL(DOWNLOAD_URL).withInputStream{ i -> f.withOutputStream{ it << i }}
+}
+// 保证每次编译之前，先下载 JS 文件
+preBuild.dependsOn downloadJSBundle
+```
+
+这样，每次打包的时候，都会先帮我们下载好 JS 文件到指定位置了。当然，打包的时候，要保证你的 JS Server 是开着的。完整代码可以参考：build.gradle。
+到这里，我们就实现了一个可行的方案了，可以独立发布 APK 了。
+
+##### 思考和改进
+
+上面我们已经实现了一个可行方案了。这里我们也看到了一个更大潜在的特性——在线更新。通过上面的实现，我们可以看到，只要通过网络下载并替换这个 JS 文件，就可以实现 APP 的更新。不需要下载 APK 包更新，也不需要市场发布，只要后台上线一个新的 JS，客户端就能立即更新了。这就绕过了应用市场，解决了应用更新困难的问题，修复 BUG 一秒上线，新 Feature 一秒到达用户，这个特性是不是很颠覆？！！！
+最后，值得注意的是，我这里只是一个简陋的解决方案，这里有些问题需要改进。首先，我们的 JS 文件都是明文的，基本上就是你的源代码，用在生产环境的话，做混淆是必须的。相信官方很快也会出标准的解决方案，毕竟 iOS 已经支持了。另外，如果要做在线更新的话，需要保证你更新 JS 的服务器的安全，因为这些 JS 代码可以直接运行到用户手机上。

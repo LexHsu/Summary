@@ -21,3 +21,5 @@
  - 01. [性能优化](book/Chapter04/01-item.md)
  - 02. [JNI](book/Chapter04/02-lib.md)
  - 03. [viewpager](book/Chapter04/03-ui.md)
+ - 04. [Studio Practice](book/Chapter04/04-best-practices.md)
+ - 05. [React Native](book/Chapter04/05-react-native.md)

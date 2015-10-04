@@ -8,7 +8,7 @@
 * **第二章 源码分析**
  - 01. [Handler原理](book/Chapter02/01-handler.md)
  - 02. [Volley源码解析](book/Chapter02/02-volley.md)
- - 03. [ViewPagerindicator源码解析](book/Chapter02/03-ViewPagerindicator.md)
+ - 03. [ViewPager indicator源码解析](book/Chapter02/03-viewpager.md)
 * **第三章 工具**
  - 01. [使用chrome调试](book/Chapter03/01-chrome.md)
  - 02. [jar与aar](book/Chapter03/02-aar.md)

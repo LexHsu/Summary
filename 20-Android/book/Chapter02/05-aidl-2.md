@@ -3,35 +3,46 @@ AIDL
 
 本文实现一个稍微复杂一点的场景：
 
-Service端实现一个控制中心（例如一个多人游戏），客户端可以随时加入，或者退出，每个客户端都可以获取当前参与进来的成员列表。
+Service 实现一个控制中心（例如一个多人游戏），客户端可以随时加入，或者退出，每个客户端都可以获取当前参与进来的成员列表。
 
-根据需求，在上一篇文章的代码的基础上，我们可以很容易申明如下接口：
-```
+根据需求，在上一篇文章的代码的基础上，可以很容易申明如下接口：
+
+```java
 // IRemoteService.aidlpackage com.race604.servicelib;
 interface IRemoteService {  
     ...
 
     void join(String userName);
     void leave(String userName);
-    List<String> getParticipators();}
+    List<String> getParticipators();
+}
+```
+
 Service的实现也很简单，大致如下：
+```java
+// RemoteService.java
 
-// RemoteService.javapackage com.race604.remoteservice;import ...public class RemoteService extends Service {  
-  private List<String> mClients = new ArrayList<>();
+package com.race604.remoteservice;
+import ...
+public class RemoteService extends Service {  
+private List<String> mClients = new ArrayList<>();
 
-  private final IRemoteService.Stub mBinder = new IRemoteService.Stub() {
-    @Override    public void join(String name) throws RemoteException {
+private final IRemoteService.Stub mBinder = new IRemoteService.Stub() {
+    @Override
+    public void join(String name) throws RemoteException {
         mClients.add(name);
     }
-
-    @Override    public void leave(String name) throws RemoteException {
+    
+    @Override
+    public void leave(String name) throws RemoteException {
         mClients.remove(name);
     }
-
-    @Override    public List<String> getParticipators() throws RemoteException {
+    
+    @Override
+    public List<String> getParticipators() throws RemoteException {
         return mClients;
     }
-  };
+};
 ```
 这里的实现非常简单，看起来也没有问题。
 
@@ -48,7 +59,7 @@ Client传递一个Binder对象给Service，此Binder对象与Client的进程关�
 实现DeathRecipient。当Client意外退出的时候，DeathRecipient.binderDied()将被回调，我们可以在这里释放相关的资源。
 
 具体实现如下： 修改AIDL的定义如下：
-```
+```java
 // IRemoteService.aidlpackage com.race604.servicelib;
 interface IRemoteService {  
     ...
@@ -61,7 +72,7 @@ interface IRemoteService {
 注意到这里接口中传入了一个IBinder对象token，此就是客户端的唯一标示。
 
 接下来重点看一下Service的实现。我们首先定义个类来保存Client的信息，如下：
-```
+```java
 private final class Client implements IBinder.DeathRecipient {  
     public final IBinder mToken;
     public final String mName;
@@ -81,11 +92,14 @@ private final class Client implements IBinder.DeathRecipient {
 
         Log.d(TAG, "client died: " + mName);
         mClients.remove(this);
-    }}
+    }
+}
+```
+
 这里为了方便，因为每个IBinder都需要注册一个IBinder.DeathRecipient回调，我们就直接让Client实现此接口。
 
 Service中保存客户端的信息也做如下修改：
-
+```java
 private List<Client> mClients = new ArrayList<>();// 通过IBinder查找Client
 private int findClient(IBinder token) {  
     for (int i = 0; i < mClients.size(); i++) {
@@ -96,8 +110,10 @@ private int findClient(IBinder token) {
     return -1;
 }
 ```
+
 然后修改join()的实现如下：
-```
+
+```java
 @Override
 public void join(IBinder token, String name) throws RemoteException {  
     int idx = findClient(token);
@@ -116,7 +132,7 @@ public void join(IBinder token, String name) throws RemoteException {
 注意到这里的token.linkToDeath(client, 0);，表示的含义就是与token（IBinder对象）关联的客户端，如果意外退出，就会回调client.binderDied()方法。
 
 同理leave()的实现如下：
-```
+```java
 @Override
 public void leave(IBinder token) throws RemoteException {  
     int idx = findClient(token);
@@ -134,7 +150,7 @@ public void leave(IBinder token) throws RemoteException {
 当调用leave的时候，释放相关资源，取消IBinder.DeathRecipient回调，即client.mToken.unlinkToDeath(client, 0);。
 
 客户端调用就比较简单了，主要代码如下：
-```
+```java
 package com.race604.client;
 import ...
 public class MainActivity extends ActionBarActivity {  
@@ -170,7 +186,7 @@ public class MainActivity extends ActionBarActivity {
 
 02-04 14:01:23.627: D/RemoteService(29969): client died: Client:6
 可见，我们Kill掉客户端，回调到了这里：
-```
+```java
 private final class Client implements IBinder.DeathRecipient {  
     ...
     @Override    public void binderDied() {

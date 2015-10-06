@@ -182,10 +182,13 @@ public class MainActivity extends ActionBarActivity {
 ```
 至此，核心代码都实现了。完整的代码请参考这个Commit。
 
-我们做如下测试，在客户端join()后，然后在最近任务列表中，删除client应用，我们看到service端打印信息：
-
+我们做如下测试，在客户端 join()后，然后在最近任务列表中，删除 client 应用，看到 service 端打印信息：
+```
 02-04 14:01:23.627: D/RemoteService(29969): client died: Client:6
-可见，我们Kill掉客户端，回调到了这里：
+```
+
+可见 Kill 掉客户端，回调到了这里：
+
 ```java
 private final class Client implements IBinder.DeathRecipient {  
     ...

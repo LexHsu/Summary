@@ -1,12 +1,12 @@
 AIDL
 ===
 
-接着上文的例子实现有用户加入(join())或者离开(leave())时，能够通知客户端。
+接着上文的例子实现有用户加入( join )或者离开( leave )时，能够通知客户端。
 
 ### 注册回调
 
-客户端注册一个回调到 Service 中，当 Service 有用户加入或者离开的时候，就调用此回调。
-因为普通的 interface 对象不能通过 AIDL 注册到 Service 中，需要定义一个 AIDL 接口：
+客户端注册一个回调到 Service 中，当 Service 有用户加入或者离开的时候，就调用该回调。
+因为普通的 interface 对象不能通过 AIDL 注册到 Service 中，需定义一个 AIDL 接口：
 
 ```java
 // IParticipateCallback.aidl
@@ -18,7 +18,7 @@ interface IParticipateCallback {
 }
 ```
 
-同时，在 IRemoteService.aidl 中添加两个方法如下：
+同时，在 IRemoteService.aidl 中添加两个方法：
 
 ```java
 // IRemoteService.aidl
@@ -43,7 +43,7 @@ interface IRemoteService {
 当然，我们可以使用上一篇文章中的方法，传入一个 IBinder 对象，使用 Link-To-Death 回调。
 
 幸运的是，这是一个典型的应用场景，Android SDK 提供一个封装好的对象：RemoteCallbackList，
-帮我自动处理了 Link-To-Death 的问题，这就帮我们剩下了很多代码了。RemoteService 实现：
+帮我自动处理了 Link-To-Death 的问题。RemoteService 实现：
 
 ```java
 package com.race604.remoteservice;
@@ -89,7 +89,7 @@ public class RemoteService extends Service {
 
 怎么在用户加入或者退出的时候，怎么通知回调？
 
-上面的代码中，在 join() 和 leave() 方法中分别调用了 notifyParticipate() 函数，我们来看它的实现：
+上面的代码中，在 join() 和 leave() 方法中分别调用了 notifyParticipate() 方法，实现：
 
 ```java
 private void notifyParticipate(String name, boolean joinOrLeave) {

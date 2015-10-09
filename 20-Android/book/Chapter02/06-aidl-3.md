@@ -69,14 +69,14 @@ public class RemoteService extends Service {
         @Override
         public void join(IBinder token, String name) throws RemoteException {
             ...
-            // 通知client加入
+            // 通知 client 加入
             notifyParticipate(client.mName, true);
         }
 
         @Override
         public void leave(IBinder token) throws RemoteException {
         	...
-            // 通知client离开
+            // 通知 client 离开
             notifyParticipate(client.mName, false);
         }
     };
@@ -116,7 +116,7 @@ private void notifyParticipate(String name, boolean joinOrLeave) {
 @Override
 public void onDestroy() {
     super.onDestroy();
-    // 取消掉所有的回调
+    // 取消所有回调
     mCallbacks.kill();
 }
 ```

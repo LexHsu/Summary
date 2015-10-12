@@ -52,7 +52,7 @@ Client 传递一个 Binder 对象给 Service，此 Binder 对象与 Client 的�
 
 在 Sevice 中接受到这个 Binder 对象，并且使用 binder.linkToDeath()，注册一个 DeathRecipient 回调；
 
-实现 DeathRecipient。当 Client 意外退出的时候，DeathRecipient.binderDied()将被回调，可以在这里释放相关资源。
+实现 DeathRecipient。当 Client 意外退出的时候，DeathRecipient.binderDied() 将被回调，可以在这里释放相关资源。
 
 具体实现，修改AIDL的定义如下：
 ```java

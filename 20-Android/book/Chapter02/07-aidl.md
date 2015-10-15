@@ -68,3 +68,12 @@ Stub 还定义了少量的辅助方法，尤其是 asInterface()，通过它或�
 - 不能保证所有对 aidl 接口的调用都在主线程中执行，所以必须考虑多线程调用的情况，也就是必须考虑线程安全。
 - 默认 IPC 调用是同步的。如果已知 IPC 服务端会花费很多毫秒才能完成，那就不要在 UI 线程调用，否则会引起应用程序挂起
 - 不会将异常返回给调用方
+
+### 向客户端暴露接口
+
+在完成了接口的实现后需要向客户端暴露接口，也就是发布服务，实现的方法是继承 Service，然后实现以Service.onBind(Intent)返回一个实现了接口的类对象。下面的代码表示了暴露IRemoteService接口给客户端的方式。
+现在，如果客户端（比如一个Activity）调用bindService()来连接该服务端（RemoteService） ，客户端的onServiceConnected()回调函数将会获得从服务端（RemoteService ）的onBind（）返回的mBinder对象。
+
+客户端同样得访问该接口类（这里指IRemoteService），所以，如果服务端和客户端不在同一进程（应用程序）中，那么客户端也必须在 src/ 目录下拥有和服务端同样的一份.aidl文件的拷贝（同样是指，包名、类名、内容完全一模一样），客户端将会通过这个.aidl文件生成android.os.Binder接口——以此来实现客户端访问AIDL中的方法。
+
+当客户端在onServiceConnected()回调方法中获得IBinder对象后，必须通过调用YourServiceInterface.Stub.asInterface(service)将其转化成为YourServiceInterface类型

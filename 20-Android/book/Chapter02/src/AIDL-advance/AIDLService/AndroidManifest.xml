@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.braincol.aidl.service"
+      android:versionCode="1"
+      android:versionName="1.0">
+    <uses-sdk android:minSdkVersion="8" />
+
+    <application android:icon="@drawable/icon" android:label="@string/app_name">
+
+	<service android:name="RemoteService">
+		<intent-filter>
+			<action android:name="com.braincol.aidl.remote"/>
+		</intent-filter>
+	</service>
+
+    </application>
+</manifest>

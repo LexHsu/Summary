@@ -1,9 +1,9 @@
 AIDL
 ===
 
-一、服务端实现步骤
+### 一、服务端实现步骤
 
-1. 编写 AndroidManifest.xml
+##### 1. 编写 AndroidManifest.xml
 
 ```java
 <?xml version="1.0" encoding="utf-8"?>
@@ -25,7 +25,7 @@ AIDL
 </manifest>
 ```
 
-2. 创建 RemoteWebPage.aidl
+##### 2. 创建 RemoteWebPage.aidl
 
 在包com.braincol.aidl.service下创建RemoteWebPage.aidl文件：
 ```java
@@ -36,13 +36,11 @@ interface RemoteWebPage {
 }
 ```
 
-3. 生成 RemoteWebPage.java
-
 编译工程会在 gen/ 目录下自动生成 RemoteWebPage.java 文件。
 接口内包含了一个名为Stub的抽象的内部类，该类声明了RemoteWebPage.aidl中描述的方法。
 Stub 还定义了少量的辅助方法，尤其是 asInterface()，以获取 RemotewebPage 实例引用。
 
-4. 编写RemoteService.java
+##### 4. 编写RemoteService.java
 
 为了实现 AIDL 通信，必须在 RemoteService 类中实现 RemoteWebPage.Stub 接口，
 然后实现 RemoteWebPage.Stub 内的相关方法：
@@ -65,9 +63,17 @@ public class RemoteService extends Service {
 }
 ```
 
-二、客户端实现步骤
+### 二、客户端实现步骤
 
-客户端也须在 src/ 目录下拥有一份 .aidl 文件的拷贝，包名、类名、内容完全一致。编译后也会自动生成 RemoteWebPage.java 文件，然后即可通过该接口来访问服务端提供的方法：
+##### 客户端流程：
+
+1. 在 src/ 目录下包含服务端 .adil 文件拷贝。
+2. 声明一个 IBinder 接口（通过 .aidl 文件生成的）的实例。
+3. 实现 ServiceConnection.
+4. 调用 Context.bindService()绑定 ServiceConnection 实现类的对象（也就是远程服务端）。
+5. 在 onServiceConnected()方法中会接收到 IBinder 对象，即 InterfaceName.Stub.asInterface(service)。
+6. 调用接口中定义的方法，并且应该总是捕获连接被打断时抛出的 RemoteException 异常。
+7. 调用 unbindService 方法断开连接。
 
 ```java
 public class ClientActivity extends Activity implements OnClickListener {
@@ -159,12 +165,4 @@ public class ClientActivity extends Activity implements OnClickListener {
 客户端就是通过actionName（com.braincol.aidl.remote.webpage）来找到服务端。
 通过 RemoteWebPage.Stub.asInterface(service) 获取到服务端的 RemoteWebPage 接口对象
 
-客户端流程：
 
-1. 在 src/ 目录下包含 .adil 文件。
-2. 声明一个 IBinder 接口（通过 .aidl 文件生成的）的实例。
-3. 实现 ServiceConnection.
-4. 调用 Context.bindService()绑定你的ServiceConnection实现类的对象（也就是远程服务端）。
-5. 在 onServiceConnected()方法中会接收到 IBinder 对象，即 InterfaceName.Stub.asInterface(service)。
-6. 调用接口中定义的方法，并且应该总是捕获连接被打断时抛出的 RemoteException 异常。
-7. 调用 unbindService 方法断开连接。

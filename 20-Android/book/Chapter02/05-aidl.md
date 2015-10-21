@@ -1,4 +1,4 @@
-AIDL
+AIDL调用及回调实现
 ===
 
 ### 一、服务端实现步骤
@@ -67,10 +67,10 @@ public class RemoteService extends Service {
 
 ##### 客户端流程：
 
-1. 在 src/ 目录下包含服务端 .adil 文件拷贝。
-2. 声明一个 IBinder 接口（通过 .aidl 文件生成的）的实例。
-3. 实现 ServiceConnection.
-4. 调用 Context.bindService()绑定 ServiceConnection 实现类的对象（也就是远程服务端）。
+1. 在 src/ 目录下包含和服务端相同的 adil 文件。
+2. 创建 IBinder 接口（工程根据 aidl 文件生成的）实例，如 RemoteWebPage。
+3. 实现 ServiceConnection。
+4. 调用 Context.bindService()绑定 ServiceConnection 实现类的对象（即远程服务端）。
 5. 在 onServiceConnected()方法中会接收到 IBinder 对象，即 InterfaceName.Stub.asInterface(service)。
 6. 调用接口中定义的方法，并且应该总是捕获连接被打断时抛出的 RemoteException 异常。
 7. 调用 unbindService 方法断开连接。
@@ -158,11 +158,3 @@ public class ClientActivity extends Activity implements OnClickListener {
     }
 }
 ```
-
-客户端通过 bindService() 方法绑定远程服务端，以及之前在manifest 文件中定义的 Service 的 action
-通过unbindService()断开连接。连接客户端的相关的代码为：
-
-客户端就是通过actionName（com.braincol.aidl.remote.webpage）来找到服务端。
-通过 RemoteWebPage.Stub.asInterface(service) 获取到服务端的 RemoteWebPage 接口对象
-
-

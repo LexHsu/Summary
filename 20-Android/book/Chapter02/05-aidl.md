@@ -25,20 +25,30 @@ AIDL调用及回调实现
 </manifest>
 ```
 
-##### 2. 创建 RemoteWebPage.aidl
+##### 2. 创建 RemoteWebPage.aidl 和 RemoteCallback.aidl
 
 在包com.braincol.aidl.service下创建RemoteWebPage.aidl文件：
 ```java
 package com.braincol.aidl.service;
 
 interface RemoteWebPage {
-    String getCurrentPageUrl();     
+    String getCurrentPageUrl();
+    boolean registerListener(RemoteCallback callback);
+    boolean unregisterListener(RemoteCallback callback);
 }
 ```
 
-编译工程会在 gen/ 目录下自动生成 RemoteWebPage.java 文件。
-接口内包含了一个名为Stub的抽象的内部类，该类声明了RemoteWebPage.aidl中描述的方法。
-Stub 还定义了少量的辅助方法，尤其是 asInterface()，以获取 RemotewebPage 实例引用。
+创建RemoteCallback.aidl
+```java
+package com.braincol.aidl.service;
+
+interface RemoteCallback {
+    void onResult(String event);     
+}
+```
+
+编译工程会在 gen/ 目录下自动生成 RemoteWebPage.java 文件和 RemoteCallback.java 文件。
+接口内声明了两个 aidl 文件描述的接口。
 
 ##### 4. 编写RemoteService.java
 
@@ -54,10 +64,25 @@ public class RemoteService extends Service {
         return new MyBinder();
     }
  
-    private class MyBinder extends RemoteWebPage.Stub{
+    private class MyBinder extends RemoteWebPage.Stub {
+        private RemoteCallbackList<RemoteCallback> mCallback = new RemoteCallbackList<RemoteCallback>();
         @Override
-        public String getCurrentPageUrl() throws RemoteException{
+        public String getCurrentPageUrl() throws RemoteException {
             return "http://www.google.com";
+        }
+        
+        @Override
+        public String registerListener() throws RemoteException {
+            if (mCallback != null) {
+                  mCallback.registerCallback();
+            }
+        }
+        
+        @Override
+        public String unregisterListener() throws RemoteException {
+            if (mCallback != null) {
+                  mCallback.unregisterCallback();
+            }
         }
     }
 }
@@ -124,7 +149,7 @@ public class ClientActivity extends Activity implements OnClickListener {
                 btn_bind.setText("disconnected");
                 textView.setText("connected!");
                 allInfo = remoteWebPage.getCurrentPageUrl();
-                btn_getAllInfo.setEnabled(true);    
+                btn_getAllInfo.setEnabled(true);
             } catch (RemoteException e) {
                 e.printStackTrace();
             }

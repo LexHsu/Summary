@@ -92,7 +92,7 @@ public class RemoteService extends Service {
 
 ##### 客户端流程：
 
-1. 在 src/ 目录下包含和服务端相同的 adil 文件。
+1. 在 src 目录下包含和服务端相同的 aidl 文件。
 2. 创建 IBinder 接口（工程根据 aidl 文件生成的）实例，如 RemoteWebPage。
 3. 实现 ServiceConnection。
 4. 调用 Context.bindService()绑定 ServiceConnection 实现类的对象（即远程服务端）。

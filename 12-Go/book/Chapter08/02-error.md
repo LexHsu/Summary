@@ -3,13 +3,13 @@
 
 一、概述
 
-Go的错误处理比较简单。我们知道C语言错误处理以返 回错误码(errno)为主流，目前企业第一语言Java则用try-catch- finally的处理方式来统一应对错误和异常（开发人员常常因分不清楚到底哪些是错误，哪些是异常而滥用该机制）。Go则继承了C，以返回值为错误处理的主要方式（辅以panic与recover应对runtime异常）。但与C不同的是，在Go的惯用法中，返回值不是整型等常用返回值类型，而是用了一个 error(interface类型)。
+Go 的错误处理比较简单。我们知道 C 语言错误处理以返 回错误码(errno)为主流，目前企业第一语言 Java 则用 try-catch- finally 的处理方式来统一应对错误和异常（开发人员常常因分不清楚到底哪些是错误，哪些是异常而滥用该机制）。Go则继承了C，以返回值为错误处理的主要方式（辅以 panic 与 recover 应对 runtime 异常）。但与 C 不同的是，在 Go 的惯用法中，返回值不是整型等常用返回值类型，而是用了一个 error(interface类型)。
 ```
 type interface error {
     Error() string
 }
 ```
-这也体现了Go哲学中的“正交”理念：error context与error类型的分离。无论error context是int、float还是string或是其他，统统用error作为返回值类型即可。
+这也体现了 Go 哲学中的“正交”理念：error context 与 error 类型的分离。无论 error context 是int、float 还是 string 或是其他，统统用 error 作为返回值类型即可。
 ```
 func yourFunction(parametersList) (..., error)
 func (Receiver)yourMethod(parametersList) (..., error)

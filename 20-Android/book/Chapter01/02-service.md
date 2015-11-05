@@ -240,3 +240,47 @@ public class MainActivity extends Activity {
 ### 其他
 
 - 设备横竖屏切换时 Activity 自动旋转，Android 会重新创建，通过 bindService() 建立的连接便会断开。
+
+
+### 权限
+
+第一种场景： 谁有权收我的广播？
+
+在这种情况下，可以在自己应用发广播时添加参数声明 Receiver 所需的权限。
+
+首先，在 Androidmanifest.xml 中定义新的权限 RECV_XXX(自定义的权限都需要先声明)，例如：
+
+<permission android:name = "com.android.permission.RECV.XXX"/>
+
+然后，在 Sender app 发送广播时将此权限作为参数传入，如下：
+
+sendBroadcast("com.andoird.XXX_ACTION", "com.android.permission.RECV_XXX");
+
+这样做之后就使得只有具有 permission 权限的 Receiver 才能接收此广播要接收该广播，
+在 Receiver 应用的 AndroidManifest.xml 中要添加对应的 RECV_XXX 权限。
+例如：
+<users-permission android:name = "com.android.permission.RECV.XXX"/>
+
+第二种场景： 谁有权给我发广播？
+
+在这种情况下，需要在 Receiver app 的 <receiver> tag中声明一下Sender app应该具有的权限。
+
+首先同上，在AndroidManifest.xml中定义新的权限SEND_XXX，例如：
+
+<permission android:name = "com.android.permission.SEND.XXX"/>
+
+
+然后，在Receiver app的Androidmanifest.xml中的<receiver>tag里添加权限SEND_XXX的声明，如下：
+
+
+<receiver android:name=".XXXReceiver"   
+          android:permission="com.android.permission.SEND_XXX">   
+    <intent-filter>  
+         <action android:name="com.android.XXX_ACTION" />   
+    </intent-filter>  
+</receiver>
+
+这样一来，该Receiver便只能接收来自具有该send_permission权限的应用发出的广播。
+要发送这种广播，需要在Sender app的AndroidManifest.xml中也声明使用该权限即可，如下：
+
+<users-permission android:name = "com.android.permission.SEND.XXX"/>

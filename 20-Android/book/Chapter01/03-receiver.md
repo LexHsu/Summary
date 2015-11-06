@@ -94,3 +94,60 @@ public void send(View view) {
 - 如果普通广播接收器在指定广播发送后才注册，便无法接收到刚才的广播，而 StickyBroadcast 可接收到最后一条指定 Action 的广播，如系统网络状态的改变发送的广播就是粘性广播。
 
 - 粘性广播需要添加权限`<uses-permission android:name="android.permission.BROADCAST_STICKY"/>`
+
+
+### 设置权限
+
+##### 发送广播：
+
+```java
+    public class Main extends Activity {  
+        @Override  
+        public void onCreate(Bundle savedInstanceState) {  
+            super.onCreate(savedInstanceState);  
+            setContentView(R.layout.main);  
+            ((Button)findViewById(R.id.button)).setOnClickListener(new View.OnClickListener() {  
+                @Override  
+                public void onClick(View v) {  
+                       Intent i = new Intent("COM.MESSAGE");  
+                       i.addCategory("receiver");  
+                       i.putExtra("message", "haha");  
+                       sendOrderedBroadcast(i, "xvtian.gai.receiver");  
+                }  
+            });  
+        }  
+    }  
+```
+
+AndroidManifest.xml:
+
+```xml
+    <uses-permission android:name="xvtian.gai.receiver" ></uses-permission>    
+    <permission android:protectionLevel="normal" android:name="xvtian.gai.receiver"></permission>  
+```
+
+##### 接收广播：
+
+```java
+public class Receiver extends BroadcastReceiver {  
+  
+    @Override  
+    public void onReceive(Context context, Intent intent) {  
+        Log.d("TAG", "receiver intent:" + intent.toString());  
+    }  
+      
+}  
+```
+
+AndroidManifest.xml
+
+```xml
+    <uses-permission android:name="xvtian.gai.receiver" ></uses-permission>  
+
+    <receiver android:name=".Receiver" android:permission="xvtian.gai.receivers">  
+           <intent-filter>  
+             <action android:name="COM.MESSAGE" />  
+             <category android:name="receiver" />  
+           </intent-filter>  
+    </receiver>
+```

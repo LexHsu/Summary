@@ -122,6 +122,7 @@ public void send(View view) {
                         Intent i = new Intent("com.test.action");
                         // package name of receiver app
                         i.setPackage("com.test.package");
+                        i.setCategory("receiver");
                         // Permission: com.test.permission
                         sendOrderedBroadcast(i, "com.test.permission");
                 }  
@@ -135,11 +136,11 @@ public void send(View view) {
 1. 配置 AndroidManifest.xml
 
 ```xml
-    <uses-permission android:name="com.test.permission" ></uses-permission>
+    <uses-permission android:name="com.test.permission" />
 
-    <receiver android:name=".Receiver" android:permission="com.test.permissions">
+    <receiver android:name=".Receiver" android:permission="com.test.permission">
            <intent-filter>
-             <action android:name="COM.MESSAGE" />
+             <action android:name="com.test.action" />
              <category android:name="receiver" />
            </intent-filter>
     </receiver>

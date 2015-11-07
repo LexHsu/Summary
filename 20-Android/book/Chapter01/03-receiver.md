@@ -96,58 +96,64 @@ public void send(View view) {
 - 粘性广播需要添加权限`<uses-permission android:name="android.permission.BROADCAST_STICKY"/>`
 
 
-### 设置权限
+### 跨进程广播权限
 
-##### 发送广播：
+##### 发送方：
+
+1. 设置 AndroidManifest.xml
+
+```xml
+    <uses-permission android:name="com.test.permission" />
+    <permission android:protectionLevel="normal" android:name="com.test.permission" />
+```
+
+2. 发送广播
 
 ```java
-    public class Main extends Activity {  
-        @Override  
-        public void onCreate(Bundle savedInstanceState) {  
-            super.onCreate(savedInstanceState);  
-            setContentView(R.layout.main);  
-            ((Button)findViewById(R.id.button)).setOnClickListener(new View.OnClickListener() {  
-                @Override  
-                public void onClick(View v) {  
-                       Intent i = new Intent("COM.MESSAGE");  
-                       i.addCategory("receiver");  
-                       i.putExtra("message", "haha");  
-                       sendOrderedBroadcast(i, "xvtian.gai.receiver");  
+    public class Main extends Activity {
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.main);
+            ((Button)findViewById(R.id.button)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                        // Action com.test.action
+                        Intent i = new Intent("com.test.action");
+                        // package name of receiver app
+                        i.setPackage("com.test.package");
+                        // Permission: com.test.permission
+                        sendOrderedBroadcast(i, "com.test.permission");
                 }  
             });  
         }  
     }  
 ```
 
-AndroidManifest.xml:
+##### 接收方：
+
+1. 配置 AndroidManifest.xml
 
 ```xml
-    <uses-permission android:name="xvtian.gai.receiver" ></uses-permission>    
-    <permission android:protectionLevel="normal" android:name="xvtian.gai.receiver"></permission>  
+    <uses-permission android:name="com.test.permission" ></uses-permission>
+
+    <receiver android:name=".Receiver" android:permission="com.test.permissions">
+           <intent-filter>
+             <action android:name="COM.MESSAGE" />
+             <category android:name="receiver" />
+           </intent-filter>
+    </receiver>
+
 ```
 
-##### 接收广播：
+2. 接收广播
 
 ```java
-public class Receiver extends BroadcastReceiver {  
-  
-    @Override  
-    public void onReceive(Context context, Intent intent) {  
-        Log.d("TAG", "receiver intent:" + intent.toString());  
-    }  
-      
+public class MyReceiver extends BroadcastReceiver {
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        Log.d("TAG", "receiver intent:" + intent.toString());
+    }
 }  
-```
-
-AndroidManifest.xml
-
-```xml
-    <uses-permission android:name="xvtian.gai.receiver" ></uses-permission>  
-
-    <receiver android:name=".Receiver" android:permission="xvtian.gai.receivers">  
-           <intent-filter>  
-             <action android:name="COM.MESSAGE" />  
-             <category android:name="receiver" />  
-           </intent-filter>  
-    </receiver>
 ```

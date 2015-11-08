@@ -100,14 +100,14 @@ public void send(View view) {
 
 ##### 发送方：
 
-1. 设置 AndroidManifest.xml
+1.设置 AndroidManifest.xml
 
 ```xml
     <uses-permission android:name="com.test.permission" />
     <permission android:protectionLevel="normal" android:name="com.test.permission" />
 ```
 
-2. 发送广播
+2.发送广播
 
 ```java
     public class Main extends Activity {
@@ -133,7 +133,7 @@ public void send(View view) {
 
 ##### 接收方：
 
-1. 配置 AndroidManifest.xml
+1.配置 AndroidManifest.xml
 
 ```xml
     <uses-permission android:name="com.test.permission" />
@@ -147,7 +147,7 @@ public void send(View view) {
 
 ```
 
-2. 接收广播
+2.接收广播
 
 ```java
 public class MyReceiver extends BroadcastReceiver {

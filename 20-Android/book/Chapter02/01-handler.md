@@ -91,7 +91,7 @@ Handler mHandler = new Handler(Looper.myLooper);
 Android 子线程中调用 Looper.prepare() 后，系统就会自动的为该线程建立一个消息队列，然后调用 Looper.loop() 之后就进入了消息循环，之后就可以发消息、取消息、和处理消息。
 
 ```java
-class MyThread extends Thread{
+class MyThread extends Thread {
     public void run() {
           Looper.prepare();
           mHandler = new Handler() {

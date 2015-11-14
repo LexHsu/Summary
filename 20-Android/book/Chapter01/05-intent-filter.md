@@ -57,31 +57,25 @@ public class IntentFilter implements Parcelable {
 清单文件中的 <intent-filter> 元素以 <action> 子元素列出动作，例如：
 
 ```xml
-<intent-filter . . . >
+<intent-filter>
     <action android:name="com.example.project.SHOW_CURRENT" />
     <action android:name="com.example.project.SHOW_RECENT" />
-    . . .
 </intent-filter>
 ```
 
-像例子所展示，虽然一个Intent对象仅是单个动作，但是一个过滤器可以列出不止一个。这个列表不能够为空，一个过滤器必须至少包含一个<action>子元素，否则它将阻塞所有的intents。
-
-要通过检测，Intent对象中指定的动作必须匹配过滤器的动作列表中的一个。如果对象或过滤器没有指定一个动作，结果将如下：
-
-- 如果过滤器没有指定动作，没有一个Intent将匹配，所有的intent将检测失败，即没有intent能够通过过滤器。
-- 如果Intent对象没有指定动作，将自动通过检查（只要过滤器至少有一个过滤器，否则就是上面的情况了）
+一个过滤器必须至少包含一个<action>属性，将阻塞所有的intents。
 
 ##### 种类检测
 
 ```xml
-<intent-filter . . . >
+<intent-filter>
     <category android:name="android.intent.category.DEFAULT" />
     <category android:name="android.intent.category.BROWSABLE" />
-    . . .
 </intent-filter>
 ```
 
-原则上如果一个intent对象中没有种类（即种类字段为空）应该总是通过种类测试，而不管过滤器中有什么种类。但是有个例外，Android对待所有传递给Context.startActivity()的隐式intent好像它们至少包含"android.intent.category.DEFAULT"（对应CATEGORY_DEFAULT常量）。因此，活动想要接收隐式intent必须要在intent过滤器中包含"android.intent.category.DEFAULT"。
+原则上如果一个intent对象中没有种类（即种类字段为空）应该总是通过种类测试，而不管过滤器中有什么种类。
+但是有个例外，Android对待所有传递给Context.startActivity()的隐式intent好像它们至少包含"android.intent.category.DEFAULT"（对应CATEGORY_DEFAULT常量）。因此，活动想要接收隐式intent必须要在intent过滤器中包含"android.intent.category.DEFAULT"。
 
 注意："android.intent.action.MAIN" 和 "android.intent.category.LAUNCHER"设置，它们分别标记活动开始新的任务和带到启动列表界面。
 它们可以包含"android.intent.category.DEFAULT"到种类列表，也可以不包含。
@@ -92,8 +86,8 @@ public class IntentFilter implements Parcelable {
 
 ```xml
 <intent-filter . . . >
-    <data android:mimeType="video/mpeg" android:scheme="http" . . . /> 
-    <data android:mimeType="audio/mpeg" android:scheme="http" . . . />
+    <data android:mimeType="video/mpeg" android:scheme="http" /> 
+    <data android:mimeType="audio/mpeg" android:scheme="http" />
     . . .
 </intent-filter>
 ```
@@ -104,7 +98,12 @@ scheme://host:port/path
 例如，下面的URI：
 content://com.example.project:200/folder/subfolder/etc
 
-scheme是content，host是"com.example.project"，port是200，path是"folder/subfolder/etc"。host和port一起构成URI的凭据（authority），如果host没有指定，port也被忽略。 这四个属性都是可选的，但它们之间并不都是完全独立的。要让authority有意义，scheme必须也要指定。要让path有意义，scheme和authority也都必须要指定。
+scheme是content，
+host是"com.example.project"，
+port是200，path是"folder/subfolder/etc"。
+host和port一起构成URI的凭据（authority），如果host没有指定，port也被忽略。 
+
+这四个属性都是可选的，但它们之间并不都是完全独立的。要让authority有意义，scheme必须也要指定。要让path有意义，scheme和authority也都必须要指定。
 
 当比较intent对象和过滤器的URI时，仅仅比较过滤器中出现的URI属性。例如，如果一个过滤器仅指定了scheme，所有有此scheme的URIs都匹配过滤器；如果一个过滤器指定了scheme和authority，但没有指定path，所有匹配scheme和authority的URIs都通过检测，而不管它们的path；如果四个属性都指定了，要都匹配才能算是匹配。然而，过滤器中的path可以包含通配符来要求匹配path中的一部分。
 

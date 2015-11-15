@@ -3,31 +3,31 @@ Intent IntentFilter
 
 ### 关系
 
-- Intent: 根据特定的条件找到匹配的组件，继而对该组件执行一些操作。Intent在后，根据特定信息，找到之前以及注册过的组件。
- 
-- IntentFilter: 为某个组件向系统注册一些特性(可注册多个 IntentFilter)，以便Intent找到对应
-的组件。IntentFilter在前，任何一个组件必须先通过IntentFilter注册。
+- Intent: 根据特定的条件找到匹配的组件。
+- IntentFilter: 为某个组件向系统注册一些特性，以便 Intent 找到对应组件。
+
+IntentFilter在前，任何一个组件必须先通过IntentFilter注册。Intent在后，根据特定信息，找到之前以及注册过的组件。
 
 ### 源码分析
  
-Intent类源码(部分) 路径位于：\frameworks\base\core\java\android\content\Intent.java
+Intent 类源码路径：\frameworks\base\core\java\android\content\Intent.java
 
 ```java
 public class Intent implements Parcelable, Cloneable {  
   
-    private String mAction;           // action值  
-    private Uri mData;                // uri  
-    private String mType;             // MimeType  
-    private String mPackage;          // 所在包名  
-    private ComponentName mComponent; // 组件信息  
-    private int mFlags;               // Flag标志位  
-    private HashSet<String> mCategories; // Category值  
-    private Bundle mExtras;           // 附加值信息  
-    //...  
+    private String mAction;              // action 值  
+    private Uri mData;                   // uri  
+    private String mType;                // MimeType  
+    private String mPackage;             // 所在包名  
+    private ComponentName mComponent;    // 组件信息  
+    private int mFlags;                  // Flag 标志位  
+    private HashSet<String> mCategories; // Category 值  
+    private Bundle mExtras;              // 附加值信息  
+    //...
 }
 ```
 
-IntentFilter类源码(部分) 路径位于：\frameworks\base\core\java\android\content\IntentFilter.java
+IntentFilter类源码路径：\frameworks\base\core\java\android\content\IntentFilter.java
 
 ```java
 public class IntentFilter implements Parcelable {  

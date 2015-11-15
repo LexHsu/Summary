@@ -125,9 +125,10 @@ host和port一起构成URI的凭据（authority），如果host没有指定，po
 ```xml
 <data android:mimeType="image/*" />
 ```
-告诉Android这个组件能够从内容提供者获取image数据并显示它。因为大部分可用数据由内容提供者（content provider）分发，过滤器指定一个数据类型但没有指定URI或许最通用。
+告诉 Android 系统这个组件能够从内容提供者获取 image 数据并显示它。因为大部分可用数据由内容提供者（content provider）分发，过滤器指定一个数据类型但没有指定 URI 或许最通用。
 
 另一种通用配置是过滤器指定一个scheme和一个数据类型。例如，一个<data>元素像下面这样：
+
 ```xml
 <data android:scheme="http" android:type="video/*" />
 ```

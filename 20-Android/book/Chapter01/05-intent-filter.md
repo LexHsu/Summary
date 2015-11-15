@@ -110,7 +110,7 @@ host 和 port 一起构成 URI  authority，如果 host 没有指定，port 也�
 
 当比较 intent 对象和过滤器的 URI 时，仅仅比较过滤器中出现的 URI 属性。
 例如，如果一个过滤器仅指定了 scheme，所有有此 scheme 的 URIs 都匹配过滤器；
-如果一个过滤器指定了scheme和authority，但没有指定path，所有匹配scheme和authority的URIs都通过检测，而不管它们的path；
+如果一个过滤器指定了 scheme 和 authority，但没有指定 path，所有匹配 scheme 和 authority 的 URIs 都通过检测，而不管它们的 path；
 如果四个属性都指定了，要都匹配才能算是匹配。然而，过滤器中的path可以包含通配符来要求匹配path中的一部分。
 
 <data>元素的type属性指定数据的MIME类型。Intent对象和过滤器都可以用"*"通配符匹配子类型字段，例如"text/*"，"audio/*"表示任何子类型。

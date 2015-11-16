@@ -27,7 +27,7 @@ AIDL调用及回调实现
 
 ##### 2. 创建 RemoteWebPage.aidl 和 RemoteCallback.aidl
 
-在包com.braincol.aidl.service下创建RemoteWebPage.aidl文件：
+在包 com.braincol.aidl.service 下创建 RemoteWebPage.aidl 文件：
 ```java
 package com.braincol.aidl.service;
 
@@ -50,7 +50,7 @@ interface RemoteCallback {
 编译工程会在 gen/ 目录下自动生成 RemoteWebPage.java 文件和 RemoteCallback.java 文件。
 接口内声明了两个 aidl 文件描述的接口。
 
-##### 4. 编写RemoteService.java
+##### 4. 编写 RemoteService.java
 
 为了实现 AIDL 通信，必须在 RemoteService 类中实现 RemoteWebPage.Stub 接口，
 然后实现 RemoteWebPage.Stub 内的相关方法：
@@ -169,12 +169,12 @@ public class ClientActivity extends Activity implements OnClickListener {
                 Intent intent  = new Intent(actionName);
                 bindService(intent, connection, Context.BIND_AUTO_CREATE);                
             }else{
-                Log.i(TAG, "断开连接...");
+                Log.i(TAG, "disconnecting..");
                 unbindService(connection);
                 btn_getAllInfo.setEnabled(false);    
-                btn_bind.setText("连接");
+                btn_bind.setText("connect");
                 isBinded = false;
-                textView.setText("已断开连接!");
+                textView.setText("disconnected!");
             }
         }else if(v==this.btn_getAllInfo){
             textView.setText(allInfo);

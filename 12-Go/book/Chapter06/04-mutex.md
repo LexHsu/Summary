@@ -2,13 +2,13 @@
 
 读写锁是针对于读写操作的互斥锁。遵循两大原则：
 
-1. 可以随便读。多个goroutin同时读。
+1. 可以随便读。多个 goroutin 同时读。
 2. 写的时候，啥都不能干。不能读，也不能写。
 
 
 RWMutex 提供四个方法：
 
-```go
+```
 func (*RWMutex) Lock     // 写锁定
 func (*RWMutex) Unlock   // 写解锁
 func (*RWMutex) RLock    // 读锁定
@@ -117,5 +117,5 @@ println(i, "write end")
 
 可见：
 
-1. 1 write end 结束之后，2 才能 reading
-2. 2 read end 结束之后，3 才能 writing
+- 1 write end 结束之后，2 才能 reading
+- 2 read end 结束之后，3 才能 writing

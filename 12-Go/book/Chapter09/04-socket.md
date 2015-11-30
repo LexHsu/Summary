@@ -7,7 +7,14 @@ Golang的主要 设计目标之一就是面向大规模后端服务程序，网�
 
 ### 一、模型
 
-从tcp socket诞生后，网络编程架构模型也几经演化，大致是：“每进程一个连接” –> “每线程一个连接” –> “Non-Block + I/O多路复用(linux epoll/windows iocp/freebsd darwin kqueue/solaris Event Port)”。伴随着模型的演化，服务程序愈加强大，可以支持更多的连接，获得更好的处理性能。
+从Tcp Socket诞生后，网络编程架构模型也几经演化，大致是：
+```
+1. 每进程一个连接
+     |
+2. 每线程一个连接
+     |
+3. Non-Block + I/O 多路复用(linux epoll/windows iocp/freebsd darwin kqueue/solaris Event Port)”。
+```
 
 目前主流web server一般均采用的都是”Non-Block + I/O多路复用”（有的也结合了多线程、多进程）。不过I/O多路复用也给使用者带来了不小的复杂度，以至于后续出现了许多高性能的I/O多路复用框架， 比如libevent、libev、libuv等，以帮助开发者简化开发复杂性，降低心智负担。不过Go的设计者似乎认为I/O多路复用的这种通过回调机制割裂控制流 的方式依旧复杂，且有悖于“一般逻辑”设计，为此Go语言将该“复杂性”隐藏在Runtime中了：Go开发者无需关注socket是否是 non-block的，也无需亲自注册文件描述符的回调，只需在每个连接对应的goroutine中以“block I/O”的方式对待socket处理即可，这可以说大大降低了开发人员的心智负担。一个典型的Go server端程序大致如下：
 ```

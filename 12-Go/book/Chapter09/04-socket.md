@@ -12,7 +12,7 @@ TCP Socket
 3. Non-Block + I/O 多路复用(linux epoll/windows iocp/freebsd darwin kqueue/solaris Event Port)”
 ```
 
-目前主流 Web Server 一般采用第三种模型。后续还出现了许多高性能的 I/O 多路复用框架如 libevent、libev、libuv  以降低复杂度。不过 Go 的设计者认为依旧复杂，其将复杂性隐藏在 Runtime中：Go 开发者无需关注 socket 是否阻塞，也无需注册回调，只需在每个 goroutine 中以 block I/O 的方式处理即可，大大降低了负责度。
+目前主流 Web Server 一般采用第三种模型。后续还出现了许多高性能的 I/O 多路复用框架如 libevent、libev、libuv  以降低复杂度。不过 Go 的设计者认为依旧复杂，其巧妙地将复杂性隐藏在 Runtime 中：开发者无需关注 socket 是否阻塞，也无需注册回调，只需在每个 goroutine 中以 block I/O 的方式处理即可，大大降低了负责度。
 
 一个典型的 Go server 端程序：
 
@@ -53,7 +53,7 @@ goroutine 中的 block socket 实现原理：
 Go runtime 中的 netpoller 通过 Non-block socket + I/O 多路复用机制模拟出来的，
 真实的 underlying socket 是 non-block 的，Go runtime 拦截了底层 socket 系统调用的错误码，并通过 netpoller 和 goroutine 调度让 goroutine 阻塞在用户层得到的 Socket fd 上。
 
-比如：当用户层针对某个 socket fd 发起 read 操作时，如果该 socket fd 中尚无数据，那么 runtime 会将该 socket fd 加入到 netpoller 中监听，同时对应的 goroutine 被挂起，直到 runtime 收到 socket fd 数据 ready 的通知，runtime 才会重新唤醒等待在该 socket fd 上准备 read 的那个 Goroutine。而这个过程从 Goroutine 的视角来看，就像是 read 操作一直 block 在该 socket fd 上。
+举例：当用户层针对某个 socket fd 发起 read 操作时，如果该 socket fd 中尚无数据，那么 runtime 会将该 socket fd 加入到 netpoller 中监听，同时对应的 goroutine 被挂起，直到 runtime 收到 socket fd 数据 ready 的通知，runtime 才会重新唤醒等待在该 socket fd 上准备 read 的那个 Goroutine。而这个过程从 Goroutine 的视角来看，就像是 read 操作一直 block 在该 socket fd 上。
 
 ### 二、TCP 连接的建立
 
@@ -77,6 +77,10 @@ if err != nil {
 ```
 
 对于客户端而言，连接的建立会遇到如下几种情形：
+
+1. 网络不可达或对方服务未启动
+2. 对方服务的 listen backlog 满
+3. 网络延迟较大，Dial阻塞并超时
 
 ##### 1、网络不可达或对方服务未启动
 
@@ -198,7 +202,7 @@ kern.ipc.somaxconn: 128
 ```
 而如果server运行在ubuntu 14.04上，client似乎一直阻塞，我等了10多分钟依旧没有返回。 阻塞与否看来与server端的网络实现和设置有关。
 
-3、网络延迟较大，Dial阻塞并超时
+##### 3、网络延迟较大，Dial阻塞并超时
 
 如果网络延迟较大，TCP握手过程将更加艰难坎坷（各种丢包），时间消耗的自然也会更长。Dial这时会阻塞，如果长时间依旧无法建立连接，则Dial也会返回“ getsockopt: operation timed out”错误。
 

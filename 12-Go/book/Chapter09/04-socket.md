@@ -48,18 +48,19 @@ func main() {
 }
 ```
 
-goroutine 中的 block socket 实现原理：Go runtime 中的 netpoller 通过 Non-block socket + I/O 多路复用机制模拟出来的，
+goroutine 中的 block socket 实现原理：
+
+Go runtime 中的 netpoller 通过 Non-block socket + I/O 多路复用机制模拟出来的，
 真实的 underlying socket 是 non-block 的，Go runtime 拦截了底层 socket 系统调用的错误码，并通过 netpoller 和 goroutine 调度让 goroutine 阻塞在用户层得到的 Socket fd 上。
 
-比如：
-当用户层针对某个 socket fd 发起 read 操作时，如果该 socket fd 中尚无数据，那么 runtime 会将该 socket fd 加入到 netpoller 中监听，同时对应的 goroutine 被挂起，直到 runtime 收到 socket fd 数据 ready 的通知，runtime 才会重新唤醒等待在该 socket fd 上准备 read 的那个 Goroutine。而这个过程从 Goroutine 的视角来看，就像是 read 操作一直 block 在该 socket fd 上。
+比如：当用户层针对某个 socket fd 发起 read 操作时，如果该 socket fd 中尚无数据，那么 runtime 会将该 socket fd 加入到 netpoller 中监听，同时对应的 goroutine 被挂起，直到 runtime 收到 socket fd 数据 ready 的通知，runtime 才会重新唤醒等待在该 socket fd 上准备 read 的那个 Goroutine。而这个过程从 Goroutine 的视角来看，就像是 read 操作一直 block 在该 socket fd 上。
 
 ### 二、TCP 连接的建立
 
 众所周知，TCP Socket 的连接的建立需要经历客户端和服务端的三次握手。连接建立过程中，服务端是一个标准的 Listen + Accept 的结构，而在客户端 Go 语言使用 net.Dial 或 DialTimeout 进行连接建立：
 
 ```go
-// 1. 阻塞 Dial：
+// [1]. 阻塞 Dial：
 conn, err := net.Dial("tcp", "google.com:80")
 if err != nil {
     //handle error
@@ -67,7 +68,7 @@ if err != nil {
 // read or write on conn
 
 
-2. 带超时机制的Dial：
+// [2]. 带超时机制的Dial：
 conn, err := net.DialTimeout("tcp", ":8080", 2 * time.Second)
 if err != nil {
     //handle error
@@ -95,17 +96,21 @@ func main() {
     log.Println("dial ok")
 }
 ```
-如果本机8888端口未有服务程序监听，那么执行上面程序，Dial会很快返回错误：
+
+如果本机 8888 端口没有服务程序监听，那么执行上面程序，Dial会很快返回错误：
+
 ```
 $go run client1.go
 2015/11/16 14:37:41 begin dial...
 2015/11/16 14:37:41 dial error: dial tcp :8888: getsockopt: connection refused
-2、对方服务的listen backlog满
 ```
+
+##### 2、对方服务的 listen backlog 满
+
 还有一种场景就是对方服务器很忙，瞬间有大量client端连接尝试向server建立，server端的listen backlog队列满，server accept不及时((即便不accept，那么在backlog数量范畴里面，connect都会是成功的，因为new conn已经加入到server side的listen queue中了，accept只是从queue中取出一个conn而已)，这将导致client端Dial阻塞。我们还是通过例子感受Dial的行为特点：
 
 服务端代码：
-```
+```go
 //go-tcpsock/conn_establish/server2.go
 ... ...
 func main() {
@@ -130,7 +135,7 @@ func main() {
 }
 ```
 客户端代码：
-```
+```go
 //go-tcpsock/conn_establish/client2.go
 ... ...
 func establishConn(i int) net.Conn {
@@ -198,7 +203,7 @@ kern.ipc.somaxconn: 128
 如果网络延迟较大，TCP握手过程将更加艰难坎坷（各种丢包），时间消耗的自然也会更长。Dial这时会阻塞，如果长时间依旧无法建立连接，则Dial也会返回“ getsockopt: operation timed out”错误。
 
 在连接建立阶段，多数情况下，Dial是可以满足需求的，即便阻塞一小会儿。但对于某些程序而言，需要有严格的连接时间限定，如果一定时间内没能成功建立连接，程序可能会需要执行一段“异常”处理逻辑，为此我们就需要DialTimeout了。下面的例子将Dial的最长阻塞时间限制在2s内，超出这个时长，Dial将返回timeout error：
-```
+```go
 //go-tcpsock/conn_establish/client3.go
 ... ...
 func main() {
@@ -222,7 +227,7 @@ $go run client3.go
 三、Socket读写
 
 连接建立起来后，我们就要在conn上进行读写，以完成业务逻辑。前面说过Go runtime隐藏了I/O多路复用的复杂性。语言使用者只需采用goroutine+Block I/O的模式即可满足大部分场景需求。Dial成功后，方法返回一个net.Conn接口类型变量值，这个接口变量的动态类型为一个*TCPConn：
-```
+```go
 //$GOROOT/src/net/tcpsock_posix.go
 type TCPConn struct {
     conn

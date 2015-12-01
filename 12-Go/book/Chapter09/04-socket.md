@@ -1,23 +1,22 @@
 TCP Socket
 ===
 
-Golang的主要 设计目标之一就是面向大规模后端服务程序，网络通信这块是服务端 程序必不可少也是至关重要的一部分。在日常应用中，我们也可以看到Go中的net以及其subdirectories下的包均是“高频+刚需”，而TCP socket则是网络编程的主流，即便您没有直接使用到net中有关TCP Socket方面的接口，但net/http总是用到了吧，http底层依旧是用tcp socket实现的。
-
-网络编程方面，我们最常用的就是tcp socket编程了，在posix标准出来后，socket在各大主流OS平台上都得到了很好的支持。关于tcp programming，最好的资料莫过于W. Richard Stevens 的网络编程圣经《UNIX网络 编程 卷1：套接字联网API》 了，书中关于tcp socket接口的各种使用、行为模式、异常处理讲解的十分细致。Go是自带runtime的跨平台编程语言，Go中暴露给语言使用者的tcp socket api是建立OS原生tcp socket接口之上的。由于Go runtime调度的需要，golang tcp socket接口在行为特点与异常处理方面与OS原生接口有着一些差别。这篇博文的目标就是整理出关于Go tcp socket在各个场景下的使用方法、行为特点以及注意事项。
-
 ### 一、模型
 
-从Tcp Socket诞生后，网络编程架构模型也几经演化，大致是：
+网络编程架构模型演化过程：
 ```
 1. 每进程一个连接
      |
 2. 每线程一个连接
      |
-3. Non-Block + I/O 多路复用(linux epoll/windows iocp/freebsd darwin kqueue/solaris Event Port)”。
+3. Non-Block + I/O 多路复用(linux epoll/windows iocp/freebsd darwin kqueue/solaris Event Port)”
 ```
 
-目前主流web server一般均采用的都是”Non-Block + I/O多路复用”（有的也结合了多线程、多进程）。不过I/O多路复用也给使用者带来了不小的复杂度，以至于后续出现了许多高性能的I/O多路复用框架， 比如libevent、libev、libuv等，以帮助开发者简化开发复杂性，降低心智负担。不过Go的设计者似乎认为I/O多路复用的这种通过回调机制割裂控制流 的方式依旧复杂，且有悖于“一般逻辑”设计，为此Go语言将该“复杂性”隐藏在Runtime中了：Go开发者无需关注socket是否是 non-block的，也无需亲自注册文件描述符的回调，只需在每个连接对应的goroutine中以“block I/O”的方式对待socket处理即可，这可以说大大降低了开发人员的心智负担。一个典型的Go server端程序大致如下：
-```
+目前主流 Web Server 一般采用第三种模型。后续还出现了许多高性能的 I/O 多路复用框架如 libevent、libev、libuv  以降低复杂度。不过 Go 的设计者认为依旧复杂，其将复杂性隐藏在 Runtime中：Go 开发者无需关注 socket 是否阻塞，也无需注册回调，只需在每个 goroutine 中以 block I/O 的方式处理即可，大大降低了负责度。
+
+一个典型的 Go server 端程序：
+
+```go
 //go-tcpsock/server.go
 func handleConn(c net.Conn) {
     defer c.Close()
@@ -48,21 +47,27 @@ func main() {
     }
 }
 ```
-用户层眼中看到的goroutine中的“block socket”，实际上是通过Go runtime中的netpoller通过Non-block socket + I/O多路复用机制“模拟”出来的，真实的underlying socket实际上是non-block的，只是runtime拦截了底层socket系统调用的错误码，并通过netpoller和goroutine 调度让goroutine“阻塞”在用户层得到的Socket fd上。比如：当用户层针对某个socket fd发起read操作时，如果该socket fd中尚无数据，那么runtime会将该socket fd加入到netpoller中监听，同时对应的goroutine被挂起，直到runtime收到socket fd 数据ready的通知，runtime才会重新唤醒等待在该socket fd上准备read的那个Goroutine。而这个过程从Goroutine的视角来看，就像是read操作一直block在那个socket fd上似的。具体实现细节在后续场景中会有补充描述。
 
-二、TCP连接的建立
+goroutine 中的 block socket 实现原理：Go runtime 中的 netpoller 通过 Non-block socket + I/O 多路复用机制模拟出来的，
+真实的 underlying socket 是 non-block 的，Go runtime 拦截了底层 socket 系统调用的错误码，并通过 netpoller 和 goroutine 调度让 goroutine 阻塞在用户层得到的 Socket fd 上。
 
-众所周知，TCP Socket的连接的建立需要经历客户端和服务端的三次握手的过程。连接建立过程中，服务端是一个标准的Listen + Accept的结构(可参考上面的代码)，而在客户端Go语言使用net.Dial或DialTimeout进行连接建立：
+比如：
+当用户层针对某个 socket fd 发起 read 操作时，如果该 socket fd 中尚无数据，那么 runtime 会将该 socket fd 加入到 netpoller 中监听，同时对应的 goroutine 被挂起，直到 runtime 收到 socket fd 数据 ready 的通知，runtime 才会重新唤醒等待在该 socket fd 上准备 read 的那个 Goroutine。而这个过程从 Goroutine 的视角来看，就像是 read 操作一直 block 在该 socket fd 上。
 
-阻塞Dial：
-```
+### 二、TCP 连接的建立
+
+众所周知，TCP Socket 的连接的建立需要经历客户端和服务端的三次握手。连接建立过程中，服务端是一个标准的 Listen + Accept 的结构，而在客户端 Go 语言使用 net.Dial 或 DialTimeout 进行连接建立：
+
+```go
+// 1. 阻塞 Dial：
 conn, err := net.Dial("tcp", "google.com:80")
 if err != nil {
     //handle error
 }
 // read or write on conn
-或是带上超时机制的Dial：
 
+
+2. 带超时机制的Dial：
 conn, err := net.DialTimeout("tcp", ":8080", 2 * time.Second)
 if err != nil {
     //handle error
@@ -72,10 +77,11 @@ if err != nil {
 
 对于客户端而言，连接的建立会遇到如下几种情形：
 
-1、网络不可达或对方服务未启动
+##### 1、网络不可达或对方服务未启动
 
-如果传给Dial的Addr是可以立即判断出网络不可达，或者Addr中端口对应的服务没有启动，端口未被监听，Dial会几乎立即返回错误，比如：
-```
+如果传给 Dial 的 Addr 是可以立即判断出网络不可达，或者 Addr 中端口对应的服务没有启动，端口未被监听，Dial 会几乎立即返回错误，如：
+
+```go
 //go-tcpsock/conn_establish/client1.go
 ... ...
 func main() {

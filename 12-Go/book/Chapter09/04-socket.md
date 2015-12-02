@@ -9,10 +9,10 @@ TCP Socket
      |
 2. 每线程一个连接
      |
-3. Non-Block + I/O 多路复用(linux epoll/windows iocp/freebsd darwin kqueue/solaris Event Port)”
+3. Non-Block + I/O 多路复用(linux epoll/windows iocp/freebsd darwin kqueue/solaris Event Port)
 ```
 
-目前主流 Web Server 一般采用第三种模型。后续还出现了许多高性能的 I/O 多路复用框架如 libevent、libev、libuv  以降低复杂度。不过 Go 的设计者认为依旧复杂，其巧妙地将复杂性隐藏在 Runtime 中：开发者无需关注 socket 是否阻塞，也无需注册回调，只需在每个 goroutine 中以 block I/O 的方式处理即可，大大降低了负责度。
+目前主流 Web Server 一般采用第三种模型，为降低复杂度，在这基础上抽象出框架如 libevent、libev、libuv。不过 Go 设计者认为依旧复杂，其巧妙地将复杂性隐藏在 Runtime 中，开发者无需关注 socket 是否阻塞，也无需注册回调，只需在每个 goroutine 中以 block I/O 的方式处理即可，大大降低了负责度。
 
 一个典型的 Go server 端程序：
 
@@ -80,7 +80,7 @@ if err != nil {
 
 1. 网络不可达或对方服务未启动
 2. 对方服务的 listen backlog 满
-3. 网络延迟较大，Dial阻塞并超时
+3. 网络延迟较大，Dial 阻塞并超时
 
 ##### 1、网络不可达或对方服务未启动
 
@@ -111,10 +111,10 @@ $go run client1.go
 
 ##### 2、对方服务的 listen backlog 满
 
-还有一种场景就是对方服务器很忙，瞬间有大量client端连接尝试向server建立，server端的listen backlog队列满，server accept不及时((即便不accept，那么在backlog数量范畴里面，connect都会是成功的，因为new conn已经加入到server side的listen queue中了，accept只是从queue中取出一个conn而已)，这将导致client端Dial阻塞。我们还是通过例子感受Dial的行为特点：
+对方服务器很忙，瞬间有大量 client 请求，server 端的 listen backlog 队列满，server accept不及时，将导致 client 端 Dial 阻塞。如下例：
 
-服务端代码：
 ```go
+服务端代码：
 //go-tcpsock/conn_establish/server2.go
 ... ...
 func main() {
@@ -137,9 +137,9 @@ func main() {
         log.Printf("%d: accept a new connection\n", i)
     }
 }
-```
+
+
 客户端代码：
-```go
 //go-tcpsock/conn_establish/client2.go
 ... ...
 func establishConn(i int) net.Conn {
@@ -165,7 +165,7 @@ func main() {
 }
 ```
 
-从程序可以看出，服务端在listen成功后，每隔10s钟accept一次。客户端则是串行的尝试建立连接。这两个程序在Darwin下的执行 结果：
+从程序可以看出，服务端在listen成功后，每隔10s钟accept一次。客户端则是串行的尝试建立连接。这两个程序在Darwin下的执行结果：
 ```
 $go run server2.go
 2015/11/16 21:55:41 listen ok
@@ -188,31 +188,36 @@ $go run client2.go
 2015/11/16 21:56:14 131 :connect to server ok
 ... ...
 ```
-可以看出Client初始时成功地一次性建立了128个连接，然后后续每阻塞近10s才能成功建立一条连接。也就是说在server端 backlog满时(未及时accept)，客户端将阻塞在Dial上，直到server端进行一次accept。至于为什么是128，这与darwin 下的默认设置有关：
+
+可以看出 Client 初始时成功地一次性建立了 128 个连接，然后后续每阻塞近 10s 才能成功建立一条连接。也就是说在 server 端 backlog 满时(未及时 accept)，客户端将阻塞在 Dial 上，直到 server 端进行一次 accept。至于为什么是 128，这与darwin 下的默认设置有关：
+
 ```
 $sysctl -a|grep kern.ipc.somaxconn
 kern.ipc.somaxconn: 128
 ```
-如果我在ubuntu 14.04上运行上述server程序，我们的client端初始可以成功建立499条连接。
 
-如果server一直不accept，client端会一直阻塞么？我们去掉accept后的结果是：在Darwin下，client端会阻塞大 约1分多钟才会返回timeout：
+如果在 ubuntu 14.04 上运行上述程序，client 初始可以成功建立 499 条连接。
+如果 server 一直不 accept，client 端会一直阻塞么？我们去掉 accept 后的结果是：在Darwin下，client 端会阻塞大 约 1 分多钟才会返回 timeout：
+
 ```
 2015/11/16 22:03:31 128 :connect to server ok
 2015/11/16 22:04:48 129: dial error: dial tcp :8888: getsockopt: operation timed out
 ```
-而如果server运行在ubuntu 14.04上，client似乎一直阻塞，我等了10多分钟依旧没有返回。 阻塞与否看来与server端的网络实现和设置有关。
 
-##### 3、网络延迟较大，Dial阻塞并超时
+而如果 server 运行在 ubuntu 14.04 上，client 似乎一直阻塞，等了 10 多分钟依旧没有返回。 阻塞与否看来与 server 端的网络实现和设置有关。
 
-如果网络延迟较大，TCP握手过程将更加艰难坎坷（各种丢包），时间消耗的自然也会更长。Dial这时会阻塞，如果长时间依旧无法建立连接，则Dial也会返回“ getsockopt: operation timed out”错误。
+##### 3、网络延迟较大，Dial 阻塞并超时
 
-在连接建立阶段，多数情况下，Dial是可以满足需求的，即便阻塞一小会儿。但对于某些程序而言，需要有严格的连接时间限定，如果一定时间内没能成功建立连接，程序可能会需要执行一段“异常”处理逻辑，为此我们就需要DialTimeout了。下面的例子将Dial的最长阻塞时间限制在2s内，超出这个时长，Dial将返回timeout error：
+如果网络延迟较大，TCP 握手过程将更加艰难坎坷（各种丢包），时间消耗的自然也会更长。Dial 这时会阻塞，如果长时间依旧无法建立连接，则 Dial 也会返回 getsockopt: operation timed out 错误。
+
+对于严格控制连接时间的程序，使用 DialTimeout，下例将 Dial 最长阻塞时间限制在 2s 内，超时将返回 timeout error：
+
 ```go
 //go-tcpsock/conn_establish/client3.go
 ... ...
 func main() {
     log.Println("begin dial...")
-    conn, err := net.DialTimeout("tcp", "104.236.176.96:80", 2*time.Second)
+    conn, err := net.DialTimeout("tcp", "104.236.176.96:80", 2 * time.Second)
     if err != nil {
         log.Println("dial error:", err)
         return
@@ -221,16 +226,19 @@ func main() {
     log.Println("dial ok")
 }
 ```
+
 执行结果如下（需要模拟一个延迟较大的网络环境）：
+
 ```
 $go run client3.go
 2015/11/17 09:28:34 begin dial...
 2015/11/17 09:28:36 dial error: dial tcp 104.236.176.96:80: i/o timeout
 ```
 
-三、Socket读写
+### 三、Socket读写
 
-连接建立起来后，我们就要在conn上进行读写，以完成业务逻辑。前面说过Go runtime隐藏了I/O多路复用的复杂性。语言使用者只需采用goroutine+Block I/O的模式即可满足大部分场景需求。Dial成功后，方法返回一个net.Conn接口类型变量值，这个接口变量的动态类型为一个*TCPConn：
+Dial 连接成功后，方法返回一个 net.Conn 接口类型变量值，这个接口变量的动态类型为一个 *TCPConn：
+
 ```go
 //$GOROOT/src/net/tcpsock_posix.go
 type TCPConn struct {

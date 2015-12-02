@@ -244,8 +244,11 @@ Dial 连接成功后，方法返回一个 net.Conn 接口类型变量值，这�
 type TCPConn struct {
     conn
 }
+```
+
 TCPConn内嵌了一个unexported类型：conn，因此TCPConn”继承”了conn的Read和Write方法，后续通过Dial返回值调用的Write和Read方法均是net.conn的方法：
 
+```go
 //$GOROOT/src/net/net.go
 type conn struct {
     fd *netFD
@@ -279,19 +282,20 @@ func (c *conn) Write(b []byte) (int, error) {
     return n, err
 }
 ```
-下面我们先来通过几个场景来总结一下conn.Read的行为特点。
 
-1、Socket中无数据
+总结一下conn.Read的行为特点。
+
+##### 1、Socket中无数据
 
 连接建立后，如果对方未发送数据到socket，接收方(Server)会阻塞在Read操作上，这和前面提到的“模型”原理是一致的。执行该Read操作的goroutine也会被挂起。runtime会监视该socket，直到其有数据才会重新
 调度该socket对应的Goroutine完成read。由于篇幅原因，这里就不列代码了，例子对应的代码文件：go-tcpsock/read_write下的client1.go和server1.go。
 
-2、Socket中有部分数据
+##### 2、Socket中有部分数据
 
 如果socket中有部分数据，且长度小于一次Read操作所期望读出的数据长度，那么Read将会成功读出这部分数据并返回，而不是等待所有期望数据全部读取后再返回。
 
 Client端：
-```
+```go
 //go-tcpsock/read_write/client2.go
 ... ...
 func main() {
@@ -316,7 +320,7 @@ func main() {
 }
 ```
 Server端：
-```
+```go
 //go-tcpsock/read_write/server2.go
 ... ...
 func handleConn(c net.Conn) {
@@ -350,7 +354,7 @@ $go run server2.go
 ```
 Client向socket中写入两个字节数据(“hi”)，Server端创建一个len = 10的slice，等待Read将读取的数据放入slice；Server随后读取到那两个字节：”hi”。Read成功返回，n =2 ，err = nil。
 
-3、Socket中有足够数据
+##### 3、Socket中有足够数据
 
 如果socket中有数据，且长度大于等于一次Read操作所期望读出的数据长度，那么Read将会成功读出这部分数据并返回。这个情景是最符合我们对Read的期待的了：Read将用Socket中的数据将我们传入的slice填满后返回：n = 10, err = nil。
 
@@ -369,7 +373,7 @@ $go run server2.go
 ```
 client端发送的内容长度为15个字节，Server端Read buffer的长度为10，因此Server Read第一次返回时只会读取10个字节；Socket中还剩余5个字节数据，Server再次Read时会把剩余数据读出（如：情形2）。
 
-4、Socket关闭
+##### 4、Socket关闭
 
 如果client端主动关闭了socket，那么Server的Read将会读到什么呢？这里分为“有数据关闭”和“无数据关闭”。
 
@@ -390,7 +394,7 @@ $go run server3.go
 
 通过上面这个例子，我们也可以猜测出“无数据关闭”情形下的结果，那就是Read直接返回EOF error。
 
-5、读取操作超时
+##### 5、读取操作超时
 
 有些场合对Read的阻塞时间有严格限制，在这种情况下，Read的行为到底是什么样的呢？在返回超时错误时，是否也同时Read了一部分数据了呢？这个实验比较难于模拟，下面的测试结果也未必能反映出所有可能结果。我们编写了client4.go和server4.go来模拟这一情形。
 ```
@@ -448,11 +452,11 @@ $go run server4.go
 
 和读相比，Write遇到的情形一样不少，我们也逐一看一下。
 
-1、成功写
+##### 1、成功写
 
 前面例子着重于Read，client端在Write时并未判断Write的返回值。所谓“成功写”指的就是Write调用返回的n与预期要写入的数据长度相等，且error = nil。这是我们在调用Write时遇到的最常见的情形，这里不再举例了。
 
-2、写阻塞
+##### 2、写阻塞
 
 TCP连接通信两端的OS都会为该连接保留数据缓冲，一端调用Write后，实际上数据是写入到OS的协议栈的数据缓冲的。TCP是全双工通信，因此每个方向都有独立的数据缓冲。当发送方将对方的接收缓冲区以及自身的发送缓冲区写满后，Write就会阻塞。我们来看一个例子：client5.go和server.go。
 ```
@@ -547,7 +551,7 @@ client端：
 2015/11/17 15:07:27 write 65536 bytes this time, 1048576 bytes in total
 .... ...
 ```
-3、写入部分数据
+##### 3、写入部分数据
 
 Write操作存在写入部分数据的情况，比如上面例子中，当client端输出日志停留在“write 65536 bytes this time, 655360 bytes in total”时，我们杀掉server5，这时我们会看到client5输出以下日志：
 ```
@@ -558,7 +562,7 @@ Write操作存在写入部分数据的情况，比如上面例子中，当client
 ```
 显然Write并非在655360这个地方阻塞的，而是后续又写入24108后发生了阻塞，server端socket关闭后，我们看到Wrote返回er != nil且n = 24108，程序需要对这部分写入的24108字节做特定处理。
 
-4、写入超时
+##### 4、写入超时
 
 如果非要给Write增加一个期限，那我们可以调用SetWriteDeadline方法。我们copy一份client5.go，形成client6.go，在client6.go的Write之前增加一行timeout设置代码：
 
@@ -578,7 +582,7 @@ $go run client6.go
 
 综上例子，虽然Go给我们提供了阻塞I/O的便利，但在调用Read和Write时依旧要综合需要方法返回的n和err的结果，以做出正确处理。net.conn实现了io.Reader和io.Writer接口，因此可以试用一些wrapper包进行socket读写，比如bufio包下面的Writer和Reader、io/ioutil下的函数等。
 
-Goroutine safe
+##### Goroutine safe
 
 基于goroutine的网络架构模型，存在在不同goroutine间共享conn的情况，那么conn的读写是否是goroutine safe的呢？在深入这个问题之前，我们先从应用意义上来看read操作和write操作的goroutine-safe必要性。
 
@@ -679,7 +683,7 @@ func (fd *netFD) Write(p []byte) (nn int, err error) {
 
 同时也可以看出即便是Read操作，也是lock保护的。多个Goroutine对同一conn的并发读不会出现读出内容重叠的情况，但内容断点是依 runtime调度来随机确定的。存在一个业务包数据，1/3内容被goroutine-1读走，另外2/3被另外一个goroutine-2读 走的情况。比如一个完整包：world，当goroutine的read slice size < 5时，存在可能：一个goroutine读到 “worl”,另外一个goroutine读出”d”。
 
-四、Socket属性
+### 四、Socket属性
 
 原生Socket API提供了丰富的sockopt设置接口，但Golang有自己的网络架构模型，golang提供的socket options接口也是基于上述模型的必要的属性设置。包括
 ```
@@ -702,7 +706,7 @@ tcpConn.SetNoDelay(true)
 
 对于listener socket, golang默认采用了 SO_REUSEADDR，这样当你重启 listener程序时，不会因为address in use的错误而启动失败。而listen backlog的默认值是通过获取系统的设置值得到的。不同系统不同：mac 128, linux 512等。
 
-五、关闭连接
+### 五、关闭连接
 
 和前面的方法相比，关闭连接算是最简单的操作了。由于socket是全双工的，client和server端在己方已关闭的socket和对方关闭的socket上操作的结果有不同。看下面例子：
 ```
@@ -777,7 +781,7 @@ $go run client1.go
 从client1的结果来看，在己方已经关闭的socket上再进行read和write操作，会得到”use of closed network connection” error；
 从server1的执行结果来看，在对方关闭的socket上执行read操作会得到EOF error，但write操作会成功，因为数据会成功写入己方的内核socket缓冲区中，即便最终发不到对方socket缓冲区了，因为己方socket并未关闭。因此当发现对方socket关闭后，己方应该正确合理处理自己的socket，再继续write已经无任何意义了。
 
-六、小结
+### 六、小结
 
 本文比较基础，但却很重要，毕竟golang是面向大规模服务后端的，对通信环节的细节的深入理解会大有裨益。另外Go的goroutine+阻塞通信的网络通信模型降低了开发者心智负担，简化了通信的复杂性，这点尤为重要。
 

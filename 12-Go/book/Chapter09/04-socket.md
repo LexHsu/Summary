@@ -3,7 +3,8 @@ TCP Socket
 
 ### 一、模型
 
-网络编程架构模型演化过程：
+网络编程架构模型演化过程如下：
+
 ```
 1. 每进程一个连接
      |
@@ -237,7 +238,7 @@ $go run client3.go
 
 ### 三、Socket读写
 
-Dial 连接成功后，方法返回一个 net.Conn 接口类型变量值，这个接口变量的动态类型为一个 *TCPConn：
+Dial 连接成功后，方法返回一个 net.Conn 接口类型变量值，这个接口变量的动态类型为一个 `*TCPConn`：
 
 ```go
 //$GOROOT/src/net/tcpsock_posix.go
@@ -246,7 +247,7 @@ type TCPConn struct {
 }
 ```
 
-TCPConn内嵌了一个unexported类型：conn，因此TCPConn”继承”了conn的Read和Write方法，后续通过Dial返回值调用的Write和Read方法均是net.conn的方法：
+TCPConn 内嵌了一个 unexported 类型：conn，因此TCPConn 继承 了 conn 的 Read 和 Write 方法，后续通过 Dial 返回值调用的 Write 和 Read 方法均是 net.conn 的方法：
 
 ```go
 //$GOROOT/src/net/net.go
@@ -283,16 +284,17 @@ func (c *conn) Write(b []byte) (int, error) {
 }
 ```
 
-总结一下conn.Read的行为特点。
+#### conn.Read 使用场景
 
-##### 1、Socket中无数据
+##### 1、Socket 中无数据
 
-连接建立后，如果对方未发送数据到socket，接收方(Server)会阻塞在Read操作上，这和前面提到的“模型”原理是一致的。执行该Read操作的goroutine也会被挂起。runtime会监视该socket，直到其有数据才会重新
-调度该socket对应的Goroutine完成read。由于篇幅原因，这里就不列代码了，例子对应的代码文件：go-tcpsock/read_write下的client1.go和server1.go。
+连接建立后，如果对方未发送数据到 Socket，执行该 Read 操作的 Goroutine 会被挂起。
+runtime 会监视该 socket，直到其有数据才会重新
+调度该 Socket 对应的 Goroutine 完成 Read。示例代码：go-tcpsock/read_write下 的 client1.go 和 server1.go。
 
 ##### 2、Socket中有部分数据
 
-如果socket中有部分数据，且长度小于一次Read操作所期望读出的数据长度，那么Read将会成功读出这部分数据并返回，而不是等待所有期望数据全部读取后再返回。
+如果 Socket 中有部分数据，且长度小于一次 Read 操作所期望读出的数据长度 N，那么 Read 将会成功读出这部分数据并返回，而不是等待读取数据长度 N 之后再返回。
 
 Client端：
 ```go
@@ -319,7 +321,9 @@ func main() {
     time.Sleep(time.Second * 10000)
 }
 ```
+
 Server端：
+
 ```go
 //go-tcpsock/read_write/server2.go
 ... ...
@@ -339,8 +343,8 @@ func handleConn(c net.Conn) {
 }
 ... ...
 ```
-我们通过client2.go发送”hi”到Server端：
-运行结果:
+
+通过 client2.go 发送 hi 到 Server 端，运行结果:
 ```
 $go run client2.go hi
 2015/11/17 13:30:53 begin dial...
@@ -352,13 +356,15 @@ $go run server2.go
 2015/11/17 13:33:47 read 2 bytes, content is hi
 ...
 ```
-Client向socket中写入两个字节数据(“hi”)，Server端创建一个len = 10的slice，等待Read将读取的数据放入slice；Server随后读取到那两个字节：”hi”。Read成功返回，n =2 ，err = nil。
 
-##### 3、Socket中有足够数据
+Client向 Socket 中写入两个字节数据：hi ，Server 端创建一个len = 10 的 slice，等待 Read 将读取的数据放入 slice；Server 随后读取到那两个字符。Read 成功返回，n = 2 ，err = nil。
 
-如果socket中有数据，且长度大于等于一次Read操作所期望读出的数据长度，那么Read将会成功读出这部分数据并返回。这个情景是最符合我们对Read的期待的了：Read将用Socket中的数据将我们传入的slice填满后返回：n = 10, err = nil。
+##### 3、Socket 中有足够数据
 
-我们通过client2.go向Server2发送如下内容：abcdefghij12345，执行结果如下：
+如果 Socket 中有数据，且长度大于等于一次 Read 操作所期望读出的数据长度，那么 Read 将会成功读出这部分数据并返回。这个情景是最符合我们对Read的期待的：Read 将用 Socket 中的数据将我们传入的 slice 填满后返回：n = 10, err = nil。
+
+通过 client2.go 向 Server2 发送如下内容：abcdefghij12345，执行结果如下：
+
 ```
 $go run client2.go abcdefghij12345
 2015/11/17 13:38:00 begin dial...
@@ -371,13 +377,15 @@ $go run server2.go
 2015/11/17 13:38:02 start to read from conn
 2015/11/17 13:38:02 read 5 bytes, content is 12345
 ```
-client端发送的内容长度为15个字节，Server端Read buffer的长度为10，因此Server Read第一次返回时只会读取10个字节；Socket中还剩余5个字节数据，Server再次Read时会把剩余数据读出（如：情形2）。
+
+client 端发送的内容长度为 15 个字节，Server 端 Read buffer 的长度为 10，因此 Server Read 第一次返回时只会读取 10 个字节；Socket 中还剩余 5 个字节数据，Server 再次 Read 时会把剩余数据读出（如：情形 2）。
 
 ##### 4、Socket关闭
 
-如果client端主动关闭了socket，那么Server的Read将会读到什么呢？这里分为“有数据关闭”和“无数据关闭”。
+如果 Client 端主动关闭了 Socket，那么 Server 的 Read 将会读到什么呢？这里分为“有数据关闭”和“无数据关闭”。
 
-“有数据关闭”是指在client关闭时，socket中还有server端未读取的数据，我们在go-tcpsock/read_write/client3.go和server3.go中模拟这种情况：
+“有数据关闭”是指在 Client 关闭时，Socket 中还有 Server 端未读取的数据，我们在 go-tcpsock/read_write/client3.go 和 server3.go 中模拟这种情况：
+
 ```
 $go run client3.go hello
 2015/11/17 13:50:57 begin dial...
@@ -390,9 +398,9 @@ $go run server3.go
 2015/11/17 13:51:17 start to read from conn
 2015/11/17 13:51:17 conn read error: EOF
 ```
-从输出结果来看，当client端close socket退出后，server3依旧没有开始Read，10s后第一次Read成功读出了5个字节的数据，当第二次Read时，由于client端 socket关闭，Read返回EOF error。
+可见，当 Client 端关闭 Socket 退出后，server3 依旧没有开始 Read，10s 后第一次 Read 成功读出了 5 个字节的数据，当第二次 Read 时，由于 Client 端 Socket 关闭，Read 返回 EOF error。
 
-通过上面这个例子，我们也可以猜测出“无数据关闭”情形下的结果，那就是Read直接返回EOF error。
+通过上面这个例子，可知“无数据关闭”情形下的结果，那就是 Read 直接返回 EOF error。
 
 ##### 5、读取操作超时
 

@@ -716,8 +716,9 @@ tcpConn.SetNoDelay(true)
 
 ### 五、关闭连接
 
-和前面的方法相比，关闭连接算是最简单的操作了。由于socket是全双工的，client和server端在己方已关闭的socket和对方关闭的socket上操作的结果有不同。看下面例子：
-```
+由于 Socket 是全双工的，Client 和 Server 端在己方已关闭的 Socket 和对方关闭的 Socket 上操作的结果有不同。看下面例子：
+
+```go
 //go-tcpsock/conn_close/client1.go
 ... ...
 func main() {
@@ -772,7 +773,9 @@ func handleConn(c net.Conn) {
 }
 ... ...
 ```
+
 上述例子的执行结果如下：
+
 ```
 $go run server1.go
 2015/11/17 17:00:51 accept a new connection
@@ -786,13 +789,12 @@ $go run client1.go
 2015/11/17 17:00:51 read error: read tcp 127.0.0.1:64195->127.0.0.1:8888: use of closed network connection
 2015/11/17 17:00:51 write error: write tcp 127.0.0.1:64195->127.0.0.1:8888: use of closed network connection
 ```
-从client1的结果来看，在己方已经关闭的socket上再进行read和write操作，会得到”use of closed network connection” error；
-从server1的执行结果来看，在对方关闭的socket上执行read操作会得到EOF error，但write操作会成功，因为数据会成功写入己方的内核socket缓冲区中，即便最终发不到对方socket缓冲区了，因为己方socket并未关闭。因此当发现对方socket关闭后，己方应该正确合理处理自己的socket，再继续write已经无任何意义了。
 
-### 六、小结
+从 client1 的结果来看，在己方已经关闭的 socket 上再进行 read 和 write 操作，会报错：use of closed network connection。
+从 server1 的结果来看，在对方关闭的 socket 上执行 read 操作会得到 EOF error，但 write 操作会成功，因为数据会成功写入己方的内核 socket 缓冲区中，即便最终发不到对方 socket 缓冲区了，因为己方 socket 并未关闭。因此当发现对方 socket 关闭后，己方应正确合理处理自己的 socket，再继续 write 已毫无意义。
 
-本文比较基础，但却很重要，毕竟golang是面向大规模服务后端的，对通信环节的细节的深入理解会大有裨益。另外Go的goroutine+阻塞通信的网络通信模型降低了开发者心智负担，简化了通信的复杂性，这点尤为重要。
+### 六、附
 
-本文代码实验环境：go 1.5.1 on Darwin amd64以及部分在ubuntu 14.04 amd64。
+本文代码实验环境：go 1.5.1 on Darwin amd64 以及部分在 ubuntu 14.04 amd64。
 
 [demo代码](https://github.com/bigwhite/experiments/tree/master/go-tcpsock)

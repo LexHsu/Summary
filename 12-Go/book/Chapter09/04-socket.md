@@ -691,9 +691,9 @@ func (fd *netFD) Write(p []byte) (nn int, err error) {
 
 同时也可以看出即便是Read操作，也是lock保护的。多个Goroutine对同一conn的并发读不会出现读出内容重叠的情况，但内容断点是依 runtime调度来随机确定的。存在一个业务包数据，1/3内容被goroutine-1读走，另外2/3被另外一个goroutine-2读 走的情况。比如一个完整包：world，当goroutine的read slice size < 5时，存在可能：一个goroutine读到 “worl”,另外一个goroutine读出”d”。
 
-### 四、Socket属性
+### 四、Socket 属性
 
-原生Socket API提供了丰富的sockopt设置接口，但Golang有自己的网络架构模型，golang提供的socket options接口也是基于上述模型的必要的属性设置。包括
+原生 Socket API 提供了丰富的 sockopt 设置接口，但 Golang 有自己的网络架构模型，golang 提供的 socket options 接口也是基于上述模型的必要的属性设置。包括
 ```
 SetKeepAlive
 SetKeepAlivePeriod
@@ -702,8 +702,9 @@ SetNoDelay （默认no delay）
 SetWriteBuffer
 SetReadBuffer
 ```
-不过上面的Method是TCPConn的，而不是Conn的，要使用上面的Method的，需要type assertion：
-```
+不过上面的 Method 是 TCPConn 的，而不是 Conn 的，要使用上面的 Method 的，需要 type assertion：
+
+```go
 tcpConn, ok := c.(*TCPConn)
 if !ok {
     //error handle
@@ -712,7 +713,7 @@ if !ok {
 tcpConn.SetNoDelay(true)
 ```
 
-对于listener socket, golang默认采用了 SO_REUSEADDR，这样当你重启 listener程序时，不会因为address in use的错误而启动失败。而listen backlog的默认值是通过获取系统的设置值得到的。不同系统不同：mac 128, linux 512等。
+对于 listener socket, golang 默认采用了 SO_REUSEADDR，这样当你重启 listener 程序时，不会因为 address in use 的错误而启动失败。而 listen backlog 的默认值是通过获取系统的设置值得到的。不同系统不同：mac 128, linux 512等。
 
 ### 五、关闭连接
 

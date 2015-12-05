@@ -13,7 +13,7 @@ TCP Socket
 3. Non-Block + I/O 多路复用(linux epoll/windows iocp/freebsd darwin kqueue/solaris Event Port)
 ```
 
-目前主流 Web Server 一般采用第三种模型，为降低复杂度，在这基础上抽象出框架如 libevent、libev、libuv。不过 Go 设计者认为依旧复杂，其巧妙地将复杂性隐藏在 Runtime 中，开发者无需关注 socket 是否阻塞，也无需注册回调，只需在每个 goroutine 中以 block I/O 的方式处理即可，大大降低了负责度。
+目前主流 Web Server 一般采用第三种模型，为降低复杂度，在这基础上又抽象出 libevent、libev、libuv 等框架。不过 Go 设计者认为这样依旧复杂，其巧妙地将复杂性隐藏在 Runtime 中，开发者无需关注 socket 是否阻塞，也无需注册回调，只需在每个 goroutine 中以 block I/O 的方式处理即可，大大降低了负责度。
 
 一个典型的 Go server 端程序：
 

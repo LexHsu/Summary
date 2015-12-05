@@ -592,18 +592,19 @@ $go run client6.go
 
 ##### Goroutine safe
 
-基于goroutine的网络架构模型，存在在不同goroutine间共享conn的情况，那么conn的读写是否是goroutine safe的呢？在深入这个问题之前，我们先从应用意义上来看read操作和write操作的goroutine-safe必要性。
+基于 goroutine 的网络架构模型，存在在不同 goroutine 间共享 conn 的情况，那么conn的读写都是goroutine safe的。可通过 runtime 源码了解：
 
-对于read操作而言，由于TCP是面向字节流，conn.Read无法正确区分数据的业务边界，因此多个goroutine对同一个conn进行read的意义不大，goroutine读到不完整的业务包反倒是增加了业务处理的难度。对与Write操作而言，倒是有多个goroutine并发写的情况。不过conn读写是否goroutine-safe的测试不是很好做，我们先深入一下runtime代码，先从理论上给这个问题定个性：
+net.conn 只是 `*netFD` 的 wrapper 结构，最终 Write 和 Read 都会落在其中的fd上：
 
-net.conn只是*netFD的wrapper结构，最终Write和Read都会落在其中的fd上：
-```
+```go
 type conn struct {
     fd *netFD
 }
 ```
-netFD在不同平台上有着不同的实现，我们以net/fd_unix.go中的netFD为例：
-```
+
+netFD 在不同平台上有着不同的实现，我们以 net/fd_unix.go 中的 netFD 为例：
+
+```go
 // Network file descriptor.
 type netFD struct {
     // locking/lifetime of sysfd + serialize access to Read and Write methods
@@ -687,9 +688,10 @@ func (fd *netFD) Write(p []byte) (nn int, err error) {
     return nn, err
 }
 ```
-每次Write操作都是受lock保护，直到此次数据全部write完。因此在应用层面，要想保证多个goroutine在一个conn上write操作的Safe，需要一次write完整写入一个“业务包”；一旦将业务包的写入拆分为多次write，那就无法保证某个Goroutine的某“业务包”数据在conn发送的连续性。
 
-同时也可以看出即便是Read操作，也是lock保护的。多个Goroutine对同一conn的并发读不会出现读出内容重叠的情况，但内容断点是依 runtime调度来随机确定的。存在一个业务包数据，1/3内容被goroutine-1读走，另外2/3被另外一个goroutine-2读 走的情况。比如一个完整包：world，当goroutine的read slice size < 5时，存在可能：一个goroutine读到 “worl”,另外一个goroutine读出”d”。
+每次 Write 操作都是受 lock 保护，直到此次数据全部 write 完。因此在应用层面，要想保证多个 goroutine 在一个 conn 上 write 操作的 Safe，需要一次 write 完整写入一个“业务包”；一旦将业务包的写入拆分为多次 write，那就无法保证某个 Goroutine 的某“业务包”数据在 conn 发送的连续性。
+
+同时也可以看出即便是 Read 操作，也是 lock 保护的。多个 Goroutine 对同一 conn 的并发读不会出现读出内容重叠的情况，但内容断点是依 runtime 调度来随机确定的。存在一个业务包数据，1/3 内容被 goroutine1 读走，另外 2/3 被另外一个 goroutine2 读走的情况。比如一个完整包：world，当 goroutine 的 read slice size < 5 时，存在可能：一个 goroutine 读到 “worl”,另外一个 goroutine 读出 ”d”。
 
 ### 四、Socket 属性
 

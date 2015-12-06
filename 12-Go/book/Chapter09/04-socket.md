@@ -404,8 +404,9 @@ $go run server3.go
 
 ##### 5、读取操作超时
 
-有些场合对Read的阻塞时间有严格限制，在这种情况下，Read的行为到底是什么样的呢？在返回超时错误时，是否也同时Read了一部分数据了呢？这个实验比较难于模拟，下面的测试结果也未必能反映出所有可能结果。我们编写了client4.go和server4.go来模拟这一情形。
-```
+有些场合对 Read 的阻塞时间有严格限制，在这种情况下，Read 的行为到底是什么样的呢？在返回超时错误时，是否也同时 Read 了一部分数据了呢？这个实验比较难于模拟，下面的测试结果也未必能反映出所有可能结果。我们编写了 client4.go 和 server4.go 来模拟这一情形。
+
+```go
 //go-tcpsock/read_write/client4.go
 ... ...
 func main() {
@@ -446,7 +447,9 @@ func handleConn(c net.Conn) {
     }
 }
 ```
-在Server端我们通过Conn的SetReadDeadline方法设置了10微秒的读超时时间，Server的执行结果如下：
+
+在 Server 端我们通过 Conn 的 SetReadDeadline 方法设置了 10 微秒的读超时时间，Server 的执行结果如下：
+
 ```
 $go run server4.go
 
@@ -456,18 +459,19 @@ $go run server4.go
 2015/11/17 14:21:37 start to read from conn
 2015/11/17 14:21:37 read 65536 bytes, content is
 ```
-虽然每次都是10微秒超时，但结果不同，第一次Read超时，读出数据长度为0；第二次读取所有数据成功，没有超时。反复执行了多次，没能出现“读出部分数据且返回超时错误”的情况。
+虽然每次都是 10 微秒超时，但结果不同，第一次 Read 超时，读出数据长度为 0；第二次读取所有数据成功，没有超时。反复执行了多次，没能出现“读出部分数据且返回超时错误”的情况。
 
-和读相比，Write遇到的情形一样不少，我们也逐一看一下。
+和读相比，Write 遇到的情形一样不少，我们也逐一看一下。
 
 ##### 1、成功写
 
-前面例子着重于Read，client端在Write时并未判断Write的返回值。所谓“成功写”指的就是Write调用返回的n与预期要写入的数据长度相等，且error = nil。这是我们在调用Write时遇到的最常见的情形，这里不再举例了。
+前面例子着重于 Read，client 端在 Write 时并未判断 Write 的返回值。所谓“成功写”指的就是 Write 调用返回的 n 与预期要写入的数据长度相等，且 error = nil。这是我们在调用 Write 时遇到的最常见的情形，这里不再举例了。
 
 ##### 2、写阻塞
 
-TCP连接通信两端的OS都会为该连接保留数据缓冲，一端调用Write后，实际上数据是写入到OS的协议栈的数据缓冲的。TCP是全双工通信，因此每个方向都有独立的数据缓冲。当发送方将对方的接收缓冲区以及自身的发送缓冲区写满后，Write就会阻塞。我们来看一个例子：client5.go和server.go。
-```
+TCP 连接通信两端的 OS 都会为该连接保留数据缓冲，一端调用 Write 后，实际上数据是写入到 OS 的协议栈的数据缓冲的。TCP 是全双工通信，因此每个方向都有独立的数据缓冲。当发送方将对方的接收缓冲区以及自身的发送缓冲区写满后，Write 就会阻塞。我们来看一个例子：client5.go 和 server.go。
+
+```go
 //go-tcpsock/read_write/client5.go
 ... ...
 func main() {
@@ -537,7 +541,9 @@ $go run client5.go
 2015/11/17 14:57:33 write 65536 bytes this time, 589824 bytes in total
 2015/11/17 14:57:33 write 65536 bytes this time, 655360 bytes in total
 ```
-在Darwin上，这个size大约在679468bytes。后续当server5每隔5s进行Read时，OS socket缓冲区腾出了空间，client5就又可以写入了：
+
+在 Darwin 上，这个 size 大约在 679468 bytes。后续当 server5 每隔 5s 进行 Read 时，OS socket 缓冲区腾出了空间，client5 就又可以写入了：
+
 ```
 $go run server5.go
 2015/11/17 15:07:01 accept a new connection
@@ -549,7 +555,9 @@ $go run server5.go
 2015/11/17 15:07:26 read 60000 bytes, content is
 ....
 ```
+
 client端：
+
 ```
 2015/11/17 15:07:01 write 65536 bytes this time, 720896 bytes in total
 2015/11/17 15:07:06 write 65536 bytes this time, 786432 bytes in total
@@ -559,23 +567,26 @@ client端：
 2015/11/17 15:07:27 write 65536 bytes this time, 1048576 bytes in total
 .... ...
 ```
+
 ##### 3、写入部分数据
 
-Write操作存在写入部分数据的情况，比如上面例子中，当client端输出日志停留在“write 65536 bytes this time, 655360 bytes in total”时，我们杀掉server5，这时我们会看到client5输出以下日志：
+Write 操作存在写入部分数据的情况，比如上面例子中，当 client 端输出日志停留在 write 65536 bytes this time, 655360 bytes in total 时，杀掉 server5，会看到 client5 输出以下日志：
 ```
 ...
 2015/11/17 15:19:14 write 65536 bytes this time, 655360 bytes in total
 2015/11/17 15:19:16 write 24108 bytes, error:write tcp 127.0.0.1:62245->127.0.0.1:8888: write: broken pipe
 2015/11/17 15:19:16 write 679468 bytes in total
 ```
-显然Write并非在655360这个地方阻塞的，而是后续又写入24108后发生了阻塞，server端socket关闭后，我们看到Wrote返回er != nil且n = 24108，程序需要对这部分写入的24108字节做特定处理。
+
+显然 Write 并非在 655360 这个地方阻塞的，而是后续又写入 24108 后发生了阻塞，server 端 socket 关闭后，我们看到 Wrote 返回er != nil 且 n = 24108，程序需要对这部分写入的 24108 字节做特定处理。
 
 ##### 4、写入超时
 
-如果非要给Write增加一个期限，那我们可以调用SetWriteDeadline方法。我们copy一份client5.go，形成client6.go，在client6.go的Write之前增加一行timeout设置代码：
+如果非要给 Write 增加一个期限，那我们可以调用 SetWriteDeadline 方法。我们 copy 一份 client5.go，形成 client6.go，在 client6.go 的 Write 之前增加一行 timeout 设置代码：
 
 conn.SetWriteDeadline(time.Now().Add(time.Microsecond * 10))
-启动server6.go，启动client6.go，我们可以看到写入超时的情况下，Write的返回结果：
+启动 server6.go，启动 client6.go，我们可以看到写入超时的情况下，Write 的返回结果：
+
 ```
 $go run client6.go
 2015/11/17 15:26:34 begin dial...
@@ -586,9 +597,10 @@ $go run client6.go
 2015/11/17 15:26:34 write 24108 bytes, error:write tcp 127.0.0.1:62325->127.0.0.1:8888: i/o timeout
 2015/11/17 15:26:34 write 679468 bytes in total
 ```
+
 可以看到在写入超时时，依旧存在部分数据写入的情况。
 
-综上例子，虽然Go给我们提供了阻塞I/O的便利，但在调用Read和Write时依旧要综合需要方法返回的n和err的结果，以做出正确处理。net.conn实现了io.Reader和io.Writer接口，因此可以试用一些wrapper包进行socket读写，比如bufio包下面的Writer和Reader、io/ioutil下的函数等。
+综上例子，虽然 Go 给我们提供了阻塞 I/O 的便利，但在调用 Read 和 Write 时依旧要综合需要方法返回的 n 和 err 的结果，以做出正确处理。net.conn 实现了 io.Reader 和 io.Writer 接口，因此可以试用一些 wrapper 包进行 socket 读写，比如 bufio 包下面的 Writer 和 Reader、io/ioutil 下的函数等。
 
 ##### Goroutine safe
 

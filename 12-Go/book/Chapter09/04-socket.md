@@ -635,7 +635,7 @@ type netFD struct {
     pd pollDesc
 }
 ```
-我们看到netFD中包含了一个runtime实现的fdMutex类型字段，从注释上来看，该fdMutex用来串行化对该netFD对应的sysfd的Write和Read操作。从这个注释上来看，所有对conn的Read和Write操作都是有fdMutex互斥的，从netFD的Read和Write方法的实现也证实了这一点：
+可见 netFD 中包含了一个 runtime 实现的 fdMutex 类型字段，从注释上来看，该 fdMutex 用来串行化对该 netFD 对应的 sysfd 的 Write 和 Read 操作。从这个注释上来看，所有对 conn 的 Read 和 Write 操作都是有 fdMutex 互斥的，从 netFD 的 Read 和 Write 方法的实现也证实了这一点：
 ```
 func (fd *netFD) Read(p []byte) (n int, err error) {
     if err := fd.readLock(); err != nil {

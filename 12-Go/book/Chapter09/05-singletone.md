@@ -1,5 +1,6 @@
 Singleton Pattern in Go
-Jul 12, 2015
+===
+
 The Go Language growth has been phenomenal in the last few years, and is attracting language converts from all walks of life. There has been a lot articles recently about companies switching from Ruby, and experiencing the new world of Go and it’s parallel and concurrent approach to problems.
 
 In the last 10 years, Ruby on Rails has allowed many developers and startups to quickly develop powerful systems, most of the time without needing to worry on how the inner things work, or worry about thread-safety and concurrency. It is very rare for a RoR application to create threads and run things in parallel. The whole hosting infrastructure and framework stack uses a different approach, by parallelizing it via multiple processes. It has only been in the last few years that multithreaded rack servers like Puma has surged in popularity, but even that brought a lot of issues in the beggining with third-party gems and other code that weren’t designed to be thread safe.

@@ -7,7 +7,7 @@ In the last 10 years, Ruby on Rails has allowed many developers and startups to 
 
 Now with a lot of new developers embarking into the Go Language boat, we need to carefully look at our code and see how it will behave, it needs to be designed in a thread-safe way.
 
-The Common Mistake
+### The Common Mistake
 Recently, I have seen this kind of mistake more and more in github repositories. Singleton implementations that doesn’t have any consideration for thread-safety. Below is the most common example of this mistake.
 ```go
 package singleton
@@ -28,7 +28,7 @@ In the above scenario, multiple go routines could evaluate the first check and t
 
 The reason this is bad is that if references to the singleton instance are being held around through the code, there could be potentially multiple instances of the type with different states, generating potential different code behaviours. It also becomes a real nightmare during debugging and becomes really hard to spot the the bug, since that at debugging time nothing really appears to be wrong due to the run-time pauses minimizing the potential of a non-thread-safe execution, easily hiding the problem from the developer.
 
-The Aggressive Locking
+### The Aggressive Locking
 I have also seen this poor solution to the thread-safety problem. Indeed this solves the thread-safety issue, but creates other potential serious problems. It introduces a threading contention by perform aggressive locking of the entire method.
 ```go
 var mu Sync.Mutex
@@ -47,7 +47,7 @@ In the code above, we can see that we solve the thread-safety issue by introduci
 
 So, this is not the best approach. We have to look at other solutions.
 
-Check-Lock-Check Pattern
+### Check-Lock-Check Pattern
 In C++ and other languages, the best and safest way to ensure minimal locking and still be thread-safe is to utilize the well known pattern called Check-Lock-Check, when acquiring locks. The pseudo-code for the pattern is something like this.
 ```go
 if check() {
@@ -105,7 +105,7 @@ func GetInstance() *singleton {
 ```
 But… I believe we could do better by looking into how the Go Language and standard library implements go routines synchronization.
 
-An Idiomatic Singleton Approach in Go
+### An Idiomatic Singleton Approach in Go
 We want to implement this Singleton pattern utilizing the Go idiomatic way of doing things. So we have to look at the excellent standard library packaged called sync. We can find the type Once. This object will perform an action exactly once and no more. Below you can find the source code from the Go standard library.
 ```go
 // Once is an object that will perform exactly one action.
@@ -174,7 +174,10 @@ func GetInstance() *singleton {
 ```
 Therefore, using the sync.Once package is the preferred way of implementing this safely, in similar way that Objective-C and Swift (Cocoa) implements the dispatch_once metod to perform similar initialization.
 
-Conclusion
+### Conclusion
 When it comes to concurrent and parallel code, a lot more careful examination of your code is needed. Always have your team members perform code-reviews, since things like this is easy to have an oversight.
 
 All the new developers that are switching to Go needs to really understand how thread-safety works to better improve their code. Even though the Go language itself does a lot of the heavy-lifting by allowing you to design concurrent code with minimal knowledge of concurrency. There are several cases where the language doesn’t help you, and you still need to apply best practices in developing your code.
+
+### Tips
+[source](http://marcio.io/2015/07/singleton-pattern-in-go/)

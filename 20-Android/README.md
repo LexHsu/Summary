@@ -17,6 +17,7 @@
  - 01. [完整项目](book/Chapter04/01-item.md)
  - 02. [网络库](book/Chapter04/02-lib.md)
  - 03. [UI库](book/Chapter04/03-ui.md)
+ - 04. [效率工具](book/Chapter04/04-tools.md)
 * **第五章 应用**
  - 01. [性能优化](book/Chapter04/01-item.md)
  - 02. [JNI](book/Chapter04/02-lib.md)

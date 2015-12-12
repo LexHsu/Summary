@@ -50,7 +50,7 @@ Helper classes (third column on diagram) have very specific responsibilities and
 
 1. PreferencesHelper: reads and saves data in SharedPreferences.
 2. DatabaseHelper: handles accessing SQLite databases.
-3. [Retrofit](https://github.com/square/retrofit )services: perform calls to REST APIs. We started using Retrofit instead of Volley because it provides support for RxJava. It’s also nicer to use.
+3. [Retrofit](https://github.com/square/retrofit ) services: perform calls to REST APIs. We started using Retrofit instead of Volley because it provides support for RxJava. It’s also nicer to use.
 
 Most of the public methods inside helper classes will return RxJava Observables.
 

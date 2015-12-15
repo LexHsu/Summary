@@ -190,7 +190,7 @@ $go run client2.go
 ... ...
 ```
 
-可以看出 Client 初始时成功地一次性建立了 128 个连接，然后后续每阻塞近 10s 才能成功建立一条连接。也就是说在 server 端 backlog 满时(未及时 accept)，客户端将阻塞在 Dial 上，直到 server 端进行一次 accept。至于为什么是 128，这与darwin 下的默认设置有关：
+可以看出 Client 初始时成功地一次性建立了 128 个连接，然后后续每阻塞近 10s 才能成功建立一条连接。也就是说在 server 端 backlog 满时(未及时 accept)，客户端将阻塞在 Dial 上，直到 server 端进行一次 accept。至于为什么是 128，这与 darwin 下的默认设置有关：
 
 ```
 $sysctl -a|grep kern.ipc.somaxconn
@@ -198,7 +198,7 @@ kern.ipc.somaxconn: 128
 ```
 
 如果在 ubuntu 14.04 上运行上述程序，client 初始可以成功建立 499 条连接。
-如果 server 一直不 accept，client 端会一直阻塞么？我们去掉 accept 后的结果是：在Darwin下，client 端会阻塞大 约 1 分多钟才会返回 timeout：
+如果 server 一直不 accept，client 端会一直阻塞么？我们去掉 accept 后的结果是：在 Darwin下，client 端会阻塞大约 1 分多钟才会返回 timeout：
 
 ```
 2015/11/16 22:03:31 128 :connect to server ok
@@ -209,7 +209,7 @@ kern.ipc.somaxconn: 128
 
 ##### 3、网络延迟较大，Dial 阻塞并超时
 
-如果网络延迟较大，TCP 握手过程将更加艰难坎坷（各种丢包），时间消耗的自然也会更长。Dial 这时会阻塞，如果长时间依旧无法建立连接，则 Dial 也会返回 getsockopt: operation timed out 错误。
+如果网络延迟较大，TCP 握手过程将更加艰难坎坷（各种丢包），时间消耗的自然也会更长。Dial 这时会阻塞，如果长时间依旧无法建立连接，则 Dial 也会返回 getsockopt: operation timed out。
 
 对于严格控制连接时间的程序，使用 DialTimeout，下例将 Dial 最长阻塞时间限制在 2s 内，超时将返回 timeout error：
 
@@ -289,8 +289,9 @@ func (c *conn) Write(b []byte) (int, error) {
 ##### 1、Socket 中无数据
 
 连接建立后，如果对方未发送数据到 Socket，执行该 Read 操作的 Goroutine 会被挂起。
-runtime 会监视该 socket，直到其有数据才会重新
-调度该 Socket 对应的 Goroutine 完成 Read。示例代码：go-tcpsock/read_write下 的 client1.go 和 server1.go。
+runtime 会监视该 socket，直到其有数据才会重新调度该 Socket 对应的 Goroutine 完成 Read。
+
+示例代码：go-tcpsock/read_write下 的 client1.go 和 server1.go。
 
 ##### 2、Socket中有部分数据
 
@@ -302,7 +303,7 @@ Client端：
 ... ...
 func main() {
     if len(os.Args) <= 1 {
-        fmt.Println("usage: go run client2.go YOUR_CONTENT")
+        fmt.Println("usage: go run client2.go YOUR_INPUT_CONTENT")
         return
     }
     log.Println("begin dial...")
@@ -357,7 +358,7 @@ $go run server2.go
 ...
 ```
 
-Client向 Socket 中写入两个字节数据：hi ，Server 端创建一个len = 10 的 slice，等待 Read 将读取的数据放入 slice；Server 随后读取到那两个字符。Read 成功返回，n = 2 ，err = nil。
+Client向 Socket 中写入两个字节数据：hi ，Server 端创建一个 len = 10 的 slice，等待 Read 将读取的数据放入 slice；Server 随后读取到那两个字符。Read 成功返回，n = 2 ，err = nil。
 
 ##### 3、Socket 中有足够数据
 

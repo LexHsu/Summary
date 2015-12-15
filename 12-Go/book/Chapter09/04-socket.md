@@ -525,7 +525,7 @@ func handleConn(c net.Conn) {
 }
 ... ...
 ```
-Server5在前10s中并不Read数据，因此当client5一直尝试写入时，写到一定量后就会发生阻塞：
+Server5 在前 10s 中并不 Read 数据，因此当 client5 一直尝试写入时，写到一定量后就会发生阻塞：
 ```
 $go run client5.go
 

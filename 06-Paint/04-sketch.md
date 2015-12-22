@@ -5,7 +5,7 @@ Sketch 技巧
 
 这个是我最想分享给大家的秘诀！在各位大侠的设计生活中，难免不遇到许多重复无聊的表格…
 
-![img](img/04.01.jpg)
+![img](img/4.01.jpg)
 
 一般的做法是选中所有的数字文本，然后移动，移动，移动，移动。但…这样做，真的好吗？
 
@@ -14,14 +14,14 @@ Duang,元件上场！（该功能类似PS智能对象，但又优于PS）
 
 当你设计表格的时候，可以把做好的一行变成元件。注意：元件的参数设置记得取消勾选“排除文本值”（该功能是为了避免表格内容都一样，无法修改）。
 
-![img](img/04.01.jpg)
+![img](img/4.02.jpg)
 
 通过多次复制，再借助插件自行填充内容，一个完整的表格完成了。
 
 
 老板让你调整，没问题，单独调整一行，其它的行就跟着变了。
 
-![img](img/04.01.jpg)
+![img](img/4.03.jpg)
 
 二   快速选择图层
 
@@ -37,7 +37,7 @@ Duang,元件上场！（该功能类似PS智能对象，但又优于PS）
 
 option+command+ C
 
-![img](img/04.01.jpg)
+![img](img/4.04.jpg)
 
 这个功能同比photoshop的复制图层样式，粘贴图层样式。
 
@@ -55,7 +55,7 @@ Sketch默认的样式是灰色背景，图形形状带带灰色描边。可是�
 
 五   等分间距
 
-https://cdn-images-1.medium.com/max/800/1*0SNFdz4G9dTVhJhn7qHrGA.gif
+![img](img/4.05.gif)f
 
 类似于photoshop的功能
 
@@ -63,7 +63,7 @@ https://cdn-images-1.medium.com/max/800/1*0SNFdz4G9dTVhJhn7qHrGA.gif
 
 六   与其它元素的对齐
 
-https://cdn-images-1.medium.com/max/800/1*225ohABEdMCtA_kNsbjv7Q.gif
+![img](img/4.06.gif)
 
 通过按住shift键，点选2个及以上图形，即可使用啦。功能与PHOTOSHOP对齐工具一样
 
@@ -71,7 +71,7 @@ https://cdn-images-1.medium.com/max/800/1*225ohABEdMCtA_kNsbjv7Q.gif
 
 七   用图层列表快速选择
 
-https://cdn-images-1.medium.com/max/800/1*bqcooMQOYl2ARP7-Gj2ZzA.gif
+![img](img/4.07.jpg)
 
 使用Tab键（⇥）浏览到文件夹，Shift + Tab键（⇧+⇥）浏览到层。点击回车（↩）进入图层文件夹。点击退出（ESC）回到上一级文件夹。
 
@@ -85,7 +85,7 @@ https://cdn-images-1.medium.com/max/800/1*bqcooMQOYl2ARP7-Gj2ZzA.gif
 
 九   像CSS一样定义圆角
 
-https://cdn-images-1.medium.com/max/800/1*tmcTIFb1Fxwl78nEk4g6_w.gif
+![img](img/4.08.gif)
 
 按照html的写法，你可以依次设定每个圆角的角度，书写顺序依次为：
 左上/右上/右/左下。
@@ -98,4 +98,4 @@ https://cdn-images-1.medium.com/max/800/1*tmcTIFb1Fxwl78nEk4g6_w.gif
 
 此方法，PHOTOSHOP也可通用。
 
-https://cdn-images-1.medium.com/max/800/1*QKikBeyPBtjaBmniuxazsw.gif
+![img](img/4.09.gif)

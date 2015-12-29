@@ -8,10 +8,10 @@
            上钩」，enchant 是「说甜言蜜语使人迷醉」，tempt 是「为了
            某严苛的目的而试探、试炼」~~ 这些字以后都会带到，先做字辨。
 
-2. induce = in~ (in) + duce (lead) = 引到里头来= (vt.)引发、导致
+2. induce = in~ (in) + duce (lead) = 引到里头来 = (vt.)引发、导致
                                                 = cause = bring forth
 
-3. deduce = de~ (down) + duce (lead) = 把(事物)一直往下引导= (vt.)推理
+3. deduce = de~ (down) + duce (lead) = 把(事物)一直往下引导 = (vt.)推理
 
 4. conduce = con~ (together) + duce (lead) = 把(事物)都引导至某一方向
                                            = (vi.)贡献
@@ -22,7 +22,7 @@
                                            = 引导大家的行为
                                            = (vt.)引导、指挥 = direct
 
-6. reduce = re~ (back) + duce (lead) = 把(事物)向后引导= (v.)减退、降低
+6. reduce = re~ (back) + duce (lead) = 把(事物)向后引导 = (v.)减退、降低
 
 7. produce = pro~ (forward) + duce (lead) = 将事物向前引导
                                           = (vt.)产生、制造

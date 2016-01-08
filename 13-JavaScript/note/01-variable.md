@@ -79,12 +79,28 @@ var person = {firstname:"Bill", lastname:"Gates", id:5566};
 空格和折行无关紧要。声明可横跨多行：
 
 ```js
+// 方式一：
 var person = {
 firstname : "Bill",
 lastname  : "Gates",
 id        :  5566
 };
+
+// 方式二：
+person = new Object();
+person.firstname = "Bill";
+person.lastname = "Gates";
+persion.id = "5566"
+
+// 方式三：
+function person(firstname, lastname, id) {
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.id = id;
+}
+var person = new person("Bill", "Gates", 5566);
 ```
+
 对象属性有两种寻址方式：
 
 ```js
@@ -112,3 +128,9 @@ var cars = new Array;
 var person = new Object;
 ```
 JavaScript 变量均为对象。声明一个变量，就创建了一个新的对象。
+
+### 类
+
+JavaScript 是面向对象的语言，但 JavaScript 不使用类。
+在 JavaScript 中，不会创建类，也不会通过类来创建对象（就像在其他面向对象的语言中那样）。
+JavaScript 基于 prototype，而不是基于类的。

@@ -108,6 +108,11 @@ name = person.lastname;
 name = person["lastname"];
 ```
 
+注意：
+JavaScript 是面向对象的语言，但 JavaScript 不使用类。
+JavaScript 基于 prototype，而不是基于类的。
+在 JavaScript 中，不会创建类，也不会通过类来创建对象。
+
 ### Undefined 和 Null
 
 Undefined 这个值表示变量不含有值。
@@ -119,7 +124,9 @@ person = null;
 ```
 
 ### 声明变量类型
-可以使用关键词 "new" 来声明其类型：
+
+可以使用关键词 new 来声明其类型：
+
 ```js
 var carname = new String;
 var x = new Number;
@@ -128,9 +135,3 @@ var cars = new Array;
 var person = new Object;
 ```
 JavaScript 变量均为对象。声明一个变量，就创建了一个新的对象。
-
-### 类
-
-JavaScript 是面向对象的语言，但 JavaScript 不使用类。
-在 JavaScript 中，不会创建类，也不会通过类来创建对象（就像在其他面向对象的语言中那样）。
-JavaScript 基于 prototype，而不是基于类的。

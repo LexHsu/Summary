@@ -80,24 +80,24 @@ var myBoolean = ew Boolean()
 下面的所有的代码行均会创建初始值为 false 的 Boolean 对象。
 
 ```js
-var myBoolean=new Boolean();
-var myBoolean=new Boolean(0);
-var myBoolean=new Boolean(-0);
-var myBoolean=new Boolean(null);
-var myBoolean=new Boolean("");
-var myBoolean=new Boolean(false);
-var myBoolean=new Boolean(undefined);
-var myBoolean=new Boolean(NaN);
+var myBoolean = new Boolean();
+var myBoolean = new Boolean(0);
+var myBoolean = new Boolean(-0);
+var myBoolean = new Boolean(null);
+var myBoolean = new Boolean("");
+var myBoolean = new Boolean(false);
+var myBoolean = new Boolean(undefined);
+var myBoolean = new Boolean(NaN);
 ```
 
 下面的所有的代码行均会创初始值为 true 的 Boolean 对象：
 
 ```js
-var myBoolean=new Boolean(1);
-var myBoolean=new Boolean(true);
-var myBoolean=new Boolean("true");
-var myBoolean=new Boolean("false");
-var myBoolean=new Boolean("Bill Gates");
+var myBoolean = new Boolean(1);
+var myBoolean = new Boolean(true);
+var myBoolean = new Boolean("true");
+var myBoolean = new Boolean("false");
+var myBoolean = new Boolean("Bill Gates");
 ```
 
 ### JavaScript 数组

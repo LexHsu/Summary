@@ -60,3 +60,7 @@ Class A 中引用了 Class B 作为成员变量或全局变量。
 
 
 ##### 总的来说，后几种关系所表现的强弱程度依次为：组合 > 聚合 > 关联 > 依赖。
+
+![Todo](http://blog.csdn.net/xujiaolf/article/details/8560996)
+![Todo](http://blog.csdn.net/jiuqiyuliang/article/details/8552956)
+![Todo](http://blog.csdn.net/zfrong/article/details/4086424)

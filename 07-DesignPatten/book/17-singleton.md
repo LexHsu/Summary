@@ -87,7 +87,7 @@ public class Singleton {
        if (instance == null) {
            synchronized(Singleton.class) {
               if (instance == null) {
-                  instance = new Singleton();
+                  instance = new Singleton();    // 语句1
               }
            }
        }
@@ -97,9 +97,33 @@ public class Singleton {
 ```
 
 但是该方案也未能解决问题之根本：
-原因在于：初始化 Singleton  和 将对象地址写到 instance 字段 的顺序是不确定的。
-在某个线程 new Singleton() 时，在构造方法被调用之前，就为该对象分配了内存空间并将对象的字段设置为默认值。
-此时就可以将分配的内存地址赋值给 instance 字段了，然而该对象可能还没有初始化；此时若另外一个线程来调用 getInstance，取到的就是状态不正确的对象。
+原因在于：初始化 Singleton  和 将对象地址写到 instance 字段的顺序是不确定的。
+
+```
+instance = new Singleton();这一行代码可以分解为如下的三行伪代码：
+
+memory = allocate();   // 1：分配对象的内存空间
+ctorInstance(memory);  // 2：初始化对象
+instance = memory;     // 3：设置instance指向刚分配的内存地址
+
+但在一些JIT编译上，语句2，3可能会被重排序：
+
+memory = allocate();   // 1：分配对象的内存空间
+instance = memory;     // 3：设置instance指向刚分配的内存地址，此时对象还没有被初始化！
+ctorInstance(memory);  // 2：初始化对象
+```
+
+上面三行伪代码的2和3之间虽然被重排序了，但这个重排序并不会改变单线程程序的执行结果：
+![reorder](http://cdn.infoqstatic.com/statics_s2_20160322-0135u1/resource/articles/double-checked-locking-with-delay-initialization/zh/resources/1008100.png)
+
+如上图所示，只要保证2排在4的前面，即使2和3之间重排序了，也不会违反intra-thread semantics。
+
+下面，再让我们看看多线程并发执行的时候的情况。请看下面的示意图：
+
+![reorder](http://cdn.infoqstatic.com/statics_s2_20160322-0135u1/resource/articles/double-checked-locking-with-delay-initialization/zh/resources/1008101.png)
+
+当线程A和B按上图的时序执行时，B线程将看到一个还没有被初始化的对象。
+
 
 再详细点说，对于 JVM 而言，其执行的是一个个 Java 指令。在 Java 指令中创建对象和赋值操作是分开进行的，
 也就是说 instance = new Singleton(); 语句是分两步执行的。但是JVM并不保证这两个操作的先后顺序，

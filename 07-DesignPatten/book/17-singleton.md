@@ -171,11 +171,20 @@ public class Singleton {
 
 编译器可以合法的，也是合理的，将 instance = temp 移动到最里层的同步块内，这样就出现了上个版本同样的问题。
 
+在知晓了问题发生的根源之后，有两种实现线程安全的延迟初始化：
+
+1. 不允许2和3重排序；见《2. 懒汉式-双重检查》
+2. 允许2和3重排序，但不允许其他线程“看到”这个重排序，见《3. 懒汉式-Lazy initialization holder class方式》
+
 ### 2. 懒汉式-双重检查
 
-双重检查锁定在延迟初始化的单例模式中见得比较多，在 `JDK1.5` 及后续版本中，扩充了 volatile 语义，系统将不允许对写入一个 volatile 变量的操作与其之前的任何读写操作重新排序，也不允许将 读取一个 volatile 变量的操作与其之后的任何读写操作重新排序。
+双重检查锁定在延迟初始化的单例模式中见得比较多，在 `JDK1.5` 及后续版本中，扩充了 volatile 语义，系统将不允许对写入一个 volatile 变量的操作与其之前的任何读写操作重新排序，也不允许将读取一个 volatile 变量的操作与其之后的任何读写操作重新排序。
 
-在 `jdk1.5` 及其后的版本中，可以将 instance 设置成 volatile 以让双重检查锁定生效，如下：
+因此，当声明对象的引用为volatile后，“问题的根源”的三行伪代码中的2和3之间的重排序，在多线程环境中将会被禁止。上面示例代码将按如下的时序执行：
+
+![volatile](http://cdn.infoqstatic.com/statics_s2_20160322-0135u1/resource/articles/double-checked-locking-with-delay-initialization/zh/resources/1008102.png)
+
+代码如下：
 
 ```java
 public class Singleton {
@@ -195,7 +204,10 @@ public class Singleton {
 }
 ```
 
-注意：在 `JDK1.4` 以及之前的版本中，该方式仍然有问题。
+
+
+
+注意：在 `JDK1.5` 之前的版本中，该方式仍然有问题。
 
 ### 3. 懒汉式-Lazy initialization holder class方式
 
@@ -213,6 +225,9 @@ class Singleton {
     }
 }
 ```
+假设两个线程并发执行getInstance()，执行流程如下：
+
+![holder](http://cdn.infoqstatic.com/statics_s2_20160322-0135u1/resource/articles/double-checked-locking-with-delay-initialization/zh/resources/1008103.png)
 
 JVM 机制能够保证当一个类被加载的时候，这个类的加载过程是线程互斥的。这样第一次调用 getInstance() 时，
 JVM 能保证 instance  只被创建一次，并且会保证把赋值给 instance 的内存初始化完毕，

@@ -6,7 +6,8 @@ Lib工程
 library project是作为jar包被其它android工程使用的，首先它也是普通的android工程。可由如下两种方式生成Lib工程：
 
 1. 新建Android工程时指定
-2. 右键指定的普通工程，Properties -> Android -> Is Library 或在project.properties中加上android.library=true
+2. 右键指定的普通工程，Properties -> Android -> Is Library
+3. 在project.properties中加上android.library=true
 
 
 注意：作为library工程可以引用外部jar包，但不能引用其它library工程，在library工程中不能使用aidl文件，不能引用raw、assets下资源
@@ -19,8 +20,8 @@ clear一下工程，会在bin目录下生成了一个Jar文件，该Jar文件包
 
 当引用lib工程后，主工程就可以调用library工程的相关类和方法。android工程引用其它library工程步骤：
 
-1. 右键主工程 -> Properties
-2. 选择Android -> Add，（错误方式：Java BuildPath -> Projects -> Add）
+1. 右键主工程 -> Properties -> Android -> Add，（错误方式：Java BuildPath -> Projects -> Add）
+2. 或者在project.properties里添加android.library.reference.1=../../Work/ADT-Bundle/workspace/LibProj
 
 ### 在主工程manifest.xml文件中声明lib工程的组件
 

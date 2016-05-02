@@ -110,3 +110,9 @@ public class PersonObserver extends ContentObserver {
     }
 }
 ```
+
+- Content Provider负责存取数据并暴露给其他应用。每个ContentProvider都只有一个实例（单例模式），但可以与多个在不同应用或进程中的Content Resovler进行通信。
+- 其他应用通过Content Resovler间接操作该应用的数据。
+- URI标识了ContentResovler与哪个Content Provider对话(talk)，并将其哪一张table作为目标（target)
+- 持有多个数据集（多张表）的ContentProvider可以为每个数据集提供一个独立的URI。
+- 定义一个Content Provider，最好也定义一个常量作为其URI，可以简化客户端的代码，并在以后的更新中保持简洁。

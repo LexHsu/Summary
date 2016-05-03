@@ -116,3 +116,13 @@ public class PersonObserver extends ContentObserver {
 - URI标识了ContentResovler与哪个Content Provider对话(talk)，并将其哪一张table作为目标（target)
 - 持有多个数据集（多张表）的ContentProvider可以为每个数据集提供一个独立的URI。
 - 定义一个Content Provider，最好也定义一个常量作为其URI，可以简化客户端的代码，并在以后的更新中保持简洁。
+
+```
+public final Cursor query (Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder)
+
+第一个参数URI，指定查询的表，不能为空。
+第二个参数指定返回的列集。null表示返回所有的列。
+第三个参数指定返回的行集。null表示返回所有的行。相当于sql的where子句。（除非URI限定）
+第四个参数是为第三个参数中出现？提供实参。（Arugments 实参，Parameters 形参）
+第五个参数指定返回的数据集的排序方式。null表示原序返回。相当于sql的order by子句。
+```

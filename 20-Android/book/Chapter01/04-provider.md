@@ -124,5 +124,6 @@ public final Cursor query (Uri uri, String[] projection, String selection, Strin
 第二个参数指定返回的列集。null表示返回所有的列。
 第三个参数指定返回的行集。null表示返回所有的行。相当于sql的where子句。（除非URI限定）
 第四个参数是为第三个参数中出现？提供实参。（Arugments 实参，Parameters 形参）
-第五个参数指定返回的数据集的排序方式。null表示原序返回。相当于sql的order by子句。
+第五个参数指定返回的数据集的排序方式。null表示原序返回。相当于sql的order by子句，默认是升序，如：
+Cursor cursor = contentResolver.query(Contacts.CONTENT_URI, null, null,null, Contacts._ID + " DESC");
 ```

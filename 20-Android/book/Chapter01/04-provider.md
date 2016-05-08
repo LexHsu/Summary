@@ -91,6 +91,7 @@ public class PersonContentProvider extends ContentProvider {
     }
 }
 ```
+
 - 通过 ContentObserver 对 URI 表示的数据进行监听。
 
 ```java

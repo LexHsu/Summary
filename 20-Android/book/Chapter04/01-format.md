@@ -1,7 +1,7 @@
 Android代码风格
 ===
 
-Google对Android的编程规范在Code Style Guidelines for Contributors中做了描述，并在Android源码中release了import和Java的配置文件android.importorder与android-formatting.xml。本文分析这些配置文件在Eclipse环境下格式化Android编码规范都做了什么，在Java和XML文件中如何具体体现。
+Google对Android的编程规范在[Code Style Guidelines for Contributors](http://blog.csdn.net/thl789/article/details/8027037)中做了描述，并在Android源码中release了import和Java的配置文件android.importorder与android-formatting.xml。本文分析这些配置文件在Eclipse环境下格式化Android编码规范都做了什么，在Java和XML文件中如何具体体现。
 
 Android源码目录<android_src_root>/development/ide/eclipse/下有文件android.importorder和android-formatting.xml，可以在Eclipse中导入import次序及Java编码风格：
 
@@ -271,12 +271,12 @@ public class A {
 4.1.8 枚举/Enumtypes
 
 ```java
-enum MyEnum {  
-    GREEN(0, 1), RED() {
-        void process() {
-        }
-    }
-}
+enum MyEnum {               // 1
+    GREEN(0, 1), RED() {    // 2
+        void process() {    // 3
+        }                   // 4
+    }                       // 5
+}                           // 6
 ```
 - 声明中左大括号的前面[#1]，加上空格；
 - 常量之间的逗号[#2 RED前]前面，不加空格；
@@ -467,11 +467,11 @@ boolean value = true && false;
 4.3.3 操作数
 
 ```java
-List list = new ArrayList();
-int a = -4 + -9;
-b = a++ / --number;
-c += 4;
-boolean value = true && false;
+List list = new ArrayList();        // 1
+int a = -4 + -9;                    // 2
+b = a++ / --number;                 // 3
+c += 4;                             // 4
+boolean value = true && false;      // 5
 ```
 
 - 二元操作（#2的‘+’；#3的‘/’；#5的‘&&’）前后都加上空格；
@@ -504,13 +504,13 @@ String value = condition ? TRUE : FALSE;
 4.4 数组
 
 ```java
-int[] array0 = new int[] {};  
-int[] array1 = new int[] {  
-        1, 2, 3  
-};  
-int[] array2 = new int[3];  
+int[] array0 = new int[] {};
+int[] array1 = new int[] {
+        1, 2, 3
+};
+int[] array2 = new int[3];
 
-array[i].foo();  
+array[i].foo();
 ```
 
 4.4.1 声明
@@ -559,49 +559,49 @@ Map<X<?>, Y<? extendsK, ? super V>> t;
 5.1 示例代码
 
 ```java
-/**
- * Blank Lines
- */  
-
-package foo.bar.baz;  
-
-import java.util.List;  
-import java.util.Vector;  
-
-import java.net.Socket;  
-
-public class Another {  
-}  
-
-public class Example {  
-    public static class Pair {  
-        public String first;  
-
-        public String second;  
-        // Between here...  
-
-        // ...and here are 10 blank lines  
-    };  
-
-    private LinkedList fList;  
-
-    public int counter;  
-
-    publicExample(LinkedList list) {  
-        fList = list;  
-        counter = 0;  
-    }  
-
-    public void push(Pair p) {  
-        fList.add(p);  
-        ++counter;  
-    }  
-
-    public Object pop() {  
-        --counter;  
-        return (Pair)fList.getLast();  
-    }  
-}  
+/**                                             //  1
+ * Blank Lines                                  //  2
+ */                                             //  3
+                                                //  4
+package foo.bar.baz;                            //  5
+                                                //  6
+import java.util.List;                          //  7
+import java.util.Vector;                        //  8
+                                                //  9
+import java.net.Socket;                         // 10
+                                                // 11
+public class Another {                          // 12
+}                                               // 13
+                                                // 14
+public class Example {                          // 15
+    public static class Pair {                  // 16
+        public String first;                    // 17
+                                                // 18
+        public String second;                   // 19
+        // Between here...                      // 20
+                                                // 21
+        // ...and here are 10 blank lines       // 22
+    };                                          // 23
+                                                // 24
+    private LinkedList fList;                   // 25
+                                                // 26
+    public int counter;                         // 27
+                                                // 28
+    publicExample(LinkedList list) {            // 29
+        fList = list;                           // 30
+        counter = 0;                            // 31
+    }                                           // 32
+                                                // 33
+    public void push(Pair p) {                  // 34
+        fList.add(p);                           // 35
+        ++counter;                              // 36
+    }                                           // 37
+                                                // 38
+    public Object pop() {                       // 39
+        --counter;                              // 40
+        return (Pair)fList.getLast();           // 41
+    }                                           // 42
+}                                               // 43
 ```
 
 5.2 规则说明
@@ -630,47 +630,47 @@ public class Example {
 6.1 示例代码
 
 ```java
-/**
- * New Lines
- */
-public class Empty {
-}
-
-class Example {
-    static int[] fArray = {
-            1, 2, 3, 4, 5
-    };
-
-    Listener fListener = new Listener() {
-    };
-
-    @Deprecated
-    @Override
-    public void bar(@SuppressWarnings("unused") int i) {
-        @SuppressWarnings("unused")
-        int k;
-    }
-
-    void foo() {
-        ;
-        ;
-        label: do {
-        } while (false);
-        for (;;) {
-        }
-    }
-}
-
-enum MyEnum {
-    UNDEFINED(0) {
-    }
-}
-
-enum EmptyEnum {
-}
-
-@interface EmptyAnnotation{
-}
+/**                                                             //  1
+ * New Lines                                                    //  2
+ */                                                             //  3
+public class Empty {                                            //  4
+}                                                               //  5
+                                                                //  6
+class Example {                                                 //  7
+    static int[] fArray = {                                     //  8
+            1, 2, 3, 4, 5                                       //  9
+    };                                                          // 10
+                                                                // 11
+    Listener fListener = new Listener() {                       // 12
+    };                                                          // 13
+                                                                // 14
+    @Deprecated                                                 // 15
+    @Override                                                   // 16
+    public void bar(@SuppressWarnings("unused") int i) {        // 17
+        @SuppressWarnings("unused")                             // 18
+        int k;                                                  // 19
+    }                                                           // 20
+                                                                // 21
+    void foo() {                                                // 22
+        ;                                                       // 23
+        ;                                                       // 24
+        label: do {                                             // 25
+        } while (false);                                        // 26
+        for (;;) {                                              // 27
+        }                                                       // 28
+    }                                                           // 29
+}                                                               // 30
+                                                                // 31
+enum MyEnum {                                                   // 32
+    UNDEFINED(0) {                                              // 33
+    }                                                           // 34
+}                                                               // 35
+                                                                // 36
+enum EmptyEnum {                                                // 37
+}                                                               // 38
+                                                                // 39
+@interface EmptyAnnotation{                                     // 40
+}                                                               // 41
 ```
 
 6.2 规则说明
@@ -708,43 +708,43 @@ enum EmptyEnum {
 7.1 示例代码
 
 ```java
-/**
- * If...else
- */  
-class Example {
-    void bar() {
-        do {
-        } while (true);
-        try {
-        } catch (Exception e) {
-        } finally {
-        }
-    }
-
-    void foo2() {
-        if (true) {
-            return;
-        }
-        if (true) {
-            return;
-        } else if (false) {
-            return;
-        } else {
-            return;
-        }
-    }
-
-    void foo(int state) {
-        if (true)
-            return;
-        if (true)
-            return;
-        else if (false)
-            return;
-        else
-            return;
-    }
-}
+/**                                         //  1
+ * If...else                                //  2
+ */                                         //  3
+class Example {                             //  4
+    void bar() {                            //  5
+        do {                                //  6
+        } while (true);                     //  7
+        try {                               //  8
+        } catch (Exception e) {             //  9
+        } finally {                         // 10
+        }                                   // 11
+    }                                       // 12
+                                            // 13
+    void foo2() {                           // 14
+        if (true) {                         // 15
+            return;                         // 16
+        }                                   // 17
+        if (true) {                         // 18
+            return;                         // 19
+        } else if (false) {                 // 20
+            return;                         // 21
+        } else {                            // 22
+            return;                         // 23
+        }                                   // 24
+    }                                       // 25
+                                            // 26
+    void foo(int state) {                   // 27
+        if (true)                           // 28
+            return;                         // 29
+        if (true)                           // 30
+            return;                         // 31
+        else if (false)                     // 32
+            return;                         // 33
+        else                                // 34
+            return;                         // 35
+    }                                       // 36
+}                                           // 37
 ```
 
 7.2 规则说明
@@ -783,19 +783,19 @@ class Example {
 8.3 类声明
 
 ```java
-/**
- * 'extends' clause
- */
-class Example extends
-        OtherClass {
-}
-
-/**
- * 'implements' clause
- */
-class Example implements I1,
-        I2, I3 {
-}
+/**                             //  1
+ * 'extends' clause             //  2
+ */                             //  3
+class Example extends           //  4
+        OtherClass {            //  5
+}                               //  6
+                                //  7
+/**                             //  8
+ * 'implements' clause          //  9
+ */                             // 10
+class Example implements I1,    // 11
+        I2, I3 {                // 12
+}                               // 13
 ```
 
 - extends子句在需要换行的地方，用缺省换行方式换行：#5OtherClass处换行，且OtherClass相对class缩进了8个空格；
@@ -806,11 +806,11 @@ class Example implements I1,
 ```java
 /**
  * Parameters
- */  
+ */
 class Example {
-    Example(int arg1, int arg2,
-            int arg3, int arg4,
-            int arg5, int arg6) {
+    Example(int arg1, int arg2,         //  5
+            int arg3, int arg4,         //  6
+            int arg5, int arg6) {       //  7
         this();
     }
 
@@ -822,9 +822,9 @@ class Example {
  * 'throws' clause
  */
 class Example {
-    Example() throws FirstException,
-            SecondException,
-            ThirdException {
+    Example() throws FirstException,    // 19
+            SecondException,            // 20
+            ThirdException {            // 21
         returnOther.doSomething();
     }
 }
@@ -840,28 +840,28 @@ class Example {
  * Declaration
  */  
 class Example {  
-    public final synchronizedjava.lang.String a_method_with_a_long_name() {  
-    }  
-}  
+    public final synchronizedjava.lang.String a_method_with_a_long_name() {     //  5
+    }
+}
 
 /**
  * Parameters
- */  
-class Example {  
-    void foo(int arg1, int arg2,  
-            int arg3, int arg4,  
-            int arg5, int arg6) {  
-    }  
-}  
+ */
+class Example {
+    void foo(int arg1, int arg2,
+            int arg3, int arg4,                                                 // 13
+            int arg5, int arg6) {                                               // 14
+    }                                                                           // 15
+}
 
 /**
  * 'throws' clause
  */  
 class Example {  
-    int foo() throws FirstException,  
-            SecondException,  
-            ThirdException {  
-        returnOther.doSomething();  
+    int foo() throws FirstException,                                            // 23
+            SecondException,                                                    // 24
+            ThirdException {                                                    // 25
+        returnOther.doSomething();
     }  
 }
 ```
@@ -875,30 +875,30 @@ class Example {
 ```java
 /**
  * Constants
- */  
-enum Example {  
-    CANCELLED, RUNNING, WAITING, FINISHED  
-}  
+ */
+enum Example {
+    CANCELLED, RUNNING, WAITING, FINISHED       //  5
+}
 
-enum Example {  
-    GREEN(0, 255, 0), RED(  
-            255, 0, 0)  
-}  
+enum Example {
+    GREEN(0, 255, 0), RED(
+            255, 0, 0)                          // 10
+}
 
 /**
  * 'implements' clause
- */  
-enum Example implements A, B,  
-        C {  
-}  
+ */
+enum Example implements A, B,
+        C {                                     // 17
+}
 
 /**
  * Constant arguments
- */  
-enum Example {  
-    GREEN(0, 255, 0), RED(  
-            255, 0, 0)  
-}  
+ */
+enum Example {
+    GREEN(0, 255, 0), RED(
+            255, 0, 0)                          // 25
+}
 ```
 
 - 枚举常量定义的地方，不换行：#5不换行；
@@ -914,51 +914,51 @@ enum Example {
 class Example {  
     void foo() {  
         Other.bar(  
-                100,  
-                nested(200, 300, 400,  
-                        500, 600, 700,  
-                        800, 900));  
+                100,                            //  7
+                nested(200, 300, 400,           //  8
+                        500, 600, 700,          //  9
+                        800, 900));             // 10
     }  
 }  
 
 /**
  * Qualified invocations
- */  
-class Example {  
-    int foo(Some a) {  
-        return a.getFirst();  
-    }  
-}  
+ */    jhg
+class Example {
+    int foo(Some a) {
+        return a.getFirst();                    // 19
+    }
+}
 
 /**
  * Explicit constructor invocations
- */  
-class Example extends AnotherClass {  
-    Example() {  
-        super(100, 200, 300,400, 500,  
-                600, 700);  
-    }  
-}  
+ */
+class Example extends AnotherClass {
+    Example() {
+        super(100, 200, 300,400, 500,
+                600, 700);                      // 29
+    }
+}
 
 /**
  * Object allocation arguments
- */  
-class Example {  
-    SomeClass foo() {  
-        return new SomeClass(100,200,  
-                300, 400, 500, 600,  
-                700, 800, 900);  
-    }  
-}  
+ */
+class Example {
+    SomeClass foo() {
+        return new SomeClass(100,200,
+                300, 400, 500, 600,             // 39
+                700, 800, 900);                 // 40
+    }
+}
 
 /**
  * Qualified object allocation arguments
  */  
-class Example {  
-    SomeClass foo() {  
-        return SomeOtherClass.new SomeClass(  
-                100, 200, 300, 400, 500);  
-    }  
+class Example {
+    SomeClass foo() {
+        return SomeOtherClass.new SomeClass(
+                100, 200, 300, 400, 500);       // 50
+    }
 }  
 ```
 
@@ -973,53 +973,53 @@ class Example {
 ```java
 /**
  * Binary expressions
- */  
-class Example extends AnotherClass {  
-    int foo() {  
-        int sum = 100 + 200 + 300 + 400  
-                + 500 + 600 + 700 + 800;  
-        int product = 1 * 2 * 3 * 4 * 5  
-                * 6 * 7 * 8 * 9 * 10;  
-        boolean val = true && false  
-                && true && false  
-                && true;  
-        return product / sum;  
-    }  
-}  
+ */
+class Example extends AnotherClass {
+    int foo() {
+        int sum = 100 + 200 + 300 + 400
+                + 500 + 600 + 700 + 800;        //  7
+        int product = 1 * 2 * 3 * 4 * 5         //  8
+                * 6 * 7 * 8 * 9 * 10;           //  9
+        boolean val = true && false
+                && true && false                // 11
+                && true;                        // 12
+        return product / sum;
+    }
+}
 
 /**
  * Conditionals
- */  
-class Example extends AnotherClass {  
-    int Example(boolean Argument) {  
-        return argument ?100000  
-                : 200000;  
-    }  
-}  
+ */
+class Example extends AnotherClass {
+    int Example(boolean Argument) {
+        return argument ?100000                              // 22
+                : 200000;                                    // 23
+    }
+}
 
 /**
  * Array initializers
  */  
-class Example {  
-    int[] fArray = {  
-            1, 2, 3, 4, 5, 6, 7, 8, 9,  
-            10, 11, 12  
-    };  
-}  
+class Example {
+    int[] fArray = {
+            1, 2, 3, 4, 5, 6, 7, 8, 9,                      // 32
+            10, 11, 12                                      // 33
+    };
+}
 
 /**
  * Assignments
  */  
-class Example {  
-    private static final String string ="TextTextText";  
+class Example {
+    private static final String string ="TextTextText";     // 41
 
-    void foo() {  
-        for (int i = 0; i <10; i++) {  
-        }  
-        String s;  
-        s = "TextTextText";  
-    }  
-}  
+    void foo() {
+        for (int i = 0; i <10; i++) {
+        }
+        String s;
+        s = "TextTextText";
+    }
+}
 ```
 
 - 二元表达式，在需要换行的地方，用缺省换行方式换行：#7, #9和#11,#12处换行，且#7相对int sum缩进了8个空格，且#9相对int product缩进了8个空格，且#11& #12相对boolean val缩进了8个空格；
@@ -1032,17 +1032,17 @@ class Example {
 ```java
 /**
  * Compact 'if else'
- */  
-class Example {  
-    int foo(int argument) {  
-        if (argument == 0)  
-            return 0;  
-        if (argument == 1)  
-            return 42;  
-        else  
-            return 43;  
-    }  
-}  
+ */
+class Example {
+    int foo(int argument) {
+        if (argument == 0)
+            return 0;
+        if (argument == 1)
+            return 42;
+        else
+            return 43;
+    }
+}
 ```
 
 配置起什么用，没看懂！
@@ -1061,27 +1061,11 @@ package mypackage;
  * This is the comment for the example interface.
  */  
 interface Example {  
-    // This is a long comment with white space that should be split in multiple  
-    // line comments in case the linecomment formatting is enabled  
-    int foo3();  
-
-//    void commented() {  
-//        System.out.println("indented");  
-//    }  
-
-    // void indentedCommented() {  
-    // System.out.println("indented");  
-    // }  
-
-    /* block comment on first column */  
-    int bar();  
-
     /*
      * These possibilities include:<ul><li>Formatting of header
      * comments.</li><li>Formatting of Javadoc tags</li></ul>
      */  
-    int bar2(); // This is along comment that should be split in multiple line  
-                // comments in case the linecomment formatting is enabled  
+    int bar2();
 
     /**
      * The following is some sample code whichillustrates source formatting
@@ -1107,39 +1091,11 @@ interface Example {
 }  
 ```
 
-```
-1. 注释每行长度是80个字符；
-
-2. 开启对Javadoc注释的格式化；
-    (1) 用html的TAG；
-    (2) 开启对‘pre’TAG里的Java代码片段进行格式化；#37 ~ #43
-    (3) Javadoc TAG前面插入空白行；#47是插入的行
-    (4) Javadoc Tag缩进, § ‘@param’TAG后面的描述缩进, #49的odd相对#48的a缩进了4个空格。
-    (5) 不对‘@param’TAG插入新行；#48和#50的描述与参数在同一行。
-    (6) ‘/**’和‘*/’在不同的行；
-    (7) 移除空白行；Javadoc注释形式见#33~ #52
-
-3. 开启对块注释的格式化；
-    (1) ‘/*’和‘*/’在不同的行；
-    (2) 移除空白行；块注释形式见#26~ #29
-
-4. 开启对行注释的格式化；
-    (1) 注释在行的第一列；#15, #16 和#17是行注释，且‘//’与原程序之间的空格仍旧保持。
-
-5. 关闭对头注释的格式化；#1, #2和#3的头注释保持不变。
-
-6. 关闭对块注释缩进到第一列；#23是块注释，与程序有相同的缩进，不是缩进到第一列。
-
-7. 关闭对行注释缩进到第一列；
-```
-
-注：笔者对行注释验证，发现Eclipse中无论如何设置，基本不会改变其行为。
-
 
 ### 十、Android中XML文件的格式化
 
 前面讲了那么多都是针对Java程序的，Android中有大量的XML文件。对XML的格式也要进行排版格式化。
-打开Window> Preferences，可以通过两个地方对XML文件进行格式化：
+打开Window -> Preferences，可以通过两个地方对XML文件进行格式化：
 
 1. XML -> XML Files -> Editor，对其中的各项设置进行配置
 2. Android -> Editors，对其中的各项设置进行配置
@@ -1149,7 +1105,7 @@ interface Example {
 
 编程规范；
 
-- [Java设计编码原则](http://blog.csdn.net/thl789/article/details/8025273)和
+- [Java设计编码原则](http://blog.csdn.net/thl789/article/details/8025273)
 - [Android中推荐的风格](http://blog.csdn.net/thl789/article/details/8025273)
 
 其他需要人参与的敌法：

@@ -1,9 +1,7 @@
 Android代码风格
 ===
 
-Google对Android的编程规范在[Code Style Guidelines for Contributors](http://blog.csdn.net/thl789/article/details/8027037)中做了描述，并在Android源码中release了import和Java的配置文件android.importorder与android-formatting.xml。本文分析这些配置文件在Eclipse环境下格式化Android编码规范都做了什么，在Java和XML文件中如何具体体现。
-
-Android源码目录<android_src_root>/development/ide/eclipse/下有文件android.importorder和android-formatting.xml，可以在Eclipse中导入import次序及Java编码风格：
+Android源码目录<android_src_root>/development/ide/eclipse/下有文件android.importorder和android-formatting.xml，可以在Eclipse中导入import次序及Android编码风格：
 
 1. Window > Preferences -> Java -> Code Style；
 2. Organizer Imports -> Imports -> android.importorder；
@@ -1099,18 +1097,3 @@ interface Example {
 
 1. XML -> XML Files -> Editor，对其中的各项设置进行配置
 2. Android -> Editors，对其中的各项设置进行配置
-
-
-### 总结
-
-编程规范；
-
-- [Java设计编码原则](http://blog.csdn.net/thl789/article/details/8025273)
-- [Android中推荐的风格](http://blog.csdn.net/thl789/article/details/8025273)
-
-其他需要人参与的敌法：
-
-- 对Exception的处理；
-- 写短小的方法；
-- 域的命名规则；
-- 程序块内的逻辑分组；

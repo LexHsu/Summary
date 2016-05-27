@@ -1532,3 +1532,5 @@ android特有任务的API：
 [7]:http://gradle.org/docs/current/userguide/multi_project_builds.html
 
 [8]:http://www.gradle.org/docs/current/javadoc/org/gradle/api/DomainObjectCollection.html
+
+[9加快编译速度]:https://segmentfault.com/a/1190000005357223

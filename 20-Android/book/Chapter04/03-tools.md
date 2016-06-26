@@ -1,6 +1,15 @@
 Android Studio Tools
 ===
 
+### 插件安装
+
+```
+在线安装：
+打开Android Studio --> preferences/Settings-> Plugins-> Browse Repositories
+本地安装：
+打开Android Studio --> preferences/Settings-> Plugins-> install plugin form disk
+```
+
 ### 1、[ButterKnife Zelezny](https://github.com/avast/android-butterknife-zelezny)
 ButterKnife 生成器，使用起来非常简单方便，不知道ButterKnife的赶紧去我的博客搜下
 
@@ -28,3 +37,7 @@ Android中的序列化有两种方式，分别是实现Serializable接口和Parc
 ![5、LeakCanary](img/leak-canary.png)
 
 [LeakCanary 中文使用说明](http://www.liaohuqiu.net/cn/posts/leak-canary-read-me/)
+
+### 6、[Android WiFi ADB](https://github.com/pedrovgs/AndroidWiFiADB)
+安装重启Android Studio，第一次需要数据线连接，提示连接成功之后，即可拔掉数据线。
+![android wifi adb](img/android-wifi-adb.gif)

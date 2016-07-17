@@ -98,16 +98,18 @@ FileReader与InputStreamReader 涉及编码转换(指定编码方式或者采用
 BufferReader类用来包装所有其 read() 操作可能开销很高的 Reader（如 FileReader 和InputStreamReader）。
 ####4. 规范用法
 总结以上内容，得出比较好的规范用法：
+
 ```java
+// 推荐，指定了字符编码
 File file = new File ("hello.txt"); 
-FileInputStream in=new FileInputStream (file); 
+FileInputStream in = new FileInputStream (file); 
+InputStreamReader inReader = new InputStreamReader (in, "UTF-8"); 
+BufferedReader bufReader = new BufferedReader(inReader); 
 
 File file = new File ("hello.txt"); 
-FileInputStream in=new FileInputStream (file); 
-InputStreamReader inReader=new InputStreamReader (in,"UTF-8"); 
-BufferedReader bufReader=new BufferedReader(inReader); 
+FileInputStream in = new FileInputStream(file); 
 
 File file = new File ("hello.txt"); 
-FileReader fileReader=new FileReader(file); 
-BufferedReader bufReader=new BufferedReader(fileReader);
+FileReader fileReader = new FileReader(file); 
+BufferedReader bufReader = new BufferedReader(fileReader);
 ```

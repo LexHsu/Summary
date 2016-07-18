@@ -10,7 +10,7 @@
 2. V(G) = P + 1，P是流图G中`判定结点`的数量。判定节点包括：if，elseif，case
 
 
-### 常见控制流图
+### 1. 控制流图度量
 
 ![Alt text](img/1.4.1.png)
 
@@ -50,3 +50,14 @@ public String test(int index, String string) {
 虽然图上的真正节点有12个，但是其中有5个节点为throw、return，为最终节点，只记一次，因此n = 8。
 2. 根据公式 `V(G) = P + 1 = 5 + 1 = 6`。
 判定节点有5个。
+
+### 2. 代码度量
+
+1. 从1开始
+2. 遇到以下关键字或者同类的词就加1：if, while, repeat, for, and, or
+3. 给case语句中的每一种情况都加1
+
+```java
+if (((status = success) and done) or (not done and (numLines >= maxLines))) then ...
+```
+从1算起，遇到if，and，or，and，即1 + 4 = 5

@@ -7,7 +7,7 @@ COUNT() 函数返回匹配指定条件的行数。语法：
 1. COUNT(column_name) 函数返回指定列的值的数目（NULL 不计入）：
 SELECT COUNT(column_name) FROM table_name
 
-2. COUNT(*) 函数返回表中的记录数：
+2. COUNT(*) 或者COUNT(1)函数返回表中的记录数：
 SELECT COUNT(*) FROM table_name
 
 3. COUNT(DISTINCT column_name) 函数返回指定列的不同值的数目：

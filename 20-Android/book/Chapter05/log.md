@@ -22,6 +22,7 @@ public class LogUtil {
     
     private static boolean isDebug() {
         try {
+            // SystemProperties.getString("log.com.test.app", null);
             Process process = Runtime.getRuntime().exec("getprop log.com.test.app");
             InputStreamReader ir = new InputStreamReader(process.getInputStream());
             BufferedReader input = new BufferedReader(ir);

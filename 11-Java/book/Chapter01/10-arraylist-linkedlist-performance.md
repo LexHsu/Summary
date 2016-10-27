@@ -226,7 +226,7 @@ public E get(int index) {
 
 从中可以看出get和Iterator的next函数同样通过直接定位数据获取元素，只是多了几个判断而已。
 
-3. 从上可以看出即便在千万大小的ArrayList中，几种遍历方式相差也不过50ms左右，且在常用的十万左右时间几乎相等，考虑foreach的优点，我们大可选用foreach这种简便方式进行遍历。
+此外，即便在千万大小的ArrayList中，几种遍历方式相差也不过50ms左右，且在常用的十万左右时间几乎相等，考虑foreach的优点，我们大可选用foreach这种简便方式进行遍历。
 
 (3) LinkedList遍历方式结果分析
 

@@ -58,16 +58,11 @@ for (int j = list.size() - 1; j >= 0; j--) {
 }
 ```
 
-在测试前大家可以根据对ArrayList和LinkedList数据结构及Iterator的了解，想想上面五种遍历方式哪个性能更优。
-
 ### 2、List五种遍历方式的性能测试及对比
 
-以下是性能测试代码，会输出不同数量级大小的ArrayList和LinkedList各种遍历方式所花费的时间。
-ArrayList和LinkedList循环性能对比测试代码
+
+
 PS：如果运行报异常in thread “main” java.lang.OutOfMemoryError: Java heap space，请将main函数里面list size的大小减小。
-其中getArrayLists函数会返回不同size的ArrayList，getLinkedLists函数会返回不同size的LinkedList。
-loopListCompare函数会分别用上面的遍历方式1-5去遍历每一个list数组(包含不同大小list)中的list。
-print开头函数为输出辅助函数。
 
 测试环境为Windows7 32位系统 3.2G双核CPU 4G内存，Java 7，Eclipse -Xms512m -Xmx512m
 最终测试结果如下：
@@ -105,7 +100,7 @@ for j--                | 0 ms      | 1 ms      | 67 ms     | 8277 ms
 ```
 
 第一张表为ArrayList对比结果，第二张表为LinkedList对比结果。
-表横向为同一遍历方式不同大小list遍历的时间消耗，纵向为同一list不同遍历方式遍历的时间消耗。
+
 PS：由于首次遍历List会稍微多耗时一点，for each的结果稍微有点偏差，将测试代码中的几个Type顺序调换会发现，for each耗时和for iterator接近。
 
 ### 3、遍历方式性能测试结果分析
@@ -184,8 +179,9 @@ for j--                | 0 ms      | 1 ms      | 6 ms      | 63 ms
 
 PS：由于首次遍历List会稍微多耗时一点，for each的结果稍微有点偏差，将测试代码中的几个Type顺序调换会发现，for each耗时和for iterator接近。
 从上面我们可以看出：
-a. 在ArrayList大小为十万之前，五种遍历方式时间消耗几乎一样
-b. 在十万以后，第四、五种遍历方式快于前三种，get方式优于Iterator方式，并且
+
+1. 在ArrayList大小为十万之前，五种遍历方式时间消耗几乎一样
+2. 在十万以后，第四、五种遍历方式快于前三种，get方式优于Iterator方式，并且
 
 ```java
 int size = list.size();
@@ -252,7 +248,7 @@ for j--                | 0 ms      | 1 ms      | 67 ms     | 8277 ms
 
 PS：由于首次遍历List会稍微多耗时一点，for each的结果稍微有点偏差，将测试代码中的几个Type顺序调换会发现，for each耗时和for iterator接近。
 从上面我们可以看出：
-a 在LinkedList大小接近一万时，get方式和Iterator方式就已经差了差不多两个数量级，十万时Iterator方式性能已经远胜于get方式。
+在LinkedList大小接近一万时，get方式和Iterator方式就已经差了差不多两个数量级，十万时Iterator方式性能已经远胜于get方式。
 我们看看LinkedList中迭代器和get方法的实现
 
 ```java

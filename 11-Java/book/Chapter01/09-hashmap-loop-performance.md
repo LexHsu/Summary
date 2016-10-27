@@ -48,7 +48,6 @@ for (Entry<String, String> entry : entrySet) {
 
 ### 2、HashMap四种遍历方式的性能测试及对比
 
-
 PS：如果运行报异常in thread “main” java.lang.OutOfMemoryError: Java heap space，请将main函数里面map size的大小减小。
 其中getHashMaps函数会返回不同size的HashMap。
 
@@ -75,7 +74,7 @@ PS：由于首次遍历HashMap会稍微多耗时一点，for each的结果稍微
 
 (1) foreach介绍
 
-见：ArrayList和LinkedList的几种循环遍历方式及性能对比分析中介绍。
+见：<ArrayList和LinkedList的几种循环遍历方式及性能对比分析>
 
 (2) HashMap遍历方式结果分析
 
@@ -96,7 +95,7 @@ private final class EntryIterator extends HashIterator<Map.Entry<K,V>> {
 }
 ```
 
-分别是keySet()和entrySet()返回的set的迭代器，从中我们可以看到只是返回值不同而已，父类相同，所以性能相差不多。只是第三种方式多了一步根据key get得到value的操作而已。get的时间复杂度根据hash算法而异，源码如下：
+分别是keySet()和entrySet()返回的set的迭代器，从中我们可以看到只是返回值不同而已，父类相同，所以性能相差不多。只是第三种方式多了一步根据key get得到value的操作而已，多了一次循环处理。get的时间复杂度根据hash算法而异，源码如下：
 
 ```java
 public V get(Object key) {

@@ -1,0 +1,16 @@
+Editor->Colors & Fonts -> General
+
+Identifier under caret(write)光标聚焦的 834781
+
+Identifier under caret光标关联的 834781
+
+selection background 4D5083
+
+Inspect Code with Editor Settings 检视指定类的代码问题
+Ctrl + Alt + N
+
+Android Studio中变量的 Ctrl + K，需要先 Ctrl + F
+
+ToolBar -> Quick Definition 快捷键 Ctrl + Shift + I 改为 Ctrl + Alt + I
+
+Settings -> Keymap -> Quick Evaluate Expression 增加 Ctrl + Shift + I

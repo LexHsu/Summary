@@ -1,0 +1,2 @@
+setWebViewClient主要处理解析，渲染网页等浏览器做的事情
+setWebChromeClient主要用于辅助WebView处理Javascript的对话框(onJsAlert)，网站图标(onReceivedIcon)，网站title(onReceivedTitle)，加载进度(onProgressChanged)等。

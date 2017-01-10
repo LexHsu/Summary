@@ -1,3 +1,6 @@
+Settings
+===
+
 Editor->Colors & Fonts -> General
 
 Identifier under caret(write)光标聚焦的 834781

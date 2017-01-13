@@ -1,13 +1,10 @@
 Settings
 ===
-
+```
 Editor->Colors & Fonts -> General
-
-Schema 另存为：Darcula Android 
 
 ->Code
 Identifier under caret(write)光标聚焦的 834781
-
 Identifier under caret光标关联的 834781
 
 ->Editor
@@ -27,7 +24,7 @@ Settings->Editor->Color & Fonts->Console Font
 size: 13
 
 修改LogCat颜色
-```
+
 Settings->Editor->Color & Fonts->Android Logcat
 去掉勾选 Use inherited attributes
 Info: 2D8333 Bright: 124

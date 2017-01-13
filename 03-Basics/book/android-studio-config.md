@@ -3,13 +3,17 @@ Settings
 
 Editor->Colors & Fonts -> General
 
+Schema 另存为：Darcula Android 
+
+->Code
 Identifier under caret(write)光标聚焦的 834781
 
 Identifier under caret光标关联的 834781
 
+->Editor
 selection background 4D5083
 
-Inspect Code with Editor Settings 检视指定类的代码问题
+Keymap->Inspect Code with Editor Settings 检视指定类的代码问题
 Ctrl + Alt + N
 
 Android Studio中变量的 Ctrl + K，需要先 Ctrl + F

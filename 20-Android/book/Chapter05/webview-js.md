@@ -1,7 +1,13 @@
-WebView
+Android本地方法与JS方法交互
 ===
 
+### 一、约定Java本地接口
+
 ```java
+/**
+ * SuppressLint("SetJavaScriptEnabled")解决高版本JS无法调用Android内的方法
+ */
+@SuppressLint("SetJavaScriptEnabled")
 public class MainActivity extends Activity {
     private static final String TAG = "MainActivity";
 
@@ -55,7 +61,7 @@ public class MainActivity extends Activity {
 }
 ```
 
-前端网页代码
+### 二、网页代码及JS接口
 
 ```javascript
 <html>
@@ -79,14 +85,21 @@ public class MainActivity extends Activity {
 Java-Javascript Interaction In Android
 </html>
 ```
-
-### 调用示例
-
-### js调用Java
+### 三、在manifest中加入网络权限
 
 ```
-调用格式为window.jsInterfaceName.methodName(parameterValues) 此例中我们使用的是control作为注入接口名称。
+<uses-permission android:name="android.permission.INTERNET" />
 ```
+
+### 四、JS调用Java
+
+调用格式为：
+
+```
+window.jsInterfaceName.methodName(parameterValues) 
+```
+
+在MainActivity中，约定注入接口名称(jsInterfaceName）为control。
 
 ```javascript
 function toastMessage(message) {
@@ -98,10 +111,13 @@ function sumToJava(number1, number2){
 }
 ```
 
-### Java调用JS
+### 五、Java调用JS
 
+webView调用js的基本格式为：
 ```
-webView调用js的基本格式为webView.loadUrl(“javascript:methodName(parameterValues)”)
+webView.loadUrl(“javascript:methodName(parameterValues)”);
+或
+webView.loadUrl(url);
 ```
 
 - 调用js无参无返回值函数
@@ -172,7 +188,7 @@ I/MainActivity( 1432): onReceiveValue value=1
 evaluateJavascript方法必须在UI线程（主线程）调用，因此onReceiveValue也执行在主线程。
 
 
-### 问题汇总
+### 六、问题汇总
 
 - Alert无法弹出
 

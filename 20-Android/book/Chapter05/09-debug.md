@@ -20,9 +20,7 @@ android studio总体提供了7个功能区：
 
 ### 一、单步调试区
 
-单步调试区
-
-该区提供了调试的主要操作，和你所熟知的一样的，主要有：Step over、step into、force step into、step out、drop frame。
+该区提供了调试的主要操作：Step over、step into、force step into、step out、drop frame。
 
 Show Execution Point![](img/debug/20160710121554821)
 
@@ -158,18 +156,17 @@ Get thread dump![](img/debug/20160710124222714)
 ![](img/debug/20160710135846664)
 
 借此我们顺便介绍一下dump界面: 
-线程工具区中最常用的是![](img/debug/20160710135959540),可以用来过滤线程,其他的不做解释了
+线程工具区中最常用的是![](img/debug/20160710135959540),可以用来过滤线程。
 
-解析来我们来认识一下线程的类型,表示为不同的图标:
+对于不同线程状态及图标如下：
 
-线程状态描述	图标
-Thread is suspended.	![](img/debug/20160710140302915)
-Thread is waiting on a monitor lock.	![](img/debug/20160710140356509)
-Thread is running.	![](img/debug/20160710140420656)
-Thread is executing network operation, and is waiting for data to be passed.	![](img/debug/20160710140506985)
-Thread is idle.	![](img/debug/20160710140532463)
-Event Dispatch Thread that is busy.	![](img/debug/20160710140559072)
-Thread is executing disk operation.	![](img/debug/20160710140640135)
+- Thread is suspended.	![](img/debug/20160710140302915)
+- Thread is waiting on a monitor lock.	![](img/debug/20160710140356509)
+- Thread is running.	![](img/debug/20160710140420656)
+- Thread is executing network operation, and is waiting for data to be passed.	![](img/debug/20160710140506985)
+- Thread is idle.	![](img/debug/20160710140532463)
+- Event Dispatch Thread that is busy.	![](img/debug/20160710140559072)
+- Thread is executing disk operation.	![](img/debug/20160710140640135)
 
 Settings![](img/debug/20160710130950220)
 
@@ -257,18 +254,18 @@ Help![](img/debug/20160710130519953)
 
 其中方法断点是我们最熟悉的断点类型，相信没有人不会。下面我们着重介绍其他四种类型的断点。
 
-1. 条件断点
+- 条件断点
 
 所谓的条件断点就是在特定条件发生的断点，也就是，我们可将某个断点设置为只对某种事件感兴趣，最典型的应用就是在列表循环中，我们希望在某特定的元素出现时暂停程序运行。比如，现在我们有个list中，其中包含了q，1q，2q,3q四个元素，我们希望在遍历到2q时暂停程序运行，那么需要进行如下操作： 
 在需要的地方添加断点，如下： 
 
-![](img/debug/20160602020208735)
+![](img/debug/20160531213530835)
 
 断点处左键单击，在Condition处填写过滤条件.此处我们只关心2q，因此填写s.equals("2q") 
 
 ![](img/debug/20160531213622172)
 
-2. 日志断点
+- 日志断点
 
 该类型的断点不会使程序停下来，而是在输出我们要它输出的日志信息，然后继续执行。具体操作如下： 
 同样在断点处左键单击，在弹出的对话框中取消选中Suspend。 
@@ -283,7 +280,7 @@ Help![](img/debug/20160710130519953)
 
 ![](img/debug/20160531213843080)
 
-3. 异常断点
+- 异常断点
 
 所谓的异常断点就是在调试过程中，一旦发生异常（可以指定某类异常），则会立刻定位到异常抛出的地方。比如在调试异常中，我们非常关注运行时异常，希望在产生任何运行异常时及时定位，那么此时就可以利用该类型异常，在上线之前，进行异常断点调试非常有利于减少正式环境中发生crash的几率。 
 具体操作如下：在Run菜单项中，选择View Breakpoints（也可以在断点管理面板中点击![](img/debug/20160531213042094)），如下： 
@@ -302,11 +299,11 @@ Help![](img/debug/20160710130519953)
 
 ![](img/debug/20160531214208487)
 
-4. 方法断点
+- 方法断点
 
 ![](img/debug/20160602015400926)
 
-5. Filed WatchPoint
+- Filed WatchPoint
 
 ![](img/debug/20160602015058418)
 

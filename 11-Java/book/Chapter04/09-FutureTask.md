@@ -158,16 +158,15 @@ public class CallableTest {
         es.shutdown();
         try {
             Thread.sleep(2000);
-        System.out.println("mainThread do other thing");
-        
-        if(futureTask.get()!=null){
-            // 输出获取到的结果
-            System.out.println("futureTask.get()-->"+futureTask.get());
-        } else {
-            // 输出获取到的结果
-            System.out.println("futureTask.get() is null");
-        }
-        
+            System.out.println("mainThread do other thing");
+
+            if (futureTask.get() != null) {
+                // 输出获取到的结果
+                System.out.println("futureTask.get()-->"+futureTask.get());
+            } else {
+                // 输出获取到的结果
+                System.out.println("futureTask.get() is null");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

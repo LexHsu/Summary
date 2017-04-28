@@ -121,13 +121,13 @@ public class CallableDemo implements Callable<Integer> {
     private int sum;
     @Override
     public Integer call() throws Exception {
-        System.out.println("Callable子线程开始计算啦！");
+        System.out.println("subThread begin");
         Thread.sleep(2000);
     
-        for(int i=0 ;i<5000;i++){
-            sum=sum+i;
+        for(int i=0; i<5000; i++) {
+            sum = sum + i;
         }
-        System.out.println("Callable子线程计算结束！");
+        System.out.println("subThread end");
         return sum;
     }
 }
@@ -137,35 +137,35 @@ public class CallableDemo implements Callable<Integer> {
 public class CallableTest {  
       
     public static void main(String[] args) {  
-//      //创建线程池
+//      // 创建线程池
 //      ExecutorService es = Executors.newSingleThreadExecutor();
-//      //创建Callable对象任务
+//      // 创建Callable对象任务
 //      CallableDemo calTask=new CallableDemo();
-//      //提交任务并获取执行结果
+//      // 提交任务并获取执行结果
 //      Future<Integer> future =es.submit(calTask);
-//      //关闭线程池
+//      // 关闭线程池
 //      es.shutdown();
         
-        //创建线程池
+        // 创建线程池
         ExecutorService es = Executors.newSingleThreadExecutor();
-        //创建Callable对象任务
+        // 创建Callable对象任务
         CallableDemo calTask=new CallableDemo();
-        //创建FutureTask
+        // 创建FutureTask
         FutureTask<Integer> futureTask=new FutureTask<>(calTask);
-        //执行任务
+        // 执行任务
         es.submit(futureTask);
-        //关闭线程池
+        // 关闭线程池
         es.shutdown();
         try {
             Thread.sleep(2000);
-        System.out.println("主线程在执行其他任务");
+        System.out.println("mainThread do other thing");
         
         if(futureTask.get()!=null){
-            //输出获取到的结果
+            // 输出获取到的结果
             System.out.println("futureTask.get()-->"+futureTask.get());
         } else {
-            //输出获取到的结果
-            System.out.println("futureTask.get()未获取到结果");
+            // 输出获取到的结果
+            System.out.println("futureTask.get() is null");
         }
         
         } catch (Exception e) {

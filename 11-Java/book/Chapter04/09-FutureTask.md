@@ -37,10 +37,10 @@ Future<V>接口用来获取异步计算结果，如对具体的Runnable或者Cal
 
 ```java
 public interface Future<V> {
-    // 如果任务还没开始，执行cancel(...)方法将返回false；
-    // 如果任务已经启动，执行cancel(true)方法将以中断执行此任务线程的方式来试图停止任务，如果停止成功，返回true；
-    // 当任务已经启动，执行cancel(false)方法将不会对正在执行的任务线程产生影响(让线程正常执行到完成)，此时返回false；
-    // 当任务已经完成，执行cancel(...)方法将返回false。mayInterruptRunning参数表示是否中断执行中的线程。
+    // 任务还没开始，执行cancel(true) 或 cancel(false)方法将返回false；
+    // 任务已经启动，执行cancel(true)方法将以中断执行此任务线程的方式来试图停止任务，如果停止成功，返回true；
+    // 任务已经启动，执行cancel(false)方法将不会对正在执行的任务线程产生影响(让线程正常执行到完成)，此时返回false；
+    // 任务已经完成，执行cancel(true) 或 cancel(false)方法将返回false。mayInterruptRunning参数表示是否中断执行中的线程。
     boolean cancel(boolean mayInterruptIfRunning);
 
     // 如果任务完成前被取消，则返回true

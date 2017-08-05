@@ -17,7 +17,7 @@ ButterKnife 生成器，使用起来非常简单方便，不知道ButterKnife的
 
 
 ### 2、[SelectorChapek](https://github.com/inmite/android-selector-chapek)
-设计师给我们提供好了各种资源，每个按钮都要写一个selector是不是很麻烦？这么这个插件就为解决这个问题而生，你只需要做的是告诉设计师们按照规范命名就好了，其他一键搞定。
+设计师给我们提供好了各种资源，每个按钮都要写一个selector是不是很麻烦？现在只需要做的是告诉设计师们按照规范命名，其他一键搞定。
 
 ![2、SelectorChapek](img/selector-chapek.png)
 
@@ -27,12 +27,12 @@ ButterKnife 生成器，使用起来非常简单方便，不知道ButterKnife的
 ![3、GsonFormat](img/gson-format.gif)
 
 ### 4、[ParcelableGenerator](https://github.com/mcharmas/android-parcelable-intellij-plugin)
-Android中的序列化有两种方式，分别是实现Serializable接口和Parcelable接口，但在Android中是推荐使用Parcelable，只不过我们这种方式要比Serializable方式要繁琐，那么有了这个插件一切就ok了。
+Android中的序列化有两种方式，分别是实现Serializable接口和Parcelable接口，但在Android中是推荐使用Parcelable。
 
 ![4、ParcelableGenerator](img/parcelable-generator.png)
 
 ### 5、[LeakCanary](https://github.com/square/leakcanary)
-良心企业Square最近刚开源的一个非常有用的工具，强烈推荐，帮助你在开发阶段方便的检测出内存泄露的问题，使用起来更简单方便，而且我们团队第一时间使用帮助我们发现了不少问题。
+Square最近刚开源的一个非常有用的工具，强烈推荐，帮助你在开发阶段方便的检测出内存泄露的问题。
 
 ![5、LeakCanary](img/leak-canary.png)
 
@@ -42,6 +42,7 @@ Android中的序列化有两种方式，分别是实现Serializable接口和Parc
 安装重启Android Studio，第一次需要数据线连接，提示连接成功之后，即可拔掉数据线。
 ![android wifi adb](img/android-wifi-adb.gif)
 
+### 其他
 ```
 https://github.com/googlesamples
 Android系统每次推出一些新特性，Google都会写一些Demo放在Github上，对于想要了解新特性怎么玩的同学，肯定不能错过它。
@@ -68,7 +69,7 @@ http://a.codekk.com/
 国内Android源码分析的先驱，由滴滴的技术专家Trinea发起，坦白的讲，这个项目对我的影响很大，我也从这里开始体会源码解读的魅力的。
 
 http://0xcc0xcd.com/p/index.php
-老罗，罗升阳的个人博客站点，很多人看过他博客里面是如何分析Android和Chrome的源代码的。非常好的一个网站，以前功力不够没能看懂文章，经过一段时间后再回去翻看一些文章，不得不赞。
+老罗，罗升阳的个人博客站点，很多人看过他博客里面是如何分析Android和Chrome的源代码的。
 
 http://gityuan.com/
 GitYuan，MIUI系统工程师，他的博客经常分享Android系统源码解读的文章，质量很高。而且，更新频率也很高！
@@ -151,7 +152,7 @@ done
 
 ActivityLauncher
 https://github.com/jp1017/ActivityLauncher
-该款软件显示每个应用的Activity，点击Activity可直达该界面，部分因权限问题导致打开失败。Android Studio, 大家可直接编译运行。
+该款软件显示每个应用的Activity，点击Activity可直达该界面，部分因权限问题导致打开失败。Android Studio直接编译运行。
 
 
 MLManager
@@ -172,6 +173,7 @@ https://apkpure.com/search?q=Native+Libs+Monitor
 分析一款应用内所包含的所有so库及该手机所使用的so库
 
 安全码校验
-获取一款软件的SHA1签名，使用百度地图，高德地图时常因签名问题导致地图不显示，可用此查看对比。当然也可以直接用代码查看：AndroidUtilCode#56
+获取一款软件的SHA1签名，使用百度地图，高德地图时常因签名问题导致地图不显示，可用此查看对比。
+当然也可以直接用代码查看：AndroidUtilCode#56
 https://github.com/Blankj/AndroidUtilCode/pull/56/files
 ```

@@ -1,7 +1,9 @@
 git tips
 ===
 
-### 1. 执行git pull –rebase报错
+### 1. You have unstaged changes
+
+执行git pull –rebase，提示：
 ```
 error: Cannot pull with rebase: You have unstaged changes. 
 error: Additionally, your index contains uncommitted changes. 

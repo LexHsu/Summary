@@ -3,7 +3,7 @@ git tips
 
 ### 1. You have unstaged changes
 
-执行git pull –rebase，提示：
+执行git pull –-rebase，提示：
 ```
 error: Cannot pull with rebase: You have unstaged changes. 
 error: Additionally, your index contains uncommitted changes. 
@@ -11,10 +11,11 @@ error: Additionally, your index contains uncommitted changes.
 原因：如果有未提交的更改，不能git pull
 
 解决： 
+```git
 git stash #可用来暂存当前正在进行的工作
 git pull –-rebase 
 git stash pop #从Git栈中读取最近一次保存的内容
-
+```
 
 ### 2. 取消配置文件跟踪
 

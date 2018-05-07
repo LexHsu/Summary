@@ -55,7 +55,7 @@ git push origin <local branch>:refs/for/<remote branch>
 git reset --hard origin/master
 
 以remote端最新节点为准，保留本地所有修改
-git reset --hard origin/master
+git reset origin/master
 
 撤销某次commit提交，取消本地所有修改
 git reset --hard commitId

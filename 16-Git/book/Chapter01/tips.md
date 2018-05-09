@@ -89,3 +89,16 @@ git rebase orgin/branch1
 可见区别在与：git pull是拉下更新后就自动合并本地分支，而git fetch是先吧更新拉下来，在用merge或rebase进行合并。
 结果上可见简单理解git pull = git fetch + git merge，但实现上并非如此
 ```
+
+### 5. Your change could not be merged due to a path conflict
+
+```
+git branch                           # 查看分支情况  
+git checkout dev                     # 选择分支dev   
+git fetch dev                        # 注意fetch与pull区别
+git rebase origin/dev                # 手工解决有冲突的地方
+git add .                            
+git rebase --continue
+git push origin HEAD:refs/for/dev    # 或者使用 repo upload .
+
+```

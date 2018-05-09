@@ -66,3 +66,5 @@ git reset --hard commitId
 撤销某次commit提交，保留本地所有修改
 git reset commitId
 ```
+
+### 4. git pull = git fetch + git merge

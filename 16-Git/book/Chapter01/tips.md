@@ -93,12 +93,12 @@ git rebase orgin/branch1
 ### 5. Your change could not be merged due to a path conflict
 
 ```
-git branch                           # 查看分支情况  
-git checkout dev                     # 选择分支dev   
-git fetch dev                        # 注意fetch与pull区别
-git rebase origin/dev                # 手工解决有冲突的地方
+git branch                               # 查看分支情况  
+git checkout branch1                     # 选择分支dev   
+git fetch origin/branch                  # 注意fetch与pull区别
+git rebase origin/branch1                # 手工解决有冲突的地方
 git add .                            
 git rebase --continue
-git push origin HEAD:refs/for/dev    # 或者使用 repo upload .
+git push origin HEAD:refs/for/dev        # 或使用 repo upload .
 
 ```

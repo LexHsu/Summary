@@ -69,6 +69,7 @@ git reset commitId
 
 ### 4. git pull, git fetch
 
+```
 git pull <远程主机名> <远程分支名>:<本地分支名>
 如取回远程主机origin的branch1分支与本地的master分支合并：
 git pull origin branch1:master
@@ -87,3 +88,4 @@ git rebase orgin/branch1
 
 可见区别在与：git pull是拉下更新后就自动合并本地分支，而git fetch是先吧更新拉下来，在用merge或rebase进行合并。
 结果上可见简单理解git pull = git fetch + git merge，但实现上并非如此
+```

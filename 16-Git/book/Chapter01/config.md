@@ -1,7 +1,7 @@
 Git 配置
 ===
 
-在自定义目录创建模板文件，如C:/Users/lex/.gitmsg创建注释template文件：
+创建自定义Commit注释模板，在自定义目录创建模板文件，如C:/Users/lex/.gitmsg创建注释template文件：
 
 ```
 Description: 

@@ -1,15 +1,14 @@
 git push
 ===
 ```
-git push的一般形式为 
-
 git push <远程主机名> <本地分支名>  <远程分支名> 
 
+如将本地master分支推送到远程主机origin上的master分支
 git push origin master:refs/for/master 
 或者
 git push origin master:master 
-即是将本地的master分支推送到远程主机origin上的对应master分支， origin 是远程主机名
-如果remote repository下不存在名字是master的branch，则新建一个
+
+如果remote repository不存在名字为master的branch，则新建一个
 
 git push origin HEAD:refs/for/mybranch 
 HEAD指向当前工作的branch，master不一定指向当前工作的branch，个人常用HEAD

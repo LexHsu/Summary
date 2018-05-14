@@ -16,6 +16,7 @@ git stash #可用来暂存当前正在进行的工作
 git pull –-rebase 
 git stash pop #从Git栈中读取最近一次保存的内容
 ```
+如果pop的时候冲突了，可通过git status查看冲突文件，编辑后重新add，commit。
 
 ### 2. 取消配置文件跟踪
 

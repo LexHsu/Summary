@@ -103,3 +103,8 @@ git rebase --continue
 git push origin HEAD:refs/for/dev        # 或使用 repo upload .
 
 ```
+
+### git大小写敏感
+```
+git config core.ignorecase false
+```

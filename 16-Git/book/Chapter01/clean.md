@@ -1,7 +1,7 @@
 git clean
 ===
 
-clean用来从工作目录中删除所有#没有tracked过#的文件。注意只影响没有被track过的文件。
+clean用来从工作目录中删除所有#没有tracked过#的文件。注意只影响untracked文件。
 
 ```
 git clean -n

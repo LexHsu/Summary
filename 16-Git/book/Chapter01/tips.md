@@ -64,7 +64,7 @@ git reset origin/master
 撤销某次commit提交，取消本地所有修改
 git reset --hard commitId
 
-撤销某次commit提交，保留本地所有修改
+撤销某次commit之前的提交，保留本地所有修改，注意是撤销到指定版本号之前的所有提交，不包含该提交
 git reset commitId
 ```
 

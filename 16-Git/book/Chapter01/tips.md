@@ -108,3 +108,10 @@ git push origin HEAD:refs/for/dev        # 或使用 repo upload .
 ```
 git config core.ignorecase false
 ```
+
+### Untracked working tree file 'xxx' would be overwritten by merge. Aborting
+
+```
+git fetch --all
+git reset --hard origin/master
+```

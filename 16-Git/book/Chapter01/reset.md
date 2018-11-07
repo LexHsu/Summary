@@ -21,7 +21,8 @@ git reset origin/master
 
 
 HEAD 最近的提交，同HEAD~0
-HEAD^ 上一次提交，同HEAD~1
+HEAD^ 最近的一次已经commit上去的提交，同HEAD~1
 HEAD^ ^ 上上次的提交（倒数第三次），同HEAD~2
 HEAD^^^ 倒数第四次提交，同HEAD~3
+
 ```

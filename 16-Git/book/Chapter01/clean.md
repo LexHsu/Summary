@@ -17,7 +17,7 @@ git clean -df
 删除当前目录下没有被track过的文件和文件夹
 
 git clean -xf
-删除当前目录下所有没有track过的文件. 不管他是否是.gitignore文件里面指定的文件夹和文件
+[慎用，会删除本地环境配置，编译失败]删除当前目录下所有没有track过的文件. 不管他是否是.gitignore文件里面指定的文件夹和文件
 
 例
 清除编译后生成的临时文件（untracked）及有修改的（modified）文件

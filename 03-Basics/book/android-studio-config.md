@@ -1,7 +1,7 @@
 Settings
 ===
 ```
-Editor->Colors & Fonts -> General
+Editor->Color Schema -> General
 
 ->Code
 Identifier under caret(write)光标聚焦的 834781
